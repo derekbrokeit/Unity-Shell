@@ -1,0 +1,53 @@
+
+## -- Colors --
+# text attributes
+export NC="\\033[0m"
+export BOLD="\\033[01m"
+export UNDER="\\033[04m"
+export BLINK="\\033[05m"
+export INVER="\\033[07m"
+export CONC="\\033[08m"
+
+# general colors
+export BLACK="\\033[30m"
+export RED="\\033[31m"
+export GREEN="\\033[32m"
+export YELLOW="\\033[33m"
+export BLUE="\\033[34m"
+export MAGENTA="\\033[35m"
+export CYAN="\\033[36m"
+export WHITE="\\033[37m"
+
+#bright colors
+export BLACK_BRIGHT="\\033[38;5;08m"
+export RED_BRIGHT="\\033[38;5;09m"
+export GREEN_BRIGHT="\\033[38;5;10m"
+export YELLOW_BRIGHT="\\033[38;5;11m"
+export BLUE_BRIGHT="\\033[38;5;12m"
+export MAGENTA_BRIGHT="\\033[38;5;13m"
+export CYAN_BRIGHT="\\033[38;5;14m"
+export WHITE_BRIGHT="\\033[38;5;15m"
+
+# special colors
+export ERROR_RED="\\033[38;5;196m"
+
+## colors chosen for OSX terminal
+#--- normal ---#
+# black   - #000000
+# red     - #663333
+# green   - #669966
+# yellow  - #999933
+# blue    - #003366
+# magenta - #663366
+# cyan    - #333366
+# white   - #CCCCCC
+#
+#--- bright ---#
+# black   - #666666
+# red     - #996666
+# green   - #99CC99
+# yellow  - #CCCC33
+# blue    - #6699CC
+# magenta - #9966CC
+# cyan    - #666699
+# white   - #FFFFFF

@@ -1,0 +1,11 @@
+ 
+
+# the following is a good html converter (for japanese) 
+# it then cyphens the html through sed to convert gmail_quote to ">"
+text/html; w3m -dump -T text/html %s | sed 's/\ \ \ \ />\ /g' ; needsterminal; description=HTML Text; \
+           nametemplate=%s.html; copiousoutput
+
+application/*; open %s ; copiousoutput
+
+#text/html; links -dump %s  ; needsterminal; description=HTML Text; \
+#           nametemplate=%s.html; copiousoutput

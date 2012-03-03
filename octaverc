@@ -1,0 +1,24 @@
+% setup prompt
+PS1([ ...
+      "\\[" getenv("YELLOW_BRIGHT") "\\]" ...       % initial color
+      "o:\\!> " ...                                 % the actual prompt
+      "\\[" getenv("NC")  ...                       % reset the color
+           "\\033]2;\\h > \\s: \\w \\033\\\\\\]"]); % change xterm title   
+
+% trailing-line prompt
+PS2(["\\[" getenv("BLUE") "> \\[" getenv("NC") "\\]"]);
+
+% enter the MATLAB directory
+cd(getenv("MATLAB"));
+
+% add special paths
+addpath([getenv("MATLAB") "/essential"]);
+addpath([getenv("MATLAB") "/math"]);
+addpath([getenv("MATLAB") "/tmp"]);
+addpath([getenv("MATLAB") "/generate_geometry"]);
+
+% displaying initialization text
+system(['printf "' getenv('BLUE') 'Octave: ' getenv('WHITE') '$(date)\n"']);
+
+% make sure that the terminal is inially dumb
+setterm("aqua")
