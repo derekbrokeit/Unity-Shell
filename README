@@ -26,18 +26,18 @@ would my work computer.
 
 After setup.sh creates the symbolic links and generates the ~/.comptype
 file, it calls ./serversetup.sh, which creates a file in a folder
-located in $LOGS_DIR. Please set this before running. Make it whatever
-you want (also update the "profile" file to reflect your preference). I
-use a folder in my Dropbox so that any changes are immediately synced.
-This file contains a list of servers and a central computer. Here you
-can save server names, ip (use local ip if conneted to central server),
-username, and port (for port forwarding). Names can be anything without
-spaces AND, the final character of the central computer must be a an
-asterix ("*").
+located in $LOGS_DIR. Please change this in setup.sh before running if
+the default is not good. Make it whatever you want (also update the
+"profile" file to reflect your preference). I use a Dropbox/serverLogs
+by default so that any changes are immediately synced. This file
+contains a list of servers and a central computer. Here you can save
+server names, ip (use local ip if conneted to central server), username,
+and port (for port forwarding). Names can be anything without spaces
+AND, the final character of the central computer must be a an asterix
+("*").
 
-If anyone asks, I will upload my automated transfer script that uses
-this server file, but it is currently kept with me :) It works by
-connecting to the server by name (partial match) and port automatically
-port forwards off of the central computer. It's a nifty script, so if
-you stumble by and want to take a gander just ask and it shall be made
-available.
+If anyone asks, I will upload my automated ssh script that uses this
+server file, but it is currently kept with me :) It works by connecting
+to the server by name (partial match) and automatically port forwards
+through the central computer. It's a nifty script, so if you stumble by
+and want to take a gander just ask and it shall be made available.
