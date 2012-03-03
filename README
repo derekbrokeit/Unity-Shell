@@ -1,4 +1,4 @@
-This is my .rcfiles folder that I use to get work done start off by
+This is my .rcfiles folder that I use to get work done. Start off by
 cloning the repository
 
       git clone git@github.com:dat5h/dotrcfiles.git $HOME/.rcfiles
