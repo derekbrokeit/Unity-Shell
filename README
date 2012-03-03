@@ -41,3 +41,7 @@ server file, but it is currently kept with me :) It works by connecting
 to the server by name (partial match) and automatically port forwards
 through the central computer. It's a nifty script, so if you stumble by
 and want to take a gander just ask and it shall be made available.
+
+Also, you may want to set the git ignore setting to ~/.cvsignore
+
+      git config --global core.excludesfile '~/.cvsignore'
