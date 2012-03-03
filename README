@@ -1,0 +1,43 @@
+This is my .rcfiles folder that I use to get work done start off by
+cloning the repository
+
+      git clone ... $HOME/.rcfiles
+
+Then you want to setup all of the symbolic links by running the setup.sh script.
+  
+      cd ~/.rcfiles
+      ./setup.sh
+
+This will start off by asking what type of computer this is. I use 3
+types of computers: local, central, remote.
+
+      1. The idea is I have direct access to a LOCAL computer (laptop or
+desktop pc).
+
+      2. Any number of computers may be behind a CENTRAL server that you
+usually ssh through but do not use very often (ie. ssh central.com -t
+'ssh localWorkMac' or even better with port forwarding).
+
+      3. REMOTE computers are other computers connected to the central
+computer, but are either not primary or serve specific functions. In my
+case remote computers are used to run and track simulations. I would
+usually connect to these computers (from home) in the same way as I
+would my work computer.
+
+After setup.sh creates the symbolic links and generates the ~/.comptype
+file, it calls ./serversetup.sh, which creates a file in a folder
+located in $LOGS_DIR. Please set this before running. Make it whatever
+you want (also update the "profile" file to reflect your preference). I
+use a folder in my Dropbox so that any changes are immediately synced.
+This file contains a list of servers and a central computer. Here you
+can save server names, ip (use local ip if conneted to central server),
+username, and port (for port forwarding). Names can be anything without
+spaces AND, the final character of the central computer must be a an
+asterix ("*").
+
+If anyone asks, I will upload my automated transfer script that uses
+this server file, but it is currently kept with me :) It works by
+connecting to the server by name (partial match) and port automatically
+port forwards off of the central computer. It's a nifty script, so if
+you stumble by and want to take a gander just ask and it shall be made
+available.
