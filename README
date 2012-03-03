@@ -1,7 +1,7 @@
 This is my .rcfiles folder that I use to get work done start off by
 cloning the repository
 
-      git clone ... $HOME/.rcfiles
+      git clone git@github.com:dat5h/dotrcfiles.git $HOME/.rcfiles
 
 Then you want to setup all of the symbolic links by running the setup.sh script.
   
