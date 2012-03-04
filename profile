@@ -198,8 +198,9 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
       [c]* )
          export filesvn="file:///home/derekt/svnroot"
          export PS1="\[$YELLOW_BRIGHT\]${HOSTNAME:0:1} > \[$NC\]"
-         if [[ "$HOSTNAME" == "cello3" ]] ; then
-           export PS1="\[$YELLOW_BRIGHT\]3 > \[$NC\]"
+         if [[ "$HOSTNAME" =~ *[0-9]  ]] ; then
+           # cut the final number off of the name and make that the prompt
+           export PS1="\[$YELLOW_BRIGHT\]${HOSTNAME#${HOSTNAME%?}} > \[$NC\]"
          fi
       
          # there is no compiler
