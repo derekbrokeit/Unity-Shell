@@ -22,6 +22,13 @@ export TMUX_CONF_MINI="${TMUX_CONF}.mini"
 # executables
 export MD_EXE="md11"
 
+# setup git ps1 setting
+if [[ "x$(which git)" != "x" ]]; then
+  GIT_PS1_SHOWUNTRACKEDFILES=true
+  GIT_PS1_SHOWDIRTYSTATE=true
+  GIT_PS1_SHOWUPSTREAM="auto"
+fi
+
 # saving old PS1 value
 export PS1_OLD=$PS1
 export PS2="\[$BLUE\]> \[$NC\]"
@@ -151,7 +158,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   
    # the prompt line
    if [[ "$PS1" == '\h:\W \u\$ ' ]] ; then 
-     export PS1="\[$YELLOW_BRIGHT\]\h \[$GREEN\]"'$(__git_ps1 "(%s) ")'"\[$YELLOW_BRIGHT\]\$ \[$NC\]"
+     export PS1="\[$YELLOW_BRIGHT\]\h "'$(__git_ps1_colorize "( %-12s)")'"\[$YELLOW_BRIGHT\] \$ \[$NC\]"
    fi
    # note about PS1, use \[\] brackets around variables that should have no length ie. color
 

@@ -59,6 +59,44 @@ source $BASH_PROFILE
 export PS1="$ps_temp"
 }
 
+# __git_ps1_colorize: colored git ps1 prompt {{{2
+function __git_ps1_colorize(){
+
+
+# get the string
+str=$(__git_ps1 "%s ")
+if [[ ! -n $str ]] ; then
+  return
+fi
+
+# string used to define print
+if [[ -n $1 ]] ; then
+  printStr="$1"
+else
+  printStr="( %s )"
+fi
+
+if [[ "$str" == *%* ]] ; then
+  # there are untracked files
+  startColor=$RED
+elif [[ "$str" == *\** ]] ; then
+  # there are unstaged files
+  startColor=$MAGENTA_BRIGHT
+elif [[ "$str" == *\+* ]] ; then
+  # there are staged files
+  startColor=$BLUE_BRIGHT
+else
+  # no commit necessary
+  startColor=$GREEN
+fi
+
+# print the string
+#printf "\[${startColor}\]${printStr}\[${NC}\]" "$str"
+printf "${startColor}${printStr}${NC}" "$str"
+#Note: the \[ ... \] is used to separate the part of the string with zero-lenght
+# without this, the prompt would act very strange
+
+}
 # printcolor: print the available 256 colors {{{2
 function printcolor() {
 # the colour codes will work in tmux
