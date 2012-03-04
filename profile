@@ -158,7 +158,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   
    # the prompt line
    if [[ "$PS1" == '\h:\W \u\$ ' ]] ; then 
-     export PS1="\[$YELLOW_BRIGHT\]\h "'$(__git_ps1_colorize "( %s)")'"\[$YELLOW_BRIGHT\] \$ \[$NC\]"
+     export PS1="\[$YELLOW_BRIGHT\]\h "'$(__git_ps1_colorize "( %s) ")'"\[$YELLOW_BRIGHT\]\$ \[$NC\]"
    fi
    # note about PS1, use \[\] brackets around variables that should have no length ie. color
 

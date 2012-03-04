@@ -84,7 +84,7 @@ elif [[ "$str" == *\** ]] ; then
   startColor=$MAGENTA_BRIGHT
 elif [[ "$str" == *\+* ]] ; then
   # there are staged files
-  startColor=$BLUE_BRIGHT
+  startColor=$BLUE
 else
   # no commit necessary
   startColor=$GREEN
