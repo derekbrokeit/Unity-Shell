@@ -186,7 +186,7 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
 
    # the prompt line
    if [[ "x$(which git 2> /dev/null)" != "x" ]] ; then
-     export PS1="\[$YELLOW_BRIGHT\]${HOSTNAME:0:1} \[$GREEN\]"'$(__git_ps1 "(%s) ")'"\[$YELLOW_BRIGHT\]> \[$NC\]"
+     export PS1="\[$YELLOW_BRIGHT\]${HOSTNAME:0:1} \[$GREEN\]"'$(__git_ps1_colorize "( %s) ")'"\[$YELLOW_BRIGHT\]> \[$NC\]"
    else
      export PS1="\[$YELLOW_BRIGHT\]${HOSTNAME:0:1} > \[$NC\]"
    fi
