@@ -6,6 +6,18 @@
 
 
 # Universal functions {{{1o
+# --- regenpath: generate PATH--- {{{2
+function regenpath(){
+if [[ -n $PATH_ORIG ]] ; then
+  export PATH=$PATH_ORIG
+fi
+for dir in $(ls -lR $HOME/bin |grep "\/" | sed '1d' | grep "bin:")
+do
+  export PATH="${dir%?}:$PATH"
+done
+}
+regenpath
+
 # pid-with-children: list a process with all its children  {{{2o
 function pid-with-children() { 
 # grab a list of the process id and all children
@@ -349,69 +361,69 @@ echo -e $search
 
    # Central/Remote Systems {{{1o
  elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
- # myip: find my local network ip address {{{2
- function myip() {
- for ip in $(hostname -i); do 
-   final=${ip##*.}; 
-   first=${ip%%.*}; 
-   if [[ $final -gt 100 ]] && [[ $first -eq 192 ]] ; then 
-     my_ip=$ip; 
-     break; 
-   fi ; 
-   echo $my_ip
- done
-   }
+   # myip: find my local network ip address {{{2
+   function myip() {
+   for ip in $(hostname -i); do 
+     final=${ip##*.}; 
+     first=${ip%%.*}; 
+     if [[ $final -gt 100 ]] && [[ $first -eq 192 ]] ; then 
+       my_ip=$ip; 
+       break; 
+     fi ; 
+     echo $my_ip
+   done
+ }
 
-   # qinfo: get useful info from qstat {{{2
-   # this requires a system with pbs
-   function qinfo() {
-   info=$(qstat -Q | tail -1)
+ # qinfo: get useful info from qstat {{{2
+ # this requires a system with pbs
+ function qinfo() {
+ info=$(qstat -Q | tail -1)
 
-   # limit of available runs, number of queued procs, number of running procs
-   limit=$(echo $info | awk '{ print $2}')
-   nQ=$(echo $info | awk '{ print $6}')
-   nR=$(echo $info | awk '{ print $7}')
+ # limit of available runs, number of queued procs, number of running procs
+ limit=$(echo $info | awk '{ print $2}')
+ nQ=$(echo $info | awk '{ print $6}')
+ nR=$(echo $info | awk '{ print $7}')
 
-   # was there input?
-   if [ "x$1" == "x" ] ; then
-     echo "qinfo:"
-     echo "  limit:  $limit"
-     echo "  queue:  $nQ"
-     echo "  run:    $nR "
-   else
-     query=$1
-     length=$2
-     case $query in
-       l)
-         echo $limit
-         ;;
-       q)
-         echo $nQ
-         ;;
-       r)
-         echo $nR
-         ;;
-       qratio)
-         rat=$(echo "$nQ/$limit" | bc -l)
-         if [[ $length -gt 1 ]] ; then 
-           echo ${rat:0:$length}
-         else
-           echo ${rat:0:5}
-         fi
-         ;;
-       rratio)
-         rat=$(echo "$nR/$limit" | bc -l)
-         if [[ $length -gt 1 ]] ; then 
-           echo ${rat:0:$length}
-         else
-           echo ${rat:0:5}
-         fi
-         ;;
-       *)
-         echo "*** Unkown qinfo query: \"$1\""
-         ;;
-     esac
-   fi
+ # was there input?
+ if [ "x$1" == "x" ] ; then
+   echo "qinfo:"
+   echo "  limit:  $limit"
+   echo "  queue:  $nQ"
+   echo "  run:    $nR "
+ else
+   query=$1
+   length=$2
+   case $query in
+     l)
+       echo $limit
+       ;;
+     q)
+       echo $nQ
+       ;;
+     r)
+       echo $nR
+       ;;
+     qratio)
+       rat=$(echo "$nQ/$limit" | bc -l)
+       if [[ $length -gt 1 ]] ; then 
+         echo ${rat:0:$length}
+       else
+         echo ${rat:0:5}
+       fi
+       ;;
+     rratio)
+       rat=$(echo "$nR/$limit" | bc -l)
+       if [[ $length -gt 1 ]] ; then 
+         echo ${rat:0:$length}
+       else
+         echo ${rat:0:5}
+       fi
+       ;;
+     *)
+       echo "*** Unkown qinfo query: \"$1\""
+       ;;
+   esac
+ fi
  }
 fi
 
