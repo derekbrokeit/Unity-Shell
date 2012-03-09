@@ -11,9 +11,9 @@ function regenpath(){
 if [[ -n $PATH_ORIG ]] ; then
   export PATH=$PATH_ORIG
 fi
-for dir in $(ls -lR $HOME/bin |grep "\/" | sed '1d' | grep "bin:")
+for dir in $(ls -lR $HOME/bin |grep "\/"  | grep "bin:")
 do
-  export PATH="${dir%?}:$PATH"
+  export PATH="$PATH:${dir%?}"
 done
 }
 regenpath
@@ -261,62 +261,6 @@ growlnotify $title -m $message $@
   function volmute(){
   setvol 0
 }
-
-# MacPorts functions {{{2
-# pup: open portupdate in tmux socket {{{3
-PUP_FILE="$HOME/.port.updated"
-function pup() {
-# updated desired, so remove the latest update file
-rm -f $PUP_FILE* &> /dev/null 
-
-tmwin portupdate 'sudo hili portupdate'" $PUP_FILE" 
-if [[ -e ${PUP_FILE}.exit ]] ; then
-  #update completed successfully
-
-  #port installed | awk '{print $1}' | sed '1d' | tr '[:upper:]' '[:lower:]' | uniq  > $LOGS_DIR/port
-  #port installed active | sed '1d' | awk '{ print $1,$2}'  > $LOGS_DIR/port
-  port installed active | sed '1d' | awk '{ print $1,$2}' | tr '[:upper:]' '[:lower:]' > $LOGS_DIR/port
-
-  rm -f ${PUP_FILE}.exit &> /dev/null
-fi 
-   }
-
-   # portupdateneeded {{{3
-   # this prints an error message if port is more than X days out of date
-   function portupdateneeded() { 
-   # the updated listing is not found, therefore no update known
-   if [[ ! -f $PUP_FILE ]] ; then 
-     ! echo -e "${ERROR_RED}*** port has no recorded recent updates${NC}"
-     return
-   fi
-
-   # find out how many days to check for update window 
-   # default is 3
-   checkdays=$1
-   if [[ -z $checkdays ]] ; then
-     checkdays=3
-   fi
-
-   now=$(date +%s)
-   timestamp=$(head -1 $PUP_FILE | awk '{print $2}')
-
-   # get the difference in seconds and convert to days
-   timediff=$(($now - $timestamp))
-   timediff=$(($timediff / 60 / 60 / 24))
-
-   # print output if port is out of date by a day
-   if [[ $timediff -ge $checkdays ]] ; then
-     ! echo -e "${ERROR_RED}*** port hasn't been updated in $timediff days${NC}"
-   fi
-
- }
-
- # pinst: install port file {{{3
- function pinst() {
- tmux rename-window pinst
- tmwin port-install 'printf "\033]2;$(hostname -s) > pinst: '"$@"' \033\\" ; sudo port install '"$@"' ; read -p "Press any key to continue..." -n1 -s'
- tmux setw automatic-rename on
-   } 
 
    #---tmmat/tmoct: matlab inside tmux--- {{{2
    function tmmat(){
