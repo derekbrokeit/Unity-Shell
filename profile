@@ -2,7 +2,6 @@
 #
 # This file establishes the system aliases 
 #
-
 ### Universal variables {{{1
 export COMP_TYPE=$(cat $HOME/.comptype)
 export EDITOR="vim"
@@ -118,7 +117,8 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
 
   ## Mac Ports
   # MacPorts Installer addition on 2011-07-26_at_17:29:56: adding an appropriate PATH variable for use with MacPorts.
-  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  # echo "PATH: $PATH"
+  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
   # This makes GNU binaries override some apple binaries (ie. ls, grep, etc.)
   export PATH="/opt/local/libexec/gnubin:$PATH"
 
@@ -253,6 +253,6 @@ echo $F90_FLAGS > $HOME/.f90flags
 export F90=$F90_COMP
 export F77=$F90
 
-# setup the path
-export PATH="$HOME/bin:$PATH"
+# Save the path for later
 export PATH_ORIG="$PATH"
+
