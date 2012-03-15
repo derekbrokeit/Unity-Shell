@@ -1,3 +1,4 @@
 tags
 *.pyc
 _voomScript_.py
+*.o
