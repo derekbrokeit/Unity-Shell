@@ -16,7 +16,18 @@ do
   export PATH="$PATH:${dir%?}"
 done
 }
-regenpath
+if [[ $TERM != *tmux* ]] ; then
+  regenpath
+fi
+
+function regenpathpy(){
+PYTHONPATH=
+for dir in $(ls -lR $HOME/bin |grep "\/"  | sed '1d' | grep "/py-" )
+do
+  export PYTHONPATH="$PYTHONPATH:${dir%?}"
+done
+}
+regenpathpy
 
 # pid-with-children: list a process with all its children  {{{2o
 function pid-with-children() { 
@@ -262,17 +273,17 @@ growlnotify $title -m $message $@
   setvol 0
 }
 
-   #---tmmat/tmoct: matlab inside tmux--- {{{2
-   function tmmat(){
-   matW=$(tmux lsw | grep "matlab" 2> /dev/null)
-   if [[ "x$matW" == "x" ]] ; then
-     tmux new-window -n "matlab" \
-       "cd $MATLAB ;  
-     tmvim -h -p 70 $MATLAB ; 
-     rmat -a"
-   else
-     tmux select-window -t "matlab"
-   fi
+#---tmmat/tmoct: matlab inside tmux--- {{{2
+function tmmat(){
+matW=$(tmux lsw | grep "matlab" 2> /dev/null)
+if [[ "x$matW" == "x" ]] ; then
+  tmux new-window -n "matlab" \
+    "cd $MATLAB ;  
+  tmvim -h -p 70 $MATLAB ; 
+  rmat -a"
+else
+  tmux select-window -t "matlab"
+fi
  }
 
  function tmoct(){
