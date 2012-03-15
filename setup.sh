@@ -41,21 +41,22 @@ fi
 
 ## setup symbolic links
 i=0
-for file in $(ls) ; do
-  if [[ ( ! -L "$HOME/.$file" ) && ( $file != *.sh ) && ( $file != README* ) ]] ; then
+prefix="dot"
+for file in $(ls dot* | sed "s/${prefix}//g" ) ; do
+  # if [[ ! -L "$HOME/.$file" ]] ; then
 
-    if [[ $i -eq 0 ]] ; then
-      echo "## -- setting up symbolic links -- ##"
-      i=1
-    fi
+  if [[ $i -eq 0 ]] ; then
+    echo "## -- setting up symbolic links -- ##"
+    i=1
+  fi
 
-    rm $HOME/.$file &> /dev/null
-    ln -s ${PWD}/${file} ${HOME}/.${file}
-    echo "ln -s $file \$HOME/.$file"
+  rm $HOME/$file &> /dev/null
+  ln -s ${PWD}/${prefix}${file} ${HOME}/${file}
+  echo "ln -s ${prefix}$file \$HOME/$file"
 
   #else
-    #rm $HOME/.$file
-  fi
+  #rm $HOME/.$file
+  # fi
 done
 
 ## setup server connection file
