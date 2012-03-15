@@ -46,6 +46,11 @@ if [[ -n $TMUX ]] ; then
    alias detach="tmux detach" 
 fi
 
+if [[ -n ipython ]] ; then
+  alias ipy="ipython --pylab"
+else
+  alias ipy="python"
+fi
 ### System specific aliases {{{1
 if [[ "$COMP_TYPE" == "local" ]] ; then
    # local-computer bin

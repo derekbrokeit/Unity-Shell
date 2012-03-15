@@ -18,3 +18,6 @@ setw -g mode-mouse on
 setw -g aggressive-resize on
 set -g default-terminal "screen-256color"
 setw -g mode-keys vi
+
+# make sure the non-main panes are small
+setw -g other-pane-width 20
