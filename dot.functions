@@ -11,10 +11,9 @@ function regenpath(){
 if [[ -n $PATH_ORIG ]] ; then
   export PATH=$PATH_ORIG
 fi
-for dir in $(ls -lR $HOME/bin $HOME/dev |grep "\/"  | grep "bin:")
+for dir in $(find $HOME/bin $HOME/dev -type d  -regex ".*\/bin" )
 do
   # strip the trailing colon (not actually necessary)
-  dir=${dir%?}
   if [[ $PATH != *${dir}* ]] ; then
     # only insert the directory if it is unique
     # user defined functions take precedence over system functions
@@ -26,9 +25,8 @@ regenpath
 
 function regenpathpy(){
 PYTHONPATH=
-for dir in $(ls -lR $HOME/bin $HOME/dev |grep "\/"  | sed '1d' | grep "/py-" )
+for dir in $(find $HOME/bin $HOME/dev -type d  -regex ".*\/py\(\w\|-\w\)*" )
 do
-  dir=${dir%?}
   if [[ $PYTHONPATH != *${dir}* ]] ; then
     # only insert the directory if it is unique
     # the order is irrelevant
