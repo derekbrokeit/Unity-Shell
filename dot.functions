@@ -11,7 +11,7 @@ function regenpath(){
 if [[ -n $PATH_ORIG ]] ; then
   export PATH=$PATH_ORIG
 fi
-for dir in $(ls -lR $HOME/bin |grep "\/"  | grep "bin:")
+for dir in $(ls -lR $HOME/bin $HOME/dev |grep "\/"  | grep "bin:")
 do
   # strip the trailing colon (not actually necessary)
   dir=${dir%?}
