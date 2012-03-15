@@ -22,16 +22,14 @@ do
   fi
 done
 }
-if [[ $TERM != *tmux* ]] ; then
-  regenpath
-fi
+regenpath
 
 function regenpathpy(){
 PYTHONPATH=
-for dir in $(ls -lR $HOME/bin |grep "\/"  | sed '1d' | grep "/py-" )
+for dir in $(ls -lR $HOME/bin $HOME/dev |grep "\/"  | sed '1d' | grep "/py-" )
 do
   dir=${dir%?}
-  if [[ $PATH != *${dir}* ]] ; then
+  if [[ $PYTHONPATH != *${dir}* ]] ; then
     # only insert the directory if it is unique
     # the order is irrelevant
     export PYTHONPATH="$PYTHONPATH:${dir}"
