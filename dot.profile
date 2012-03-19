@@ -33,7 +33,7 @@ export PS1_OLD=$PS1
 export PS2="\[$BLUE\]> \[$NC\]"
 
 # python startup file
-PYTHONSTARTUP=$HOME/.pythonrc
+export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 # language variables
 export LANG=ja_JP.UTF-8  #C (used to be "C" for English)
