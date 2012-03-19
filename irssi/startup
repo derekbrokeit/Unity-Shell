@@ -1,0 +1,36 @@
+set theme xchat3.theme
+
+network add -nick derekt -user derekt -realname derekt  home
+network add -nick dat5h -user dat -realname derekt FreeNode
+
+server add -auto -network home localhost 6667
+server add -auto -network FreeNode irc.freenode.net 
+
+channel add -auto #anki FreeNode
+channel add -auto #scipy FreeNode
+channel add -auto #tmux FreeNode
+channel add -auto #MacOSX FreeNode
+channel add -auto #iphonedev FreeNode
+channel add -auto ##physics FreeNode
+channel add -auto ##not-physics FreeNode
+
+window new split
+window name hilight
+window size 4
+
+set title_string irssi: $N@$tag > $C$winname
+set nicklist_height 60
+set nicklist_width 24
+
+set vim_mode_cmd_seq j
+statusbar window add vim_mode
+statusbar window add vim_windows
+
+set first_away_message I stepped out
+set second_away_message Looks like it might be awhile
+set first_away_timeout 60
+set second_away_timeout 1800 
+
+save
+
+
