@@ -50,6 +50,10 @@ for file in $(ls dot* | sed "s/${prefix}//g" ) ; do
     i=1
   fi
 
+   if [[ -d ${PWD}/${prefix}${file%?} ]] ; then
+    # this is a directory and a colon must be removed from the end
+    file=${file%?}
+  fi
   rm $HOME/$file &> /dev/null
   ln -s ${PWD}/${prefix}${file} ${HOME}/${file}
   echo "ln -s ${prefix}$file \$HOME/$file"
