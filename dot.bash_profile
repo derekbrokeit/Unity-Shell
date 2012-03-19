@@ -12,20 +12,17 @@ else
 fi
 
 # --- load libraries {{{1
-# make sure that the svn-rules are setup first
-source $HOME/.svn-update-rules
-
 # get all the relevant escape COLORS
-source $HOME/.colors
+. $HOME/.colors
 
 # setup path variables
-source $HOME/.profile
+. $HOME/.profile
 
 # setup user-functions
-source $HOME/.functions
+. $HOME/.functions
 
 # setup aliases
-source $HOME/.alias
+. $HOME/.alias
 
 
 # --- systems are go {{{1
