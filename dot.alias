@@ -19,12 +19,12 @@ alias lsd='ls -l | grep "^d"'
 alias lsl='ls --color=auto -l'
 
 # move to local folders
-alias mdcode='cd $MD_CODE'
-alias mdsims='cd $MD_SIMS'
-alias mdkesshou='cd $MD_CG'
-alias mdbin='cd $MD_BIN'
-alias mdinput='cd $MD_INPUT'
-alias bfiles='cd $SVN_BASH'
+# alias mdcode='cd $MD_CODE'
+# alias mdsims='cd $MD_SIMS'
+# alias mdkesshou='cd $MD_CG'
+# alias mdbin='cd $MD_BIN'
+# alias mdinput='cd $MD_INPUT'
+# alias bfiles='cd $SVN_BASH'
 
 #  setup easy to use variabls
 alias rmi='rm -i '
