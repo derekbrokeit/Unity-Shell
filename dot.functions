@@ -25,7 +25,7 @@ regenpath
 
 function regenpathpy(){
 PYTHONPATH=
-for dir in $(find $HOME/bin $HOME/dev -type d  -regex ".*\/py\(\w\|-\w\)*" )
+for dir in $(find $HOME/bin $HOME/dev -type d  -regex ".*\/py\(\w\|-\w\|\w*\/src\|-\w*\/src\)*")
 do
   if [[ $PYTHONPATH != *${dir}* ]] ; then
     # only insert the directory if it is unique
