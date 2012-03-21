@@ -4,8 +4,9 @@
 #
 
 ### Universal aliases {{{1
-alias vi='$EDITOR'
-alias v='$EDITOR'
+alias vim='tmvim'
+alias vi='tmvim'
+alias v='tmvim'
 
 # navigation
 alias ..="cd .."

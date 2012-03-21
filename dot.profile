@@ -4,7 +4,8 @@
 #
 ### Universal variables {{{1
 export COMP_TYPE=$(cat $HOME/.comptype)
-export EDITOR="vim"
+# export EDITOR="vim"
+export EDITOR="tmvim"
 export PAGER="less"
 export MANPAGER="less"
 export GNUTERM="dumb"
