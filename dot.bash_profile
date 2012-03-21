@@ -30,7 +30,9 @@ if [[ $TERM != dumb ]] ; then
 
   # better input method
   # setup vi input method for readLine
-  set -o vi
+  # set -o vi
+  set editing-mode vi
+  set keymap vi-insert
   # ^p check for partial match in history
   bind -m vi-insert "\C-p":dynamic-complete-history
   # ^n cycle through the list of partial matches
