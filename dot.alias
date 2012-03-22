@@ -56,6 +56,10 @@ fi
 
 # pizza py
 alias pizza="python ~/dev/py-pizza/src/pizza.py"
+
+# # re-alias the less pager
+# alias less="$PAGER"
+# alias zless="$PAGER"
 ### System specific aliases {{{1
 if [[ "$COMP_TYPE" == "local" ]] ; then
    # local-computer bin

@@ -7,6 +7,7 @@ export COMP_TYPE=$(cat $HOME/.comptype)
 # export EDITOR="vim"
 export EDITOR="tmvim"
 export PAGER="less"
+# export PAGER="vimpager"
 export MANPAGER="less"
 export GNUTERM="dumb"
 
