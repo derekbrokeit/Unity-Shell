@@ -1,0 +1,15 @@
+Place this example file in $HOME/.mutt/imap . Also, generate an encrypted file
+like so:
+
+	$ gpg --encrypt -r RECIPIENT > ~/.mutt/pass
+	my_imap_password
+	<C-d>
+
+Fill in the reset of the personal information of .mutt/imap.
+Enjoy :)
+
+Note: "RECIPIENT" is the name of the user who setup gpg. Setup gpg with the following:
+
+	$ gpg --gen-key
+	.... ( lots of setup ) ...
+

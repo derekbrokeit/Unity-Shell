@@ -1,0 +1,16 @@
+# who am i?
+set from = "my-email@gmail.com"
+
+# server thinks I am who?
+set imap_user = $from
+
+# SMTP server
+set smtp_url = "smtp://my-email@smtp.gmail.com:587/"
+
+# passwords (it only asks for one password)
+set imap_pass=`gpg --batch -q --decrypt ~/.mutt/pass`
+set smtp_pass=$imap_pass
+# set smtp_pass=`gpg --batch -q --decrypt ~/.mutt/pass`
+
+# color messages special messages from friends:
+color index magenta default '~f my-friend@example.com'
