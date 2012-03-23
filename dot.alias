@@ -58,9 +58,9 @@ fi
 alias pizza="python ~/dev/py-pizza/src/pizza.py"
 
 # syntax highlighter cat
-alias pcat=pygmentize
+alias pcat="pygmentize -g"
 function pless() {
-pcat "$1" | less -R
+pygmentize -g "$@" | less -R
 }
 # # re-alias the less pager
 # alias less="$PAGER"
