@@ -147,3 +147,91 @@ macro pager b '<enter-command>toggle sidebar_visible<enter>'
 # macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
 # macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
 
+# --- random options
+# From: http://wiki.debian.org/Mutt
+# vim-like key bindings while reading
+# Vim like keybinds
+bind pager j next-line
+bind pager k previous-line
+
+# Unset Marking Mails Old
+unset mark_old
+
+# Cancel a message when subject is blank
+set abort_nosubject=yes
+
+# Asks to include message when replying
+set include=ask-yes
+
+# Asks to postpone a message when not sent
+set postpone=ask-yes
+
+# Ask before printing
+set print=ask-yes
+
+# Delete messages without asking when Mutt is quit
+set delete=yes
+
+# Show only important fields in the header
+ignore *
+unignore from resent-from reply-to x-mailer user-agent date to cc subject
+
+# Order for display of the header fields
+hdr_order From: Resent-From: Reply-To: X-Mailer: User-Agent: Date: To: Cc: Subject:
+
+# Set quotemark to 1 byte
+set indent_str="> "
+
+# Only show the body when I edit a message
+unset edit_headers
+
+# # set up mutt so i can run fetchmail at any time by pressing G
+# macro index    G "!fetchmail\n"   "Invoke fetchmail"
+# macro pager    G "!fetchmail\n"   "Invoke fetchmail"
+
+# set from to ensure mutt doesn't put user@localhost.localhost 
+set use_from=yes
+set envelope_from="yes"
+
+# Collapse old messages
+set collapse_unread=no
+folder-hook . 'push <collapse-all>'
+
+# ---
+
+
+# --- for google contacts
+# query address book
+set query_command="mutt-google-contacts.py '%s'"
+# tab-completion instead of <C-t>
+bind editor <Tab> complete-query
+# add email to contacts
+# macro index,pager a "<pipe-message>goobook add<return>" "add the sender address to Google contacts"
+# ---
+
+# --- better binds
+bind generic B previous-page
+bind generic F next-page
+bind generic <space> previous-page
+bind generic 1g first-entry
+bind generic G last-entry
+
+bind pager gg top
+bind pager G bottom
+bind pager <Left> exit
+bind pager <Right> view-attachments
+bind attach <Left> exit
+
+bind index <Left> noop
+bind index \eD delete-thread
+bind index \eU undelete-thread
+bind index gg first-entry
+bind index G last-entry
+bind index B previous-page
+bind index F next-page
+
+bind index <Right> display-message
+
+#---
+#--- show plain text first if available
+alternative_order text/enriched text/plain text application/postscript image/*
