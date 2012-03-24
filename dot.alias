@@ -57,6 +57,8 @@ fi
 # pizza py
 alias pizza="python ~/dev/py-pizza/src/pizza.py"
 
+# remap mutt to tmuxified mutt
+alias mutt=tmmutt
 # syntax highlighter cat
 alias pcat="pygmentize -g"
 function pless() {
