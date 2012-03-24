@@ -48,25 +48,25 @@ set certificate_file = "~/.mutt/certificates"
 color   normal       white          default
 color   quoted       green          default
 color   attachment   brightyellow   default
-color   hdrdefault   brightmagenta           black
+color   hdrdefault   brightmagenta  default
 
 # color   indicator    white          cyan
 color   markers      brightred      default
-color   signature    magenta        default
+color   signature    color202       default
 color   status       color223       color24
 color   tilde        blue           default
 color   tree         red            default
-color   indicator    black          yellow
+color   indicator    black          red
 
 color   message      brightyellow   default
-color   error        brightred      default
+color   error        color196      default
 
 color   index        brightyellow   default ~N # new
 color   index        brightblue     default ~O # read
 color   index        green          default ~P # from myself
 color   index        red            default ~D # deleted
 color   index        magenta        default ~T # tagged
-color   index        brightcyan     default ~F # flagged
+color   index        color43     default ~F # flagged
 
 # identifies email addresses
 color   body         brightred      default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
