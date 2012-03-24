@@ -15,7 +15,7 @@ set certificate_file = "~/.mutt/certificates"
 
 # get missing info
 # `openssl aes-256-cbc -d -a -in $HOME/.mutt/.imap_salt `
-source $HOME/.mutt/.imap
+source $HOME/.mutt/imap
 
 # some key-bindings
 bind editor <space> noop
@@ -35,12 +35,12 @@ set certificate_file = "~/.mutt/certificates"
 # set encod
 
 # set send_charset = "us-ascii:iso-8859-1:iso-2022-jp:utf-8"
-set send_charset="utf-8"
-# set assumed_charset = "us-ascii:iso-8859-1:iso-2022-jp:utf-8"
-auto_view text/plain
-set config_charset=utf-8
-set signature="iconv -f utf-8 ~/.signature |"
-set locale=`echo "${LC_ALL:-${LC_TIME:-${LANG}}}"`
+# set send_charset="utf-8"
+# # set assumed_charset = "us-ascii:iso-8859-1:iso-2022-jp:utf-8"
+# # auto_view text/plain
+# set config_charset=utf-8
+# set signature="iconv -f utf-8 ~/.signature |"
+# set locale=`echo "${LC_ALL:-${LC_TIME:-${LANG}}}"`
 
 
 ###Colors
