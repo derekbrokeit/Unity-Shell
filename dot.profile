@@ -263,3 +263,8 @@ export F77=$F90
 # Save the path for later
 export PATH_ORIG="$PATH"
 
+# setup gpg
+if [[ "x$(which gpg2)" != "x" ]] ; then
+  export GPG_TTY=$(tty) 
+  eval $(gpg-agent --daemon) 
+fi
