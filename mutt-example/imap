@@ -13,4 +13,4 @@ set smtp_pass=$imap_pass
 # set smtp_pass=`gpg --batch -q --decrypt ~/.mutt/pass`
 
 # color messages special messages from friends:
-color index magenta default '~f my-friend@example.com'
+color index color199 default '~f my-friend@example.com'
