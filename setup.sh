@@ -42,7 +42,7 @@ fi
 ## setup symbolic links
 i=0
 prefix="dot"
-for file in $(ls dot* | sed "s/${prefix}//g" ) ; do
+for file in $( find . -maxdepth 1 -name "${prefix}*" | sed "s/${prefix}//g ; s/.\///g" ) ; do
   # if [[ ! -L "$HOME/.$file" ]] ; then
 
   if [[ $i -eq 0 ]] ; then
@@ -50,10 +50,9 @@ for file in $(ls dot* | sed "s/${prefix}//g" ) ; do
     i=1
   fi
 
-   if [[ -d ${PWD}/${prefix}${file%?} ]] ; then
-    # this is a directory and a colon must be removed from the end
-    file=${file%?}
-  fi
+  # trim the extra directory listing
+  # file=${file#./}
+
   rm $HOME/$file &> /dev/null
   ln -s ${PWD}/${prefix}${file} ${HOME}/${file}
   echo "ln -s ${prefix}$file \$HOME/$file"
@@ -74,6 +73,6 @@ popd > /dev/null
 ## since we set it up, why not source it?
 pushd . > /dev/null
 cd $HOME
-source $HOME/.bash_profile
+source $HOME/.bashrc
 popd > /dev/null
 

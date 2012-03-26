@@ -13,16 +13,16 @@ fi
 
 # --- load libraries {{{1
 # get all the relevant escape COLORS
-. $HOME/.colors
+. $HOME/.bash/colors
 
 # setup path variables
-. $HOME/.profile
+. $HOME/.bash/profile
 
 # setup user-functions
-. $HOME/.functions
+. $HOME/.bash/functions
 
 # setup aliases
-. $HOME/.alias
+. $HOME/.bash/alias
 
 
 # --- systems are go {{{1
