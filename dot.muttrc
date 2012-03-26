@@ -2,20 +2,17 @@
 set realname = "Derek Ashley Thomas"
 
 # remote folders
-set folder = "imaps://imap.gmail.com:993"
-set spoolfile = "+INBOX"
-set postponed ="+[Gmail]/Drafts"
-set record    = "+[Gmail]/Sent Mail"
-set maildir_trash = no 
+set folder        = "imaps://imap.gmail.com:993"
+set spoolfile     = "+INBOX"
+set postponed     = "+[Gmail]/Drafts"
+set maildir_trash = no
+# This seems to save a message + Gmail auto-saves resulting in duplicates
+# set record        = "+[Gmail]/Sent Mail" 
 
 # local folders
-set header_cache = "~/.mutt/cache/headers"
+set header_cache     = "~/.mutt/cache/headers"
 set message_cachedir = "~/.mutt/cache/bodies"
 set certificate_file = "~/.mutt/certificates"
-
-# get missing info
-# `openssl aes-256-cbc -d -a -in $HOME/.mutt/.imap_salt `
-source $HOME/.mutt/imap
 
 # some key-bindings
 bind editor <space> noop
@@ -65,8 +62,8 @@ color   index        brightyellow   default ~N # new
 color   index        brightblue     default ~O # read
 color   index        green          default ~P # from myself
 color   index        red            default ~D # deleted
-color   index        magenta        default ~T # tagged
 color   index        color43     default ~F # flagged
+color   index        magenta        default ~T # tagged
 
 # identifies email addresses
 color   body         brightred      default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
@@ -108,9 +105,9 @@ set status_format = "mutt_status  \"$my_muttStatus\" \"$my_data\"|"
 macro index cb |urlview 'call urlview to extract URLs out of a message'
 macro pager cb |urlview 'call urlview to extract URLs out of a message'
 
-# forget certificat after 2 hours
+# forget certificat after 4 hours
 unset smime_is_default # PGP is the default, not S/MIME
-set smime_timeout=7200 # forget SMIME passphrase after 2 hours
+set smime_timeout=14400 # forget SMIME passphrase after 2 hours
 
 # -------------------
 # sidebar settings:
@@ -121,7 +118,7 @@ set sidebar_visible=no
 # set sidebar_sort=yes
 
 # which mailboxes to list in the sidebar
-mailboxes =inbox =Alerts\! =cello =家族 =Anki =Anki-Beta =Phi\ Sig =Quora =日本語の勉強
+mailboxes =inbox =Alerts\! =Research =Research/Cello =Research/UVA =Family =python =python/numpy =python/scipy =python/sympy =python/iPython =Anki =Anki-Beta =Phi\ Sig =Quora =From\ me =Japanesei\ Study 
 
 # color of folders with new mail
 color sidebar_new brightyellow default
@@ -200,14 +197,6 @@ folder-hook . 'push <collapse-all>'
 # ---
 
 
-# --- for google contacts
-# query address book
-set query_command="mutt-google-contacts.py '%s'"
-# tab-completion instead of <C-t>
-bind editor <Tab> complete-query
-# add email to contacts
-# macro index,pager a "<pipe-message>goobook add<return>" "add the sender address to Google contacts"
-# ---
 
 # --- better binds
 bind generic B previous-page
@@ -232,6 +221,60 @@ bind index F next-page
 
 bind index <Right> display-message
 
-#---
-#--- show plain text first if available
+# ---
+set sort_browser="reverse-date"
+set sort_aux="last-date-received"
+set index_format="%?M?+& ?%2M %4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s"
+
+bind index - collapse-thread
+bind index _ collapse-all
+
+bind index '(' previous-subthread
+bind pager '(' previous-subthread
+
+bind index ')' next-subthread
+bind pager ')' next-subthread
+
+bind index '{' previous-thread
+bind pager '{' previous-thread
+
+bind index '}' next-thread
+bind pager '}' next-thread
+
+bind index [ half-up
+bind pager [ half-up
+
+bind index ]  half-down
+bind pager ]  half-down
+
+bind index \Cu half-up
+bind pager \Cu half-up
+
+bind index \Cd  half-down
+bind pager \Cd  half-down
+
+bind index 'd' delete-message
+bind pager 'd' delete-message
+
+bind index 'u' undelete-message
+bind pager 'u' undelete-message
+
+bind index 'D' delete-thread
+bind pager 'D' delete-thread
+
+bind index 'U' undelete-thread
+bind pager 'U' undelete-thread
+# --- show plain text first if available
 alternative_order text/enriched text/plain text application/postscript image/*
+# ---
+# get missing info
+source $HOME/.mutt/imap
+
+# --- for google contacts
+# query address book
+set query_command="mutt-google-contacts.py '%s'"
+# tab-completion instead of <C-t>
+bind editor <Tab> complete-query
+# add email to contacts
+# macro index,pager a "<pipe-message>goobook add<return>" "add the sender address to Google contacts"
+# ---
