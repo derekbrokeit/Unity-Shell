@@ -13,7 +13,7 @@ fi
 
 # --- load libraries {{{1
 # get all the relevant escape COLORS
-. $HOME/.bash/colors
+. $HOME/.colors
 
 # setup path variables
 . $HOME/.bash/profile
