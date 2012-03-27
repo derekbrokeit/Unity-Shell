@@ -54,7 +54,7 @@ du -h $1 | awk '{print $1}'
 # rbash: reset environment variables and reload bashprofile {{{2
 function resource() {
 clear
-source $HOME/.${SHELL}rc
+source $HOME/.zshrc
 }
 
 
