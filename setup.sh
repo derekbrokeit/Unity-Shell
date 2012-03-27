@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ## make sure that the script is being called from the right directory
 pushd . > /dev/null
@@ -39,10 +39,36 @@ else
   FAIL_LOGS_DIR=0
 fi
 
+# check shell
+chshfile=$HOME/.chsh
+if [[ ! -f $chshfile ]] ; then
+  echo "## -- setting up shell -- ##"
+  while [[ 1 ]] ; do
+    read -p 'SHELL =? ' shell
+    found=0
+    for file in $(find . -maxdepth 1 ) ; do
+      if [[ $file == "./$shell"* ]] ; then
+        found=1
+        file=${file#./}
+        rm $HOME/.$file &> /dev/null
+        ln -s $PWD/$file $HOME/.$file
+        echo "ln -s $file \$HOME/.$file"
+      fi
+    done
+    if [[ $found -eq 1 ]] ; then
+      echo "- changing shell to '$shell'"
+      { chsh -s /bin/$shell && echo '! Success' ; touch $chshfile ; } || echo '*** Error changing shells '
+      break
+    fi
+  done
+
+fi
+
+
 ## setup symbolic links
 i=0
-prefix="dot"
-for file in $( find . -maxdepth 1 -name "${prefix}*" | sed "s/${prefix}//g ; s/.\///g" ) ; do
+altdir="misc"
+for file in $(find $altdir/ -maxdepth 1 | sed "s/$altdir\///g");do
   # if [[ ! -L "$HOME/.$file" ]] ; then
 
   if [[ $i -eq 0 ]] ; then
@@ -50,12 +76,9 @@ for file in $( find . -maxdepth 1 -name "${prefix}*" | sed "s/${prefix}//g ; s/.
     i=1
   fi
 
-  # trim the extra directory listing
-  # file=${file#./}
-
-  rm $HOME/$file &> /dev/null
-  ln -s ${PWD}/${prefix}${file} ${HOME}/${file}
-  echo "ln -s ${prefix}$file \$HOME/$file"
+  rm $HOME/.$file &> /dev/null
+  ln -s ${PWD}/${altdir}/${file} ${HOME}/.${file}
+  echo "ln -s ${altdir}/$file \$HOME/.$file"
 
   #else
   #rm $HOME/.$file
@@ -70,9 +93,4 @@ fi
 ## return to the original directory
 popd > /dev/null
 
-## since we set it up, why not source it?
-pushd . > /dev/null
-cd $HOME
-source $HOME/.bashrc
-popd > /dev/null
-
+echo "## -- Please restart your terminal for changes to take effect"
