@@ -47,8 +47,7 @@ zle -N zle-keymap-select
 
 
 # setup main prompt
-# PROMPT='$(reset_tmux_window)${PROMPT_LINE}%B%F{green}:%f%b${PR_RESET}$(git_super_status)%(!.%B%F{red}%#%f%b.%B${VI_COLOR}$%f%b) ${PR_RESET}'
-PROMPT='$(reset_tmux_window)${PROMPT_LINE}%B%F{green}:%f%b${PR_RESET}%(!.%B%F{red}%#%f%b.%B${VI_COLOR}$%f%b) ${PR_RESET}'
+PROMPT='$(reset_tmux_window)${PROMPT_LINE}%B%F{green}:%f%b${PR_RESET}$(git_super_status)%(!.%B%F{red}%#%f%b.%B${VI_COLOR}$%f%b) ${PR_RESET}'
 # secondary prompt
 PS2="${PR_BRIGHT_BLUE}> ${PR_RESET}"
 
