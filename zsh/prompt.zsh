@@ -4,7 +4,7 @@ setopt prompt_subst
 HASH_NUM=$(echo $HOSTNAME | md5sum | tr -d 'a-f' | cut -b 1-6)
 HASH_MOD=$(($HASH_NUM % 6 + 2))
 if [[ $(whoami) = root ]]; then
-  PROMPT_LINE="${PR_BRIGHT_RED}%n${PR_DEFAULT}@${PR_BRIGHT_YELLOW}%M%f%b"
+  PROMPT_LINE="${PR_RED_BRIGHT}%n${PR_DEFAULT}@${PR_YELLOW_BRIGHT}%M%f%b"
 else
   PROMPT_LINE="%B%F{$HASH_MOD}%m%b"
 fi
@@ -37,11 +37,11 @@ ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}●"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
 
 # initial vi-color: first prompt starts in insert-mode
-VI_COLOR=${PR_BRIGHT_GREEN}
+VI_COLOR=${PR_GREEN_BRIGHT}
 function zle-line-init zle-keymap-select {
-# RPS1="${${KEYMAP/vicmd/${PR_GREEN}-- NORMAL --${PR_DEFAULT}}/(main|viins)/${PR_BRIGHT_YELLOW}-- INSERT --${PR_DEFAULT}}"
+# RPS1="${${KEYMAP/vicmd/${PR_GREEN}-- NORMAL --${PR_DEFAULT}}/(main|viins)/${PR_YELLOW_BRIGHT}-- INSERT --${PR_DEFAULT}}"
 # RPS2=$RPS1
-VI_COLOR="${${KEYMAP/vicmd/${PR_RED}}/(main|viins)/${PR_BRIGHT_GREEN}}"
+VI_COLOR="${${KEYMAP/vicmd/${PR_RED}}/(main|viins)/${PR_GREEN_BRIGHT}}"
 zle reset-prompt
 }
 zle -N zle-line-init

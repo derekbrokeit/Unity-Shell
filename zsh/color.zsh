@@ -1,9 +1,14 @@
+# color names are generall as follows::
+# USE_COLRNAME_ADJECTIVE_BG
+# examples:
+# PR_RED_BRIGHT_BG: Prompt > red    > bright > background
+# RED_BRIGHT:                red    > bright
 
 autoload -U colors && colors
 # set some colors
 for COLOR in RED GREEN YELLOW WHITE BLACK CYAN BLUE; do
   eval PR_$COLOR='%{$fg[${(L)COLOR}]%}'
-  eval PR_BRIGHT_$COLOR='%{$fg_bold[${(L)COLOR}]%}'
+  eval PR_${COLOR}_BRIGHT='%{$fg_bold[${(L)COLOR}]%}'
   eval ${COLOR}='$fg[${(L)COLOR}]'
   eval ${COLOR}_BRIGHT='$fg_bold[${(L)COLOR}]'
   eval ${COLOR}_BG='$bg[${(L)COLOR}]'
