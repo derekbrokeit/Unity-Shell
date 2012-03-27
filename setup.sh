@@ -45,52 +45,77 @@ if [[ ! -f $chshfile ]] ; then
   echo "## -- setting up shell -- ##"
   while [[ 1 ]] ; do
     read -p 'SHELL =? ' shell
+
+    if [[ "x$shell" == "x" ]] ; then
+      #input of nothing will simply stop trying
+      echo "*** No shell scripts chosen at this time"
+      break
+    fi
+    # in case the user puts in /bin/bash instead of bash
+    shell=${shell##*/}
+    # see if there are any startup scipts
     found=0
     for file in $(find . -maxdepth 1 ) ; do
       if [[ $file == "./$shell"* ]] ; then
         found=1
         file=${file#./}
+        #link the startup scripts
         rm $HOME/.$file &> /dev/null
         ln -s $PWD/$file $HOME/.$file
         echo "ln -s $file \$HOME/.$file"
       fi
     done
     if [[ $found -eq 1 ]] ; then
+      # attempt to change the shell
       echo "- changing shell to '$shell'"
       { chsh -s /bin/$shell && echo '! Success' ; touch $chshfile ; } || echo '*** Error changing shells '
       break
+    else
+      #no startup scripts, so we can't
+      echo '*** Startup scripts for that shell were not found'
     fi
   done
-
+else
+  # the choice has been made, but make sure the links are in place
+  echo "## -- setting up shell -- ##"
+  shell=${SHELL##*/}
+  for file in $(find . -maxdepth 1 ) ; do
+    if [[ $file == "./$shell"* ]] ; then
+      file=${file#./}
+      rm $HOME/.$file &> /dev/null
+      ln -s $PWD/$file $HOME/.$file
+      echo "ln -s $file \$HOME/.$file"
+    fi
+  done
 fi
 
 
-## setup symbolic links
-i=0
-altdir="misc"
-for file in $(find $altdir/ -maxdepth 1 | sed "s/$altdir\///g");do
-  # if [[ ! -L "$HOME/.$file" ]] ; then
+  ## setup symbolic links
+  i=0
+  altdir="misc"
+  for file in $(find $altdir/ -maxdepth 1 | sed "s/$altdir\///g");do
+    # if [[ ! -L "$HOME/.$file" ]] ; then
 
-  if [[ $i -eq 0 ]] ; then
-    echo "## -- setting up symbolic links -- ##"
-    i=1
+    if [[ $i -eq 0 ]] ; then
+      echo "## -- setting up symbolic links -- ##"
+      i=1
+    fi
+
+    rm $HOME/.$file &> /dev/null
+    ln -s ${PWD}/${altdir}/${file} ${HOME}/.${file}
+    echo "ln -s ${altdir}/$file \$HOME/.$file"
+
+    #else
+    #rm $HOME/.$file
+    # fi
+  done
+
+  ## setup server connection file
+  if [[ "x$FAIL_LOGS_DIR" == "x" ]] && [[ ! -f $LOGS_DIR/serverconn ]] ; then
+    ./serversetup.sh
   fi
 
-  rm $HOME/.$file &> /dev/null
-  ln -s ${PWD}/${altdir}/${file} ${HOME}/.${file}
-  echo "ln -s ${altdir}/$file \$HOME/.$file"
+  ## return to the original directory
+  popd > /dev/null
 
-  #else
-  #rm $HOME/.$file
-  # fi
-done
-
-## setup server connection file
-if [[ "x$FAIL_LOGS_DIR" == "x" ]] && [[ ! -f $LOGS_DIR/serverconn ]] ; then
-  ./serversetup.sh
-fi
-
-## return to the original directory
-popd > /dev/null
-
-echo "## -- Please restart your terminal for changes to take effect"
+  echo "## -- Please restart your terminal for changes to take effect"
