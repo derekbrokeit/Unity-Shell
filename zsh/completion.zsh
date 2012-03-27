@@ -19,10 +19,10 @@ zstyle ':completion:*' completer _oldlist _expand _force_rehash _complete _appro
 zstyle ':completion:*:approximate:'    max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )' # allow one error for every three characters typed in approximate completer
 zstyle ':completion:*:complete:-command-::commands' ignored-patterns '*\~' # don't complete backup files as executables
 zstyle ':completion:*:correct:*'       insert-unambiguous true             # start menu completion only if it could find no unambiguous initial string
-zstyle ':completion:*:corrections'     format $'%{\e[38;5;196m%}%d (errors: %e)%{\e[0m%}' #
+zstyle ':completion:*:corrections'     format "${PR_ERROR_RED}%d (errors: %e)${PR_RESET}" #
 zstyle ':completion:*:correct:*'       original true                       #
 zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}      # activate color-completion(!)
-zstyle ':completion:*:descriptions'    format $'%{\e[38;5;12m%}completing %B%d%b%{\e[0m%}'  # format on completion
+zstyle ':completion:*:descriptions'    format "${PR_BLUE}completing %B%d%b${PR_RESET}"  # format on completion
 zstyle ':completion:*:*:cd:*:directory-stack' menu yes select              # complete 'cd -<tab>' with menu
 #zstyle ':completion:*:expand:*'        tag-order all-expansions            # insert all expansions for expand completer
 zstyle ':completion:*:history-words'   list false                          #
@@ -38,7 +38,7 @@ zstyle ':completion:*:options'         description 'yes'                   # des
 zstyle ':completion:*:processes'       command 'ps -au$USER'               # on processes completion complete all user processes
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters        # offer indexes before parameters in subscripts
 zstyle ':completion:*'                 verbose true                        # provide verbose completion information
-zstyle ':completion:*:warnings'        format $'%{\e[38;5;9m%}No matches for:%{\e[0m%} %d' # set format for warnings
+zstyle ':completion:*:warnings'        format "${PR_BRIGHT_RED}No matches for:${PR_RESET} %d" # set format for warnings
 zstyle ':completion:*:*:zcompile:*'    ignored-patterns '(*~|*.zwc)'       # define files to ignore for zcompile
 zstyle ':completion:correct:'          prompt 'correct to: %e'             #
 zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'    # Ignore completion functions for commands you don't have:
