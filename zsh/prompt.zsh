@@ -32,7 +32,9 @@ function reset_tmux_window(){
 
 # load the git-prompt which gives information on the repo
 . $HOME/.zsh/git-prompt/zshrc.sh
-ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}+"
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[red]%}+"
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}●"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
 
 # initial vi-color: first prompt starts in insert-mode
 VI_COLOR=${PR_BRIGHT_GREEN}
