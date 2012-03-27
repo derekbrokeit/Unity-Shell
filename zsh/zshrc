@@ -1,0 +1,68 @@
+#
+# .zshrc is sourced in interactive shells.
+# It should contain commands to set up aliases,
+# functions, options, key bindings, etc.
+#
+#  Not all terminals support this and, of those that do,
+#  not all provide facilities to test the support, hence
+#  the user should decide based on the terminal type.  Most
+#  terminals  support the  colours  black,  red,  green,
+#  yellow, blue, magenta, cyan and white, which can be set
+#  by name.  In addition. default may be used to set the
+#  terminal's default foreground colour.  Abbreviations
+#  are allowed; b or bl selects black.
+#
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+WORDCHARS="${WORDCHARS:s#/#}"
+WORDCHARS="${WORDCHARS:s#.#}"
+
+### Setup computer type 
+if [[ -f $HOME/.comptype ]] ; then
+  COMP_TYPE=$(sed "1q;d" $HOME/.comptype)
+else
+  echo "*** Please run the setup.sh script in the dot file directory"
+  echo "    things may not run smoothly until this is done. Thank you."
+fi
+
+# get extra source files
+sources=("path" "keys" "completion" "profile" "alias" "color" "prompt" "functions")
+for file in $sources ; do
+  . $HOME/.zsh/$file.zsh
+done
+
+#I want my umask 0002 if I'm not root
+if [[ $(whoami) = root ]]; then
+  umask 022
+else
+  umask 022
+fi
+
+# --- systems are go 
+if [[ $TERM != dumb ]] ; then
+
+  # now settup terminal multiplexer (the SSH_CONNECTION was originally meant to block the cellphone)
+  if [[ ! -n $TMUX  && "$COMP_TYPE" != "central"  &&  ! -n $SSH_CONNECTION ]] ; then
+    #if [[ ! -n $TMUX ]] && [[ "$COMP_TYPE" != "central" ]] ; then
+    # This checks if tmux exists, and if it does, runs the startup script tmx
+    {  hash tmux 2>&- && tmx $(hostname -s) ; } || echo >&2 "tmux did not startup on this machine (is it installed?) ..." 
+  fi
+
+  # are we connected through SSH?
+  if [[ -n $SSH_CONNECTION ]] ; then 
+    ssh_remote_string="${WHITE} | ${RED}ssh: ${RED_BRIGHT}$(echo $SSH_CLIENT | awk '{print $1}' )"
+  else
+    ssh_remote_string=""
+  fi
+
+  # Welcome message:
+  SIGNIN_DATE=$(date "+%Y年 %m月 %d日 （%a）%H:%M:%S")
+  echo "${BLUE_BRIGHT}$(hostname -s): ${BLACK_BRIGHT}${SIGNIN_DATE}${ssh_remote_string}${NC}"
+
+  # check if port needs update (3 days outdated)
+  if [[ "$COMP_TYPE" == "local" ]] ; then
+    portupdateneeded 3
+  fi
+
+fi
