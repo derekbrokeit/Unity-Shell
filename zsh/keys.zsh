@@ -19,5 +19,5 @@ bindkey "^W" delete-word
 # bored? try tetris
 autoload -U tetris
 zle -N tetris
-bindkey ^T tetris
+bindkey "^T" tetris
 
