@@ -27,7 +27,7 @@ else
 fi
 
 # get extra source files
-sources=("path" "keys" "completion" "profile" "alias" "color" "prompt" "functions")
+sources=("path" "color" "keys" "completion" "profile" "alias" "prompt" "functions")
 for file in $sources ; do
   . $HOME/.zsh/$file.zsh
 done
