@@ -118,11 +118,6 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   # maybe useful for git
   alias undopush="git push -f origin HEAD^:master"
 
-  # for the lolz (I got these from some other github directory, but their great)
-  alias stfu="osascript -e 'set volume output muted true'"
-  alias pumpitup="osascript -e 'set volume 10'"
-  alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF IS GOING ON?!'"
-
   ### Remote server aliases {{{1
 elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
   #### linux
@@ -179,8 +174,8 @@ alias grhh='git reset HEAD --hard'
 # Usage example: git pull origin $(current_branch)
 #
 function current_branch() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo ${ref#refs/heads/}
+ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+echo ${ref#refs/heads/}
 }
 
 # these aliases take advantage of the previous function
@@ -190,3 +185,14 @@ alias ggpush='git push origin $(current_branch)'
 compdef ggpush=git
 alias ggpnp='git pull origin $(current_branch) && git push origin $(current_branch)'
 compdef ggpnp=git
+
+# --- for the lulz
+# the very important nyan cat alias
+if [[ -x `which nc` ]]; then
+  alias nyan='nc -v miku.acm.uiuc.edu 23' # nyan cat
+fi
+
+# for the lolz (I got these from some other github directory, but their great)
+alias stfu="osascript -e 'set volume output muted true'"
+alias pumpitup="osascript -e 'set volume 10'"
+alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF IS GOING ON?!'"
