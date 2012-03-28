@@ -131,7 +131,7 @@ export F77=$F90
 local GPG_ENV=$HOME/.gnupg/gpg-agent.env
 
 function start_agent {
-  /usr/bin/env gpg-agent --daemon --enable-ssh-support --write-env-file ${GPG_ENV} > /dev/null
+  /usr/bin/env gpg-agent --daemon --write-env-file ${GPG_ENV} > /dev/null
   chmod 600 ${GPG_ENV}
   . ${GPG_ENV} > /dev/null
 }
