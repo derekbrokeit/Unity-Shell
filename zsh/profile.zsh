@@ -11,7 +11,6 @@ export BROWSER="$(which lynx)"
 # export PAGER="vimpager"
 export MANPAGER="$PAGER"
 export GNUTERM="dumb"
-export DISPLAY=:0.0
 
 # vim temporary directory for swap files
 export EDITOR_TMP="${HOME}/.${EDITOR}-tmp"
@@ -122,33 +121,33 @@ export F77=$F90
 
 # --- GPG agent initialization
 # # setup gpg (this is the old way)
-# if [[ "x$(which gpg2)" != "x" ]] ; then
-#   export GPG_TTY=$(tty) 
-#   eval $(gpg-agent --daemon) 
-# fi
-
-# the following is a better way from Oh-my-zsh
-local GPG_ENV=$HOME/.gnupg/gpg-agent.env
-
-function start_agent {
-  /usr/bin/env gpg-agent --daemon --write-env-file ${GPG_ENV} > /dev/null
-  chmod 600 ${GPG_ENV}
-  . ${GPG_ENV} > /dev/null
-}
-
-# Source GPG agent settings, if applicable
-if [ -f "${GPG_ENV}" ]; then
-  . ${GPG_ENV} > /dev/null
-  # ps -ef | grep ${SSH_AGENT_PID} | grep gpg-agent > /dev/null || {
-  ps -ef  | grep gpg-agent > /dev/null || {
-    start_agent;
-  }
-else
-  start_agent;
+if [[ "x$(which gpg2)" != "x" ]] ; then
+  export GPG_TTY=$(tty) 
+  eval $(gpg-agent --daemon) 
 fi
 
-export GPG_AGENT_INFO
-export SSH_AUTH_SOCK
-export SSH_AGENT_PID
+# the following is a better way from Oh-my-zsh
+# local GPG_ENV=$HOME/.gnupg/gpg-agent.env
 
-export GPG_TTY=$(tty)
+# function start_agent {
+#   /usr/bin/env gpg-agent --daemon --write-env-file ${GPG_ENV} > /dev/null
+#   chmod 600 ${GPG_ENV}
+#   . ${GPG_ENV} > /dev/null
+# }
+
+# # Source GPG agent settings, if applicable
+# if [ -f "${GPG_ENV}" ]; then
+#   . ${GPG_ENV} > /dev/null
+#   # ps -ef | grep ${SSH_AGENT_PID} | grep gpg-agent > /dev/null || {
+#   ps -ef  | grep gpg-agent > /dev/null || {
+#     start_agent;
+#   }
+# else
+#   start_agent;
+# fi
+
+# export GPG_AGENT_INFO
+# export SSH_AUTH_SOCK
+# export SSH_AGENT_PID
+
+# export GPG_TTY=$(tty)
