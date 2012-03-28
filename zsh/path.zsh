@@ -6,6 +6,9 @@ if [[ $COMP_TYPE == "local" ]] ; then
   export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
   # This makes GNU binaries override some apple binaries (ie. ls, grep, etc.)
   export PATH="/opt/local/libexec/gnubin:$PATH"
+
+  # add another bin folder that doesn't seem to get added in zsh (bash had no problem)
+  export PATH="$PATH:/usr/local/bin"
 else 
 
   export LD_LIBRARY_PATH="${HOME}/local/lib/:${HOME}/local/lib64/:${LD_LIBRARY_PATH}"
