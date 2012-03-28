@@ -19,7 +19,7 @@ zstyle ':completion:*' completer _oldlist _expand _force_rehash _complete _appro
 zstyle ':completion:*:approximate:'    max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )' # allow one error for every three characters typed in approximate completer
 zstyle ':completion:*:complete:-command-::commands' ignored-patterns '*\~' # don't complete backup files as executables
 zstyle ':completion:*:correct:*'       insert-unambiguous true             # start menu completion only if it could find no unambiguous initial string
-zstyle ':completion:*:corrections'     format "${PR_ERROR_RED}%d (errors: %e)${PR_RESET}" #
+zstyle ':completion:*:corrections'     format "${PR_RED_BRIGHT}%d (errors: %e)${PR_RESET}" #
 zstyle ':completion:*:correct:*'       original true                       #
 zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}      # activate color-completion(!)
 zstyle ':completion:*:descriptions'    format "${PR_BLUE}completing %B%d%b${PR_RESET}"  # format on completion
