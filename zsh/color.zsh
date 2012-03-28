@@ -7,11 +7,11 @@
 autoload -U colors && colors
 # set some colors
 for COLOR in RED GREEN YELLOW WHITE BLACK CYAN BLUE; do
-  eval PR_$COLOR='%{$fg[${(L)COLOR}]%}'
+  eval PR_$COLOR='%{$fg_no_bold[${(L)COLOR}]%}'
   eval PR_${COLOR}_BRIGHT='%{$fg_bold[${(L)COLOR}]%}'
-  eval ${COLOR}='$fg[${(L)COLOR}]'
+  eval ${COLOR}='$fg_no_bold[${(L)COLOR}]'
   eval ${COLOR}_BRIGHT='$fg_bold[${(L)COLOR}]'
-  eval ${COLOR}_BG='$bg[${(L)COLOR}]'
+  eval ${COLOR}_BG='$bg_no_bold[${(L)COLOR}]'
   eval ${COLOR}_BRIGHT_BG='$bg_bold[${(L)COLOR}]'
 done
 PR_RESET="%{${reset_color}%}";
