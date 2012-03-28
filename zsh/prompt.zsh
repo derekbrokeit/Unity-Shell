@@ -37,19 +37,35 @@ ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}●"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
 
 # initial vi-color: first prompt starts in insert-mode
-VI_COLOR=${PR_GREEN_BRIGHT}
+KEYMAP_VI_CMD=${PR_RED_BRIGHT}
+KEYMAP_VI_INS=${PR_GREEN_BRIGHT}
+KEYMAP_VI_REP=${PR_BLUE_BRIGHT}
+VI_MODE=${KEYMAP_VI_INS}
+
 function zle-line-init zle-keymap-select {
-# RPS1="${${KEYMAP/vicmd/${PR_GREEN}-- NORMAL --${PR_DEFAULT}}/(main|viins)/${PR_YELLOW_BRIGHT}-- INSERT --${PR_DEFAULT}}"
-# RPS2=$RPS1
-VI_COLOR="${${KEYMAP/vicmd/${PR_RED_BRIGHT}}/(main|viins)/${PR_GREEN_BRIGHT}}"
+local keymapTest
+keymapTest="${${KEYMAP/vicmd/${KEYMAP_VI_CMD}}/(main|viins)/${KEYMAP_VI_INS}}"
+if [[ ! ( $keymapTest == $KEYMAP_VI_INS && $VI_MODE == $KEYMAP_VI_REP ) ]] ; then
+  VI_MODE=$keymapTest
+fi
+
 zle reset-prompt
 }
+function zle-vi-replace(){
+# useful blog that helped lead to this answer:
+# http://www.bewatermyfriend.org/posts/2010/08-08.21-16-02-computer.html
+VI_MODE="${KEYMAP_VI_REP}"
+zle vi-replace
+zle reset-prompt
+}
+zle -N zle-vi-replace
 zle -N zle-line-init
 zle -N zle-keymap-select
+bindkey -M vicmd 'R'   zle-vi-replace
 
 
 # setup main prompt
-PROMPT='%{$(reset_tmux_window)%}${PROMPT_LINE}${PR_GREEN}:${PR_RESET}$(git_super_status)%(!.%B%F{red}%#%f%b.%B${VI_COLOR}$%f%b) ${PR_RESET}'
+PROMPT='%{$(reset_tmux_window)%}${PROMPT_LINE}${PR_GREEN}:${PR_RESET}$(git_super_status)%(!.%B%F{red}%#%f%b.%B${VI_MODE}$%f%b) ${PR_RESET}'
 # secondary prompt
 # (( TERMWIDTH = ${COLUMNS} - 2 ))
 # PROMPT_ESCAPED=$(echo $PROMPT | sed 's/\$(\w*)//g')
