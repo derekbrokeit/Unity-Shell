@@ -191,7 +191,9 @@ set use_from=yes
 set envelope_from="yes"
 
 # Collapse old messages
-set collapse_unread=no
+set collapse_unread=yes
+# set collapse_unread=no
+set uncollapse_jump=yes
 folder-hook . 'push <collapse-all>'
 
 # ---
