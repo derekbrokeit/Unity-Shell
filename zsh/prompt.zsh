@@ -41,7 +41,7 @@ VI_COLOR=${PR_GREEN_BRIGHT}
 function zle-line-init zle-keymap-select {
 # RPS1="${${KEYMAP/vicmd/${PR_GREEN}-- NORMAL --${PR_DEFAULT}}/(main|viins)/${PR_YELLOW_BRIGHT}-- INSERT --${PR_DEFAULT}}"
 # RPS2=$RPS1
-VI_COLOR="${${KEYMAP/vicmd/${PR_RED}}/(main|viins)/${PR_GREEN_BRIGHT}}"
+VI_COLOR="${${KEYMAP/vicmd/${PR_RED_BRIGHT}}/(main|viins)/${PR_GREEN_BRIGHT}}"
 zle reset-prompt
 }
 zle -N zle-line-init
