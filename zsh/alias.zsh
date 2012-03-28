@@ -192,7 +192,11 @@ if [[ -x `which nc` ]]; then
   alias nyan='nc -v miku.acm.uiuc.edu 23' # nyan cat
 fi
 
+# history lesson
+alias histlesson="cat /usr/share/calendar/calendar.history"
+
 # for the lolz (I got these from some other github directory, but their great)
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 10'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF IS GOING ON?!'"
+
