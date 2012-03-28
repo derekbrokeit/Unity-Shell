@@ -9,6 +9,7 @@ server add -auto -network FreeNode irc.freenode.net
 channel add -auto #anki FreeNode
 channel add -auto #scipy FreeNode
 channel add -auto #tmux FreeNode
+channel add -auto #zsh FreeNode
 channel add -auto #MacOSX FreeNode
 channel add -auto #iphonedev FreeNode
 channel add -auto ##physics FreeNode
