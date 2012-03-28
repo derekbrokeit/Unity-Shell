@@ -139,7 +139,8 @@ function start_agent {
 # Source GPG agent settings, if applicable
 if [ -f "${GPG_ENV}" ]; then
   . ${GPG_ENV} > /dev/null
-  ps -ef | grep ${SSH_AGENT_PID} | grep gpg-agent > /dev/null || {
+  # ps -ef | grep ${SSH_AGENT_PID} | grep gpg-agent > /dev/null || {
+  ps -ef  | grep gpg-agent > /dev/null || {
     start_agent;
   }
 else
