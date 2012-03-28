@@ -17,7 +17,7 @@ done
 PR_RESET="%{${reset_color}%}";
 NC="${reset_color}";
 ERROR_RED="\e[38;5;196m"
-PR_ERROR_RED="%{$ERROR_RED%}"
+PR_ERROR_RED="%{$(echo $ERROR_RED)%}" # escaped ERROR_RED
 
 #setup ~/.dir_colors if one doesn\'t exist
 if [ ! -s ~/.dir_colors ]; then
