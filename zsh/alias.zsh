@@ -23,6 +23,10 @@ alias -s html='$BROWSER'
 alias -s org='$BROWSER'
 alias -s com='$BROWSER'
 
+# web pages
+alias google.com='$BROWSER google.com/ncr'
+alias googlecom='$BROWSER google.com/ncr'
+
 # global
 alias -g G='| egrep'
 alias -g NE='2> /dev/null'
