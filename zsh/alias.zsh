@@ -72,6 +72,7 @@ else
   alias ipy="python"
 fi
 
+
 # pizza py
 alias pizza="python ~/dev/py-pizza/src/pizza.py"
 
@@ -115,8 +116,6 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
     alias ircw="tssh k -t 'irc'"
   fi
 
-  # maybe useful for git
-  alias undopush="git push -f origin HEAD^:master"
 
   ### Remote server aliases {{{1
 elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
@@ -127,7 +126,20 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
 fi
 
 # --- git specific aliases
-# originally from: https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/git/git.plugin.zsh
+# personal git aliases
+alias glu='git ls-files --other --exclude-standard'
+alias gls='git ls-files --stage'
+alias glm='git ls-files --modified'
+
+# open files in vim
+alias vgu='tmvim -p $(git ls-files --other --exclude-standard)'
+alias vgm='tmvim -p $(git ls-files --modified --exclude-standard)'
+
+# maybe useful for git
+alias undopush="git push -f origin HEAD^:master"
+
+# the following is originally from:
+# https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/git/git.plugin.zsh
 # Aliases
 alias g='git'
 compdef g=git
