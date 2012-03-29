@@ -3,7 +3,8 @@
 if [[ "$(basename $SHELL)" == "zsh" ]] ; then
 escape=""
 else
-escape="\\033"
+# escape="\\033"
+escape="\\x1b"
 fi
 # the following should work for sh and bash
 # text attributes
