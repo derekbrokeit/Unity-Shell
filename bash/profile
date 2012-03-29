@@ -148,6 +148,10 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   if [[ -f /opt/local/etc/bash_completion ]]; then       
     . /opt/local/etc/bash_completion              
   fi                                                
+  # MacPorts autojump
+  if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+    . /opt/local/etc/profile.d/autojump.sh          
+  fi                                                  
 
   # the prompt line
   if [[ "$PS1" == '\h:\W \u\$ ' ]] ; then 
