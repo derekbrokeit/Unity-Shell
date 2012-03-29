@@ -22,7 +22,7 @@ bindkey "\e^L" clear-screen
 bindkey "^_" undo
 
 # edit binding
-bindkey "^W" vi-backward-kill-word 
+bindkey "^W" vi-backward-kill-word
 
 # bored? try tetris
 autoload -U tetris
