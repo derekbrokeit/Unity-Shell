@@ -51,4 +51,5 @@ done
 }
 regenpathpy
 ##############################################################
-CDPATH=.:~:~/dev:~/bin
+# removing CDPATH because autojump looks more promising
+# CDPATH=.:~:~/dev:~/bin
