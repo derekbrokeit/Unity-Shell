@@ -1,35 +1,41 @@
 
 ## -- Colors --
+if [[ "$(basename $SHELL)" == "zsh" ]] ; then
+escape=""
+else
+escape="\\033"
+fi
+# the following should work for sh and bash
 # text attributes
-export NC="\\033[0m"
-export BOLD="\\033[01m"
-export UNDER="\\033[04m"
-export BLINK="\\033[05m"
-export INVER="\\033[07m"
-export CONC="\\033[08m"
+export NC="${escape}[0m"
+export BOLD="${escape}[01m"
+export UNDER="${escape}[04m"
+export BLINK="${escape}[05m"
+export INVER="${escape}[07m"
+export CONC="${escape}[08m"
 
 # general colors
-export BLACK="\\033[30m"
-export RED="\\033[31m"
-export GREEN="\\033[32m"
-export YELLOW="\\033[33m"
-export BLUE="\\033[34m"
-export MAGENTA="\\033[35m"
-export CYAN="\\033[36m"
-export WHITE="\\033[37m"
+export BLACK="${escape}[30m"
+export RED="${escape}[31m"
+export GREEN="${escape}[32m"
+export YELLOW="${escape}[33m"
+export BLUE="${escape}[34m"
+export MAGENTA="${escape}[35m"
+export CYAN="${escape}[36m"
+export WHITE="${escape}[37m"
 
 #bright colors
-export BLACK_BRIGHT="\\033[38;5;08m"
-export RED_BRIGHT="\\033[38;5;09m"
-export GREEN_BRIGHT="\\033[38;5;10m"
-export YELLOW_BRIGHT="\\033[38;5;11m"
-export BLUE_BRIGHT="\\033[38;5;12m"
-export MAGENTA_BRIGHT="\\033[38;5;13m"
-export CYAN_BRIGHT="\\033[38;5;14m"
-export WHITE_BRIGHT="\\033[38;5;15m"
+export BLACK_BRIGHT="${escape}[38;5;08m"
+export RED_BRIGHT="${escape}[38;5;09m"
+export GREEN_BRIGHT="${escape}[38;5;10m"
+export YELLOW_BRIGHT="${escape}[38;5;11m"
+export BLUE_BRIGHT="${escape}[38;5;12m"
+export MAGENTA_BRIGHT="${escape}[38;5;13m"
+export CYAN_BRIGHT="${escape}[38;5;14m"
+export WHITE_BRIGHT="${escape}[38;5;15m"
 
 # special colors
-export ERROR_RED="\\033[38;5;196m"
+export ERROR_RED="${escape}[38;5;196m"
 
 ## colors chosen for OSX terminal
 #--- normal ---#
