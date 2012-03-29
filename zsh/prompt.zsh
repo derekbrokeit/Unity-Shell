@@ -68,13 +68,21 @@ bindkey -M vicmd 'R'   zle-vi-replace
 
 # setup main prompt
 PROMPT='%{$(reset_tmux_window)%}${PROMPT_LINE}${PR_GREEN}:${PR_RESET}$(git_super_status)%(!.%B%F{red}%#%f%b.%B${VI_MODE}$%f%b) ${PR_RESET}'
+
+function secondary_prompt(){
+pr_unescape=$(print -Pn $PROMPT | sed -r "s/\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g ; s/kzsh\\\//g") 
+pr_len=${#pr_unescape}
+spaces=$(print "${(l:(pr_len):: :)}\b\b\b\b\b···")
+pr="${PR_BLACK_BRIGHT}${spaces}${PR_CYAN_BRIGHT}>${PR_RESET} " 
+echo $pr 
+
+}
 # secondary prompt
 # (( TERMWIDTH = ${COLUMNS} - 2 ))
 # PROMPT_ESCAPED=$(echo $PROMPT | sed 's/\$(\w*)//g')
 # PROMPT_ESCAPED=${(%e)PROMPT_ESCAPED}
 # PROMPT_LENGTH=${#${PROMPT_ESCAPED//\[[^m]##m/}}
 # FILL_SPACES=${(l:PROMPT_LENGTH:: :)}
-
-PS2="${PR_BLUE_BRIGHT}> ${PR_RESET}"
+PROMPT2='$(secondary_prompt)'
 
 
