@@ -15,7 +15,9 @@ precmd(){  print -Pn "\e]2;%m: %~\a" }
 case $TERM in
   screen*)
     # this governs the tmux window name
-    preexec(){ print -Pn "\033k$(basename ${1[(w)1]})\033\\" }
+    # the sed pipe removes everything after first occurance of "$"
+    # previously "preexex: parse error" was thrown when making assignments
+    preexec(){ print -Pn "\033k$(basename ${1[(w)1]} | sed 's/\$.*$//g')\033\\" }
     ;;
   *)
     preexec(){ print -Pn "\e]2;%m: %~\a" }
