@@ -32,3 +32,9 @@ bindkey "^T" tetris
 # history search
 bindkey -M viins "^r" history-incremental-search-backward
 
+# open EDITOR from comandline
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd ":e" edit-command-line
+bindkey -M viins "^o" edit-command-line
+
