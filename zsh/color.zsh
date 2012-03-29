@@ -16,8 +16,6 @@ for COLOR in RED GREEN YELLOW WHITE BLACK CYAN BLUE; do
 done
 PR_RESET="%{${reset_color}%}";
 NC="${reset_color}";
-ERROR_RED="\e[38;5;196m"
-PR_ERROR_RED="%{$(echo $ERROR_RED)%}" # escaped ERROR_RED
 
 #setup ~/.dir_colors if one doesn\'t exist
 if [ ! -s ~/.dir_colors ]; then
@@ -58,4 +56,37 @@ for i in {0..255} ; do
   printf "\x1b[38;5;${i}m i=${i} \tcolour${i}\e[0m \t\x1b[48;5;${i}m\tcolour${i} \t\e[0m\n"
 done
 }
+
+# more colors
+# insipired by: https://github.com/sykora/etc/blob/master/zsh/functions/spectrum/
+typeset -Ag fx fg_all bg_all
+
+# first attributes
+fx=(
+    reset        "[00m" 0 "[00m"  name0  RESET
+    bold         "[01m" 1 "[01m"  name1  BOLD
+    no-bold      "[22m" 2 "[22m"  name2  NO_BOLD
+    italic       "[03m" 3 "[03m"  name3  ITALIC
+    no-italic    "[23m" 4 "[23m"  name4  NO_ITALIC
+    underline    "[04m" 5 "[04m"  name5  UNDERLINE
+    no-underline "[24m" 6 "[24m"  name6  NO_UNDERLINE
+    blink        "[05m" 7 "[05m"  name7  BLINK
+    no-blink     "[25m" 8 "[25m"  name8  NO_BLINK
+    reverse      "[07m" 9 "[07m"  name9  REVERSE
+    no-reverse   "[27m" 10 "[27m" name10 NO_REVERSE
+)
+# setup attribute markers ie. $BLINK
+for i in {0..10} ; do
+  eval ${fx[name$i]}=${fx[$i]}
+done
+
+# now grab 256 color markers
+for color in {000..255}; do
+    fg_all[$color]="[38;5;${color}m"
+    bg_all[$color]="[48;5;${color}m"
+done
+
+# define the color of severe errors
+ERROR_RED="$fg_all[196]"
+PR_ERROR_RED="%{$ERROR_RED%}" # escaped ERROR_RED
 
