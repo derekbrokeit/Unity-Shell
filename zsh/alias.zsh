@@ -7,8 +7,18 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-alias  vi='$EDITOR'
-alias vim='$EDITOR'
+# editors
+alias  vi=$EDITOR
+alias vim=$EDITOR
+
+function viw {
+local location=$(which "$1")
+if [[ -f "$location" ]]; then
+  $EDITOR "$location"
+else
+  echo "$location isn't a file."
+fi
+}
 
 alias -- -='cd -'
 alias ..="cd .."
@@ -17,8 +27,8 @@ alias ....='../../..'
 alias .....='../../../..'
 
 # suffix
-alias -s tex='$EDITOR'
-alias -s txt='$EDITOR'
+alias -s tex=$EDITOR
+alias -s txt=$EDITOR
 alias -s html='$BROWSER'
 alias -s org='$BROWSER'
 alias -s com='$BROWSER'
