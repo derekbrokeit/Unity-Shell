@@ -62,3 +62,4 @@ if [[ $TERM != dumb ]] ; then
     # gcalcli agenda
 
   fi
+  export BASH_LOADED=1
