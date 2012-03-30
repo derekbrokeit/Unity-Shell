@@ -2,7 +2,7 @@ setopt prompt_subst
 
 # changes the color of the prompt based on the hostname
 HASH_NUM=$(echo $HOSTNAME | md5sum | tr -d 'a-f' | cut -b 1-6)
-HASH_MOD="%{$fg_all[$(($HASH_NUM % 6 + 2))]%}"
+HASH_MOD="%{$fg_all[00$(($HASH_NUM % 6 + 2))]%}"
 if [[ $(whoami) = root ]]; then
   PROMPT_LINE="${PR_RED_BRIGHT}%n${PR_DEFAULT}@${PR_YELLOW_BRIGHT}%M%f%b"
 else
