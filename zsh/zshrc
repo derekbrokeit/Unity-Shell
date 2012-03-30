@@ -58,7 +58,7 @@ if [[ $TERM != dumb ]] ; then
 
     # Welcome message:
     SIGNIN_DATE=$(date "+%Y年 %m月 %d日 （%a）%H:%M:%S")
-    echo "${BLUE_BRIGHT}$(hostname -s): ${WHITE}${SIGNIN_DATE}${ssh_remote_string}${NC}"
+    print -P "${HASH_MOD2}$(hostname -s): ${WHITE}${SIGNIN_DATE}${ssh_remote_string}${NC}"
 
     # check if port needs update (3 days outdated)
     if [[ "$COMP_TYPE" == "local" ]] ; then
