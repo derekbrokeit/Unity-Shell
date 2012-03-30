@@ -182,11 +182,7 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
   export BASH_PROFILE="$HOME/.bashrc"
 
   # the prompt line
-  if [[ "x$(which git 2> /dev/null)" != "x" ]] ; then
-    export PS1="\[$YELLOW_BRIGHT\]${HOSTNAME:0:1} \[$GREEN\]"'$(__git_ps1_colorize "( %s) ")'"\[$YELLOW_BRIGHT\]> \[$NC\]"
-  else
-    export PS1="\[$YELLOW_BRIGHT\]${HOSTNAME:0:1} > \[$NC\]"
-  fi
+  export PS1="\[$(printf $YELLOW_BRIGHT)\]${HOSTNAME:0:1} > \[$(printf $NC)\]"
 
   # in the even that packages must be installed on remote server
   export CONF_PREF="-prefix=$HOME/local"
@@ -201,7 +197,7 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
   case $HOSTNAME in 
     [c]* )
       export filesvn="file:///home/derekt/svnroot"
-      export PS1="\[$YELLOW_BRIGHT\]${HOSTNAME:0:1} > \[$NC\]"
+      export PS1="\[$(printf $YELLOW_BRIGHT)\]${HOSTNAME:0:1} > \[$(printf $NC)\]"
       if [[ "$HOSTNAME" =~ *[0-9]  ]] ; then
         # cut the final number off of the name and make that the prompt
         export PS1="\[$YELLOW_BRIGHT\]${HOSTNAME#${HOSTNAME%?}} > \[$NC\]"
