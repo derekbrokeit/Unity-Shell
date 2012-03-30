@@ -6,7 +6,11 @@ HASH_MOD=$(($HASH_NUM % 6 + 2))
 if [[ $(whoami) = root ]]; then
   PROMPT_LINE="${PR_RED_BRIGHT}%n${PR_DEFAULT}@${PR_YELLOW_BRIGHT}%M%f%b"
 else
-  PROMPT_LINE="%B%F{$HASH_MOD}%m%b"
+  if [[ $COMP_TYPE == "local" ]] ; then
+    PROMPT_LINE="%B%F{$HASH_MOD}%m%b"
+  else
+    PROMPT_LINE="%B%F{$HASH_MOD}$(hostname | cut -c 1)%b"
+  fi
 fi
 
 # printing the title
@@ -71,6 +75,7 @@ bindkey -M vicmd 'R'   zle-vi-replace
 
 # setup main prompt
 PROMPT='%{$(reset_tmux_window)%}${PROMPT_LINE}${PR_GREEN}:${PR_RESET}$(git_super_status)%(!.%B%F{red}%#%f%b.%B${VI_MODE}$%f%b) ${PR_RESET}'
+
 
 function secondary_prompt(){
 pr_unescape=$(print -Pn $PROMPT | sed -r "s/\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g ; s/kzsh\\\//g") 
