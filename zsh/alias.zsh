@@ -127,6 +127,8 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
     alias ircw="tssh k -t 'irc'"
   fi
 
+  # lock the pc
+  remotelock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
   ### Remote server aliases {{{1
 elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
