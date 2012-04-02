@@ -6,40 +6,6 @@
 
 
 # Universal functions {{{1o
-# --- regenpath: generate PATH--- {{{2
-function regenpath(){
-if [[ -n $PATH_ORIG ]] ; then
-  export PATH=$PATH_ORIG
-fi
-SEARCH_PATH="$HOME/bin $HOME/dev"
-if [[ $COMP_TYPE == "remote" ]] ; then
-  SEARCH_PATH="$HOME/local $SEARCH_PATH"
-fi
-for dir in $(find $SEARCH_PATH -type d  -regex ".*\/bin" )
-do
-  # strip the trailing colon (not actually necessary)
-  if [[ $PATH != *${dir}* ]] ; then
-    # only insert the directory if it is unique
-    # user defined functions take precedence over system functions
-    export PATH="${dir}:$PATH"
-  fi
-done
-}
-regenpath
-
-function regenpathpy(){
-PYTHONPATH=
-for dir in $(find $HOME/bin $HOME/dev -type d  -regex ".*\/py\(\w\|-\w\|\w*\/src\|-\w*\/src\)*")
-do
-  if [[ $PYTHONPATH != *${dir}* ]] ; then
-    # only insert the directory if it is unique
-    # the order is irrelevant
-    export PYTHONPATH="$PYTHONPATH:${dir}"
-  fi
-done
-}
-regenpathpy
-
 # pid-with-children: list a process with all its children  {{{2o
 function pid-with-children() { 
 # grab a list of the process id and all children

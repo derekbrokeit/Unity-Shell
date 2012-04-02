@@ -15,14 +15,17 @@ fi
 # get all the relevant escape COLORS
 . $HOME/.colors
 
+# setup profile variables
+. $HOME/.bash/profile.bash
+
 # setup path variables
-. $HOME/.bash/profile
+. $HOME/.bash/path.bash
 
 # setup user-functions
-. $HOME/.bash/functions
+. $HOME/.bash/functions.bash
 
 # setup aliases
-. $HOME/.bash/alias
+. $HOME/.bash/alias.bash
 
 
 # --- systems are go {{{1

@@ -122,17 +122,6 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   export F90_COMP="gfortran"
   export F90_FLAGS="-ffixed-line-length-none" 
 
-  ## Mac Ports
-  # MacPorts Installer addition on 2011-07-26_at_17:29:56: adding an appropriate PATH variable for use with MacPorts.
-  # echo "PATH: $PATH"
-  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-  # This makes GNU binaries override some apple binaries (ie. ls, grep, etc.)
-  export PATH="/opt/local/libexec/gnubin:$PATH"
-
-  # # Finished adapting your PATH environment variable for use with MacPorts.
-  # export PATH="$HOME/bin:$PATH"
-  # export PATH="$BIN_GE:$PATH"
-  # export PATH="$MD_BIN:$PATH"
 
   # Application user variables
   export MATHEMATICA_USERBASE="$MD_SVN/mathematica/base"
@@ -186,8 +175,6 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
 
   # in the even that packages must be installed on remote server
   export CONF_PREF="-prefix=$HOME/local"
-  export LD_LIBRARY_PATH="${HOME}/local/lib/:${HOME}/local/lib64/:${LD_LIBRARY_PATH}"
-  export PATH="$HOME/local/bin:$PATH"
 
   # LAPACK libraries
   export BLAS_LIBS="$HOME/local/lib/libblas.a"
@@ -260,8 +247,6 @@ echo $F90_FLAGS > $HOME/.f90flags
 export F90=$F90_COMP
 export F77=$F90
 
-# Save the path for later
-export PATH_ORIG="$PATH"
 
 # setup gpg
 if [[ "x$(which gpg2)" != "x" ]] ; then
