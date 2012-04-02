@@ -64,6 +64,7 @@ ZSH_THEME_GIT_PROMPT_NOCACHE="1"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[red]%}+"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}●"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
+ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$ERROR_RED%}✖ "
 
 # initial vi-color: first prompt starts in insert-mode
 KEYMAP_VI_CMD=${PR_RED_BRIGHT}
