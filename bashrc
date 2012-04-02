@@ -1,6 +1,6 @@
 #!/bin/bash
 # source the .bash_profile file instead
-if [[ $(cat ~/.comptype) != "local" && -f $HOME/local/bin/zsh ]] ; then
+if [[ $HOSTNAME != t* && $(cat ~/.comptype) != "local" && -f $HOME/local/bin/zsh ]] ; then
   # load alternative shell
   # read -p "load zsh? " yn
   yn="y"
