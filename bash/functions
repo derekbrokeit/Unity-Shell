@@ -11,7 +11,11 @@ function regenpath(){
 if [[ -n $PATH_ORIG ]] ; then
   export PATH=$PATH_ORIG
 fi
-for dir in $(find $HOME/bin $HOME/dev -type d  -regex ".*\/bin" )
+SEARCH_PATH="$HOME/bin $HOME/dev"
+if [[ $COMP_TYPE == "remote" ]] ; then
+  SEARCH_PATH="$HOME/local $SEARCH_PATH"
+fi
+for dir in $(find $SEARCH_PATH -type d  -regex ".*\/bin" )
 do
   # strip the trailing colon (not actually necessary)
   if [[ $PATH != *${dir}* ]] ; then

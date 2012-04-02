@@ -51,8 +51,8 @@ alias -g HL='|& head -20'
 alias ll='ls -lah'
 alias sl='ls -lah'
 alias l='ls -la'
-alias ld='ls -d *(/)'
-alias ldd='ls -d **/'
+alias lsd='ls -d *(/)'
+alias lsdd='ls -d **/'
 
 #  setup easy to use variabls
 alias rmi='rm -i '

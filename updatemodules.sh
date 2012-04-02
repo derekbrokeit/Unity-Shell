@@ -4,7 +4,7 @@ if [[ ! -f ./.submoduleinit ]] ; then
   # make sure we initialize the submodules
   echo "## -- initializing submodules -- ##"
   git submodule update --init
-  touch ~/.vim/.submoduleinit
+  touch ~/.rcfiles/.submoduleinit
 fi
 
 # now, update all those submodules
