@@ -26,7 +26,14 @@ function regenpath(){
 if [[ -n $PATH_ORIG ]] ; then
   export PATH=$PATH_ORIG
 fi
-for dir in $(find $HOME/bin $HOME/dev -type d  -regex ".*\/bin" )
+
+# all the directories to search
+unset SEARCH_PATH
+if [[ $COMP_TYPE == "remote" ]] ; then
+  SEARCH_PATH=$HOME/local
+fi
+
+for dir in $(find $HOME/bin $HOME/dev $SEARCH_PATH -type d  -regex ".*\/bin" )
 do
   # strip the trailing colon (not actually necessary)
   if [[ $PATH != *${dir}* ]] ; then
@@ -40,7 +47,14 @@ regenpath
 
 function regenpathpy(){
 PYTHONPATH=
-for dir in $(find $HOME/bin $HOME/dev -type d  -regex ".*\/py\(\w\|-\w\|\w*\/src\|-\w*\/src\)*")
+
+# all the directories to search
+unset SEARCH_PATH
+if [[ $COMP_TYPE == "remote" ]] ; then
+  SEARCH_PATH=$HOME/local
+fi
+
+for dir in $(find $HOME/bin $HOME/dev $SEARCH_PATH -type d  -regex ".*\/py\(\w\|-\w\|\w*\/src\|-\w*\/src\)*")
 do
   if [[ $PYTHONPATH != *${dir}* ]] ; then
     # only insert the directory if it is unique
