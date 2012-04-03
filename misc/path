@@ -20,6 +20,9 @@ else
 
 fi
 
+# make sure the regular bin is available
+export PATH="$HOME/bin:$PATH"
+
 # --- regenpath: generate PATH---
 # export PATH_ORIG="$PATH"
 # function regenpath(){
