@@ -1,6 +1,7 @@
 
 ##############################################################
 # --- PATH SETUP ---
+COMP_TYPE=$(cat $HOME/.comptype)
 if [[ $COMP_TYPE == "local" ]] ; then
   # add macports to path
   export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
