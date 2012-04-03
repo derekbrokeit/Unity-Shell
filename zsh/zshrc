@@ -26,8 +26,11 @@ else
   echo "    things may not run smoothly until this is done. Thank you."
 fi
 
+# grab the paths
+. $HOME/.path
+
 # get extra source files
-sources=("path" "color" "keys" "completion" "profile" "alias" "prompt" "functions")
+sources=("color" "keys" "completion" "profile" "alias" "prompt" "functions")
 for file in $sources ; do
   . $HOME/.zsh/$file.zsh
 done
