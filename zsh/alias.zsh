@@ -124,7 +124,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   if [[ ${HOSTNAME%.*} == k* ]] ; then
     alias ircw="tmux new-window -n 'irssi' 'irc'"
   else
-    alias ircw="tssh k -t 'source $HOME/.$(basename $SHELL)/path.$(basename $SHELL) ; irc'"
+    alias ircw="tssh k -t 'source $HOME/.path ; irc'"
   fi
 
   # lock the pc
