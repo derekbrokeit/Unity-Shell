@@ -7,7 +7,11 @@ text/*; w3m -dump -T text/html %s | sed 's/\ \ \ \ />\ /g' ; needsterminal; desc
 # text/plain;  less -R %s ; needsterminal; description=HTML Text; \
 #            nametemplate=%s.html; copiousoutput
 
+# application/*; open %s ; copiousoutput
 application/*; open %s ; copiousoutput
+
+# if I do not set this, it downloads, but doesn't open
+image/*; open %s ; copiousoutput
 
 #text/html; links -dump %s  ; needsterminal; description=HTML Text; \
 #           nametemplate=%s.html; copiousoutput
