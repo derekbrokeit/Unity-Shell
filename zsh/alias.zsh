@@ -88,7 +88,7 @@ alias pizza="python ~/dev/py-pizza/src/pizza.py"
 
 # remap mutt to tmuxified mutt
 # currently causing strange behavior, fixing
-alias mutt="tmux neww -n mutt -t 7 \"zsh -c 'source $HOME/.zshrc ; mutt'\" "
+alias mutt="tmux neww -n mutt -t 7 \"$SHELL -c 'source $HOME/.$(basename $SHELL)rc ; mutt'\" "
 
 # syntax highlighter cat
 alias pcat="pygmentize -g"
