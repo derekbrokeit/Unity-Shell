@@ -20,6 +20,7 @@ bindkey "\e^L" clear-screen
 
 # undo
 bindkey "^_" undo
+bindkey '^x' reverse-menu-complete
 
 # edit binding
 bindkey "^W" vi-backward-kill-word
