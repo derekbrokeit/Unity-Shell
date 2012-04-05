@@ -226,7 +226,7 @@ bind index <Right> display-message
 # ---
 set sort_browser="reverse-date"
 set sort_aux="last-date-received"
-set index_format="%?M?+& ?%2M %4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s"
+set index_format="%?M?+& ?%2M%4C:{%Z} [%{%b %d,%l:%M}] (%?l?%4l&%4c?) %-15.15L > %s"
 
 bind index - collapse-thread
 bind index _ collapse-all
