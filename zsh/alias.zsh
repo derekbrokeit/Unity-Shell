@@ -122,9 +122,10 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   alias tmo='tmoct'
   alias tmv='tmvim'
   if [[ ${HOSTNAME%.*} == k* ]] ; then
-    alias ircw="tmux new-window -n 'irssi' 'irc'"
+    alias ircw="tmux new-window -n irssi -t 8 'irc'"
   else
-    alias ircw="tssh k -t 'source $HOME/.path ; irc'"
+    alias ircw="tmux neww -n irssi -t 8 \"tssh k -t 'source $HOME/.path ; irc'\""
+    alias irc="tssh k -t 'source $HOME/.path ; irc'"
   fi
 
   # lock the pc
