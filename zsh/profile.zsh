@@ -52,6 +52,13 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   # keep log files together
   export LOGS_DIR="$DROPBOX/serverLogs"
 
+  # the save directory for lynx
+  export LYNX_SAVE_SPACE=$HOME/lynx-download
+  export LYNX_CFG=$HOME/.lynx.cfg
+  if [[ ! -d $LYNX_SAVE_SPACE ]] ; then
+    mkdir $LYNX_SAVE_SPACE
+  fi
+
   ### Remote Server variables {{{1
 elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
 
