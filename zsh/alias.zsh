@@ -88,7 +88,8 @@ alias pizza="python ~/dev/py-pizza/src/pizza.py"
 
 # remap mutt to tmuxified mutt
 # currently causing strange behavior, fixing
-alias tmmutt='tmux new-window -t 7 "sleep 2 ; mutt"'
+alias mutt="tmux neww -n mutt -t 7 \"zsh -c 'source $HOME/.zshrc ; mutt'\" "
+
 # syntax highlighter cat
 alias pcat="pygmentize -g"
 function pless() {
