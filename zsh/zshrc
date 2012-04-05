@@ -15,8 +15,10 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-WORDCHARS="${WORDCHARS:s#/#}"
-WORDCHARS="${WORDCHARS:s#.#}"
+
+# these substitutions seem to cause problems with tmux AND, with vi-mode seem unnecessary
+# WORDCHARS="${WORDCHARS:s#/#}"
+# WORDCHARS="${WORDCHARS:s#.#}"
 
 ### Setup computer type 
 if [[ -f $HOME/.comptype ]] ; then
