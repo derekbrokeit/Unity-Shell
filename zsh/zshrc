@@ -32,7 +32,7 @@ fi
 . $HOME/.path
 
 # get extra source files
-sources=("color" "keys" "completion" "profile" "alias" "prompt" "functions")
+sources=("color" "keys" "completion" "profile" "alias" "prompt" "functions" "gpg")
 for file in $sources ; do
   . $HOME/.zsh/$file.zsh
 done
