@@ -101,6 +101,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
 
   # proxy server connection for getting articles
   alias proxyssh='tssh -P'
+  alias tsshk='tssh k "source $HOME/.path  ; tmx -d"'
 
   # system functions
   # these reference shell scripts that I have created
