@@ -145,6 +145,7 @@ fi
 alias glu='git ls-files --other --exclude-standard'
 alias gls='git ls-files --stage'
 alias glm='git ls-files --modified'
+alias gir='gir -q '
 
 # open files in vim
 alias vgu='tmvim -p $(git ls-files --other --exclude-standard)'
