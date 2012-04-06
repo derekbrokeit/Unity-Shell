@@ -122,7 +122,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   alias tree='tree -C'
   alias tmo='tmoct'
   alias tmv='tmvim'
-  if [[ ${HOSTNAME%.*} == k* ]] ; then
+  if [[ "$(hostname -s)" == k* ]] ; then
     alias ircw="tmux new-window -n irssi -t 8 'irc'"
   else
     alias ircw="tmux neww -n irssi -t 8 \"tssh k -t 'source $HOME/.path ; irc'\""
