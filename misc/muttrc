@@ -280,3 +280,8 @@ bind editor <Tab> complete-query
 # add email to contacts
 # macro index,pager a "<pipe-message>goobook add<return>" "add the sender address to Google contacts"
 # ---
+
+set fast_reply			
+set smart_wrap
+set pager_stop 			
+set tilde			
