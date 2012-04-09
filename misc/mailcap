@@ -9,6 +9,7 @@ text/*; w3m -dump -T text/html %s | sed 's/\ \ \ \ />\ /g' ; needsterminal; desc
 
 # application/*; open %s ; copiousoutput
 application/*; open %s ; copiousoutput
+application/xhtml+xml; w3m %s; copiousoutput
 
 # if I do not set this, it downloads, but doesn't open
 image/*; open %s ; copiousoutput
