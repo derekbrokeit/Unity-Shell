@@ -75,6 +75,7 @@ if [[ $TERM != dumb ]] ; then
   if [ -f /opt/local/etc/profile.d/autojump.sh ]; then         
     . /opt/local/etc/profile.d/autojump.sh                   
   fi                                                           
+  fpath=(~/.zsh/Completion $fpath)
 fi
 
 # setup ssh-agent on non-local machines
