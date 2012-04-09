@@ -36,6 +36,7 @@ alias -s com='$BROWSER'
 # web pages
 alias google.com='$BROWSER google.com/ncr'
 alias googlecom='$BROWSER google.com/ncr'
+alias web="$HOME/.startup.html"
 
 # global
 alias -g G='| egrep'
