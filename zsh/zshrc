@@ -16,6 +16,10 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
+# This is a command that pipes all stderr to a red filter :)
+# Compliments: http://skinwalker.wordpress.com/2012/01/24/stderr-zsh/
+exec 2>>( while read X; do print "${ERROR_RED}${X}${NC}" > /dev/tty; done & )
+
 # these substitutions seem to cause problems with tmux AND, with vi-mode seem unnecessary
 # WORDCHARS="${WORDCHARS:s#/#}"
 # WORDCHARS="${WORDCHARS:s#.#}"
