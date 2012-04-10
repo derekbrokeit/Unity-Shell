@@ -128,7 +128,7 @@ dirlist_cmd file:///$LIB/dirlist.cgi
 ext_dirlist 1
 display_lineinfo 0
 decode_url 0
-display_link_number 1
+display_link_number 0
 display_link 1
 open_tab_dl_list 1
 open_tab_blank 1
