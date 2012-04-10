@@ -20,6 +20,7 @@ bindkey "\e^L" clear-screen
 
 # undo
 bindkey "^_" undo
+bindkey '^x' reverse-menu-complete
 
 # edit binding
 bindkey "^W" vi-backward-kill-word
@@ -38,3 +39,13 @@ zle -N edit-command-line
 bindkey -M vicmd ":e" edit-command-line
 bindkey -M viins "^o" edit-command-line
 
+# show history
+function zle-show-my-recent-history(){
+echo ""
+history
+
+zle reset-prompt
+zle vi-insert
+}
+zle -N zle-show-my-recent-history
+bindkey -M vicmd '!' zle-show-my-recent-history

@@ -36,6 +36,7 @@ alias -s com='$BROWSER'
 # web pages
 alias google.com='$BROWSER google.com/ncr'
 alias googlecom='$BROWSER google.com/ncr'
+alias web="$HOME/.startup.html"
 
 # global
 alias -g G='| egrep'
@@ -88,7 +89,8 @@ alias pizza="python ~/dev/py-pizza/src/pizza.py"
 
 # remap mutt to tmuxified mutt
 # currently causing strange behavior, fixing
-# alias mutt=tmmutt
+alias mutt="tmux neww -n mutt -t 7 \"$SHELL -c 'source $HOME/.$(basename $SHELL)rc ; mutt'\" "
+
 # syntax highlighter cat
 alias pcat="pygmentize -g"
 function pless() {
@@ -100,6 +102,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
 
   # proxy server connection for getting articles
   alias proxyssh='tssh -P'
+  alias tsshk='tssh k "source $HOME/.path  ; tmx -d"'
 
   # system functions
   # these reference shell scripts that I have created
@@ -121,10 +124,11 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   alias tree='tree -C'
   alias tmo='tmoct'
   alias tmv='tmvim'
-  if [[ ${HOSTNAME%.*} == k* ]] ; then
-    alias ircw="tmux new-window -n 'irssi' 'irc'"
+  if [[ "$(hostname -s)" == k* ]] ; then
+    alias ircw="tmux new-window -n irssi -t 8 'irc'"
   else
-    alias ircw="tssh k -t 'irc'"
+    alias ircw="tmux neww -n irssi -t 8 \"tssh k -t 'source $HOME/.path ; irc'\""
+    alias irc="tssh k -t 'source $HOME/.path ; irc'"
   fi
 
   # lock the pc
@@ -143,6 +147,7 @@ fi
 alias glu='git ls-files --other --exclude-standard'
 alias gls='git ls-files --stage'
 alias glm='git ls-files --modified'
+alias gir='gir -q '
 
 # open files in vim
 alias vgu='tmvim -p $(git ls-files --other --exclude-standard)'

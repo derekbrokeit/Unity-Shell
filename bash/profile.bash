@@ -187,7 +187,7 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
       export PS1="\[$(printf $YELLOW_BRIGHT)\]${HOSTNAME:0:1} > \[$(printf $NC)\]"
       if [[ "$HOSTNAME" == *3  ]] ; then
         # cut the final number off of the name and make that the prompt
-        export PS1="\[$YELLOW_BRIGHT\]${HOSTNAME#${HOSTNAME%?}} > \[$NC\]"
+        export PS1="\[$(printf $YELLOW_BRIGHT)\]${HOSTNAME#${HOSTNAME%?}} > \[$(printf $NC)\]"
       fi
 
       # there is no compiler

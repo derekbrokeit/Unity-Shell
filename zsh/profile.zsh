@@ -7,7 +7,7 @@ export COMP_TYPE=$(cat $HOME/.comptype)
 # export EDITOR="vim"
 export EDITOR="$(which tmvim) -p"
 export PAGER="$(which less)"
-export BROWSER="$(which lynx)"
+export BROWSER="$(which w3m)"
 # export PAGER="vimpager"
 export MANPAGER="$PAGER"
 export GNUTERM="dumb"
@@ -84,6 +84,13 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   # export SSH_AGENT_PID
 
   # export GPG_TTY=$(tty)
+
+  # the save directory for lynx
+  export LYNX_SAVE_SPACE=$HOME/lynx-download
+  export LYNX_CFG=$HOME/.lynx.cfg
+  if [[ ! -d $LYNX_SAVE_SPACE ]] ; then
+    mkdir $LYNX_SAVE_SPACE
+  fi
 
   ### Remote Server variables {{{1
 elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then

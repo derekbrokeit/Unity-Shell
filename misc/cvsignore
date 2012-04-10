@@ -1,4 +1,6 @@
 tags
 *.pyc
-_voomScript_.py
 *.o
+
+# w3m.vim history file in 
+\\\\.vim_w3m_hist

@@ -19,7 +19,7 @@ fi
 . $HOME/.bash/profile.bash
 
 # setup path variables
-. $HOME/.bash/path.bash
+. $HOME/.path
 
 # setup user-functions
 . $HOME/.bash/functions.bash
