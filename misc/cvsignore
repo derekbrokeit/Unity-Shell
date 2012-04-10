@@ -1,3 +1,6 @@
 tags
 *.pyc
 *.o
+
+# w3m.vim history file in 
+\\\\.vim_w3m_hist
