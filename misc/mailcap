@@ -2,6 +2,10 @@
 # it then cyphens the html through sed to convert gmail_quote to ">"
 text/*; w3m -dump -T text/html %s | sed 's/\ \ \ \ />\ /g' ; needsterminal; description=HTML Text; \
            nametemplate=%s.html; copiousoutput
+
+# allow editable
+text/*;				cat; copiousoutput; edit=$VISUAL %s
+
 # text/plain; pygmentize -g %s | less -R ; needsterminal; description=Text; \
 #            nametemplate=%s ; copiousoutput
 # text/plain;  less -R %s ; needsterminal; description=HTML Text; \
@@ -12,7 +16,7 @@ application/*; open %s ; copiousoutput
 application/xhtml+xml; w3m %s; copiousoutput
 
 # if I do not set this, it downloads, but doesn't open
-image/*; open %s ; copiousoutput
+image/*; mutt_bgrun open %s ; copiousoutput
 
 #text/html; links -dump %s  ; needsterminal; description=HTML Text; \
 #           nametemplate=%s.html; copiousoutput
