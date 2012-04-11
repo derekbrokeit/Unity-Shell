@@ -285,3 +285,7 @@ set fast_reply
 set smart_wrap
 set pager_stop 			
 set tilde			
+
+# get rid of mail->mail transitions (go to the index instead)
+bind pager <up> half-up
+bind pager <down> half-down
