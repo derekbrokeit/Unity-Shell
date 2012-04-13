@@ -35,8 +35,11 @@ fi
 # grab the paths
 . $HOME/.path
 
+# start gpg-agent
+. $HOME/.gpg
+
 # get extra source files
-sources=("color" "keys" "completion" "profile" "alias" "prompt" "functions" "gpg")
+sources=("color" "keys" "completion" "profile" "alias" "prompt" "functions")
 for file in $sources ; do
   . $HOME/.zsh/$file.zsh
 done
