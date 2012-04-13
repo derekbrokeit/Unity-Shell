@@ -27,6 +27,9 @@ fi
 # setup aliases
 . $HOME/.bash/alias.bash
 
+# startup gpg-agent
+. $HOME/.gpg
+
 
 # --- systems are go {{{1
 if [[ $TERM != dumb ]] ; then

@@ -248,8 +248,3 @@ export F90=$F90_COMP
 export F77=$F90
 
 
-# setup gpg
-if [[ "x$(which gpg2)" != "x" ]] ; then
-  export GPG_TTY=$(tty) 
-  eval $(gpg-agent --daemon) 
-fi
