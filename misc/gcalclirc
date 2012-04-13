@@ -5,10 +5,10 @@ cals:all
 24hr:true
 width:12
 mon:true
-cal-owner-color:green
+cal-owner-color:brightgreen
 cal-editor-color:white
 cal-contributor-color:blue
-cal-read-color:red
-cal-freebusy-color:magenta
-date-color:blue
-border-color:cyan
+cal-read-color:brightred
+cal-freebusy-color:brightmagenta
+date-color:brightblack
+border-color:brightblue
