@@ -31,14 +31,15 @@ fi
 # grab the paths
 . $HOME/.path
 
-# start gpg-agent
-. $HOME/.gpg
 
 # get extra source files
 sources=("color" "keys" "completion" "profile" "alias" "prompt" "functions")
 for file in $sources ; do
   . $HOME/.zsh/$file.zsh
 done
+
+# start gpg-agent
+. $HOME/.gpg
 
 #I want my umask 0002 if I'm not root
 if [[ $(whoami) = root ]]; then
