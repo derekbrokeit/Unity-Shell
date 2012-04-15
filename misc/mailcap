@@ -12,11 +12,16 @@ text/*;				cat; copiousoutput; edit=$VISUAL %s
 #            nametemplate=%s.html; copiousoutput
 
 # application/*; open %s ; copiousoutput
-application/*; open %s ; copiousoutput
 application/xhtml+xml; w3m %s; copiousoutput
+
+application/pdf; tmvim %s
+
+application/msword; tmvim %s
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; tmvim %s
 
 # if I do not set this, it downloads, but doesn't open
 image/*; mutt_bgrun open %s ; copiousoutput
 
 #text/html; links -dump %s  ; needsterminal; description=HTML Text; \
 #           nametemplate=%s.html; copiousoutput
+application/*; open %s ; copiousoutput
