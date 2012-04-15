@@ -20,9 +20,10 @@ if [[ $COMP_TYPE == "local" ]] ; then
   if [ -f "${GPG_ENV}" ]; then
     . ${GPG_ENV} > /dev/null
     # ps -ef | grep ${SSH_AGENT_PID} | grep gpg-agent > /dev/null || {
-    ps -ef  | grep gpg-agent > /dev/null || {
+    procs=$(ps -ef  | grep gpg-agent  | wc -l)
+    if [[ $procs -le 1 ]] ; then
       start_agent;
-    }
+    fi
   else
     start_agent;
   fi
