@@ -289,3 +289,10 @@ set tilde
 # get rid of mail->mail transitions (go to the index instead)
 bind pager <up> half-up
 bind pager <down> half-down
+
+# attempted shell command
+macro index,pager \crw '<enter-command>set my_wait_key=$wait_key<enter><enter-command>unset wait_key<enter><shell-escape>mutt_gcal calw<enter><enter-command>set wait_key=$my_wait_key<enter>'
+macro index,pager \crm '<enter-command>set my_wait_key=$wait_key<enter><enter-command>unset wait_key<enter><shell-escape>mutt_gcal calm<enter><enter-command>set wait_key=$my_wait_key<enter>'
+macro index,pager \cra '<enter-command>set my_wait_key=$wait_key<enter><enter-command>unset wait_key<enter><shell-escape>mutt_gcal agenda<enter><enter-command>set wait_key=$my_wait_key<enter>'
+macro index,pager \crq '<enter-command>set my_wait_key=$wait_key<enter><enter-command>unset wait_key<enter><shell-escape>mutt_gcal quick<enter><enter-command>set wait_key=$my_wait_key<enter>'
+
