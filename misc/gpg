@@ -10,6 +10,7 @@ if [[ $COMP_TYPE == "local" ]] ; then
   local GPG_ENV=$HOME/.gnupg/gpg-agent.env
 
   function start_agent {
+    echo "Enlisting a new gpg-agent"
     # compared to OMZ, I removed ssh enabling ... it didn't work well with OSX default ssh
     /usr/bin/env gpg-agent --daemon --write-env-file ${GPG_ENV} > /dev/null
     chmod 600 ${GPG_ENV}
