@@ -41,6 +41,7 @@ set certificate_file = "~/.mutt/certificates"
 
 
 ###Colors
+source $HOME/.mutt/source-first
 #olor   region       fg-color       bg-color    special-case
 color   normal       white          default
 color   quoted       green          default
