@@ -46,13 +46,18 @@ export PATH="$HOME/bin:$PATH"
 # done
 # }
 # regenpath
+
 function collectbin(){
 for dir in $(find $HOME/dev -type d -regex ".*\/bin" )
 do
   for file in $(ls $dir) ; do
-    if [[ -f $HOME/bin/$file ]] ; then
-      echo "Skipping $dir/$file ... already exists in ~/bin"
+    if [[  -f $HOME/bin/$file || -L $HOME/bin/$file ]] ; then
+      # there is already file or link in the desired bin directory :(
+      if [[ "$1" != "-q" ]] ; then
+        echo "Skipping $dir/$file ... already exists in ~/bin"
+      fi
     else
+      echo "ln -s $dir/$file $HOME/bin/$file"
       ln -s $dir/$file $HOME/bin/$file
     fi
   done
