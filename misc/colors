@@ -1,42 +1,64 @@
 
 ## -- Colors --
 if [[ "$(basename $SHELL)" == "zsh" ]] ; then
-escape=""
+escape="${ender}"
+ender="${ender}"
 else
-# escape="\\033"
-escape="\\x1b"
+# escape="\\033${ender}"
+escape='printf "\\x1b'
+ender='"'
 fi
 # the following should work for sh and bash
 # text attributes
-export NC="${escape}[0m"
-export BOLD="${escape}[01m"
-export UNDER="${escape}[04m"
-export BLINK="${escape}[05m"
-export INVER="${escape}[07m"
-export CONC="${escape}[08m"
+NC="${escape}[0m${ender}"
+BOLD="${escape}[01m${ender}"
+UNDER="${escape}[04m${ender}"
+BLINK="${escape}[05m${ender}"
+INVER="${escape}[07m${ender}"
+CONC="${escape}[08m${ender}"
+
+attr=(NC BOLD UNDER BLINK INVER CONC)
+for a in ${attr[@]} ; do
+  eval 'export '${a}'=$('$(eval echo \$${a})')'
+done
 
 # general colors
-export BLACK="${escape}[30m"
-export RED="${escape}[31m"
-export GREEN="${escape}[32m"
-export YELLOW="${escape}[33m"
-export BLUE="${escape}[34m"
-export MAGENTA="${escape}[35m"
-export CYAN="${escape}[36m"
-export WHITE="${escape}[37m"
+BLACK="${escape}[30m${ender}"
+RED="${escape}[31m${ender}"
+GREEN="${escape}[32m${ender}"
+YELLOW="${escape}[33m${ender}"
+BLUE="${escape}[34m${ender}"
+MAGENTA="${escape}[35m${ender}"
+CYAN="${escape}[36m${ender}"
+WHITE="${escape}[37m${ender}"
+
+gencol=(BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE)
+for a in ${gencol[@]} ; do
+  eval 'export '${a}'=$('$(eval echo \$${a})')'
+done
 
 #bright colors
-export BLACK_BRIGHT="${escape}[38;5;08m"
-export RED_BRIGHT="${escape}[38;5;09m"
-export GREEN_BRIGHT="${escape}[38;5;10m"
-export YELLOW_BRIGHT="${escape}[38;5;11m"
-export BLUE_BRIGHT="${escape}[38;5;12m"
-export MAGENTA_BRIGHT="${escape}[38;5;13m"
-export CYAN_BRIGHT="${escape}[38;5;14m"
-export WHITE_BRIGHT="${escape}[38;5;15m"
+BLACK_BRIGHT="${escape}[38;5;08m${ender}"
+RED_BRIGHT="${escape}[38;5;09m${ender}"
+GREEN_BRIGHT="${escape}[38;5;10m${ender}"
+YELLOW_BRIGHT="${escape}[38;5;11m${ender}"
+BLUE_BRIGHT="${escape}[38;5;12m${ender}"
+MAGENTA_BRIGHT="${escape}[38;5;13m${ender}"
+CYAN_BRIGHT="${escape}[38;5;14m${ender}"
+WHITE_BRIGHT="${escape}[38;5;15m${ender}"
+
+brightcol=(BLACK_BRIGHT RED_BRIGHT GREEN_BRIGHT YELLOW_BRIGHT BLUE_BRIGHT MAGENTA_BRIGHT CYAN_BRIGHT WHITE_BRIGHT)
+for a in ${brightcol[@]} ; do
+  eval 'export '${a}'=$('$(eval echo \$${a})')'
+done
 
 # special colors
-export ERROR_RED="${escape}[38;5;196m"
+ERROR_RED="${escape}[38;5;196m${ender}"
+
+specialcol=(ERROR_RED)
+for a in ${specialcol[@]} ; do
+  eval 'export '${a}'=$('$(eval echo \$${a})')'
+done
 
 ## colors chosen for OSX terminal
 #--- normal ---#
