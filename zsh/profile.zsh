@@ -69,6 +69,13 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
   # in the even that packages must be installed on remote server
   export CONF_PREF="-prefix=$HOME/local"
 
+  # keep log files together
+  export LOGS_DIR="$HOME/.serverLogs"
+  if [[ ! -d $LOGS_DIR ]] ; then
+    mkdir -p $LOGS_DIR
+    chmod 700 $LOGS_DIR
+  fi
+  
   ## setup remote-host specific variables
   case $HOSTNAME in 
     [c]* )

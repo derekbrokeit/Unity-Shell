@@ -180,6 +180,13 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
   export BLAS_LIBS="$HOME/local/lib/libblas.a"
   export LAPACK_LIBS="$HOME/local/lib/liblapack.a"
 
+  # keep log files together
+  export LOGS_DIR="$HOME/.serverLogs"
+  if [[ ! -d $LOGS_DIR ]] ; then
+    mkdir -p $LOGS_DIR
+    chmod 700 $LOGS_DIR
+  fi
+
   ## setup remote-host specific variables
   case $HOSTNAME in 
     [c]* )
