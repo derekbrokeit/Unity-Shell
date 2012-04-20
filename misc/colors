@@ -55,39 +55,42 @@ ERROR_RED="38;5;196"
 # cyan    - #666699
 # white   - #FFFFFF
 
-# How we escape is based on on the shell
+# Now we escape based on on the shell
 if [[ "$(basename $SHELL)" == "zsh" ]] ; then
   escape="["
   ender="m"
 
-  center='='${escape}
-  close=${ender}
+  function escapeArray(){
+    array=("$@")
+    for a in ${array[@]} ; do
+      eval 'export '${a}'='${escape}'${'${a}'}'${ender}
+    done
+  }
 elif [[ "$(basename $SHELL)" == "bash" ]] ; then
   # escape="\\033"
   escape='\\x1b['
   ender='m'
 
-  center='=$(echo -e '"escape"
-  close=${ender}')'
+  function escapeArray(){
+    array=("$@")
+    for a in ${array[@]} ; do
+      eval 'export '${a}'=$(echo -e '${escape}'${'${a}'}'${ender}')'
+    done
+  }
 fi
+
+# a function that takes an array and tries to escape them as a color
+ 
 # define and escape all of the colors and attributes
 attr=(NC BOLD UNDER BLINK INVER CONC)
-for a in ${attr[@]} ; do
-  eval 'export '${a}\${center}\$${a}\${close}
-done
+escapeArray ${attr[@]}
 
 gencol=(BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE)
-for a in ${gencol[@]} ; do
-  eval 'export '${a}\${center}\$${a}\${close}
-done
+escapeArray ${gencol[@]}
 
 brightcol=(BLACK_BRIGHT RED_BRIGHT GREEN_BRIGHT YELLOW_BRIGHT BLUE_BRIGHT MAGENTA_BRIGHT CYAN_BRIGHT WHITE_BRIGHT)
-for a in ${brightcol[@]} ; do
-  eval 'export '${a}\${center}\$${a}\${close}
-done
+escapeArray ${brightcol[@]}
 
 specialcol=(ERROR_RED)
-for a in ${specialcol[@]} ; do
-  eval 'export '${a}\${center}\$${a}\${close}
-done
+escapeArray ${specialcol[@]}
 
