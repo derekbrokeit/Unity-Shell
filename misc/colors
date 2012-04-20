@@ -57,13 +57,10 @@ ERROR_RED="38;5;196"
 
 # Now we escape based on on the shell
 if [[ "$(basename $SHELL)" == "zsh" ]] ; then
-  escape="["
-  ender="m"
-
   function escapeArray(){
     array=("$@")
     for a in ${array[@]} ; do
-      eval 'export '${a}'='${escape}'${'${a}'}'${ender}
+      eval 'export '${a}'="[${'${a}'}m"'
     done
   }
 elif [[ "$(basename $SHELL)" == "bash" ]] ; then
@@ -78,8 +75,6 @@ elif [[ "$(basename $SHELL)" == "bash" ]] ; then
     done
   }
 fi
-
-# a function that takes an array and tries to escape them as a color
  
 # define and escape all of the colors and attributes
 attr=(NC BOLD UNDER BLINK INVER CONC)
