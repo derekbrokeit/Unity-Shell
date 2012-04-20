@@ -1,63 +1,63 @@
 
 ## -- Colors --
 if [[ "$(basename $SHELL)" == "zsh" ]] ; then
-escape="${ender}"
-ender="${ender}"
+  escape="["
+  ender="m"
 else
-# escape="\\033${ender}"
-escape='printf "\\x1b'
-ender='"'
+  # escape="\\033"
+  escape='printf "\\x1b['
+  ender='m"'
 fi
-# the following should work for sh and bash
+
 # text attributes
-NC="${escape}[0m${ender}"
-BOLD="${escape}[01m${ender}"
-UNDER="${escape}[04m${ender}"
-BLINK="${escape}[05m${ender}"
-INVER="${escape}[07m${ender}"
-CONC="${escape}[08m${ender}"
+NC="0"
+BOLD="01"
+UNDER="04"
+BLINK="05"
+INVER="07"
+CONC="08"
 
 attr=(NC BOLD UNDER BLINK INVER CONC)
 for a in ${attr[@]} ; do
-  eval 'export '${a}'=$('$(eval echo \$${a})')'
+  eval 'export '${a}'=$('$(eval echo \${escape}\$${a}\${ender})')'
 done
 
 # general colors
-BLACK="${escape}[30m${ender}"
-RED="${escape}[31m${ender}"
-GREEN="${escape}[32m${ender}"
-YELLOW="${escape}[33m${ender}"
-BLUE="${escape}[34m${ender}"
-MAGENTA="${escape}[35m${ender}"
-CYAN="${escape}[36m${ender}"
-WHITE="${escape}[37m${ender}"
+BLACK="30"
+RED="31"
+GREEN="32"
+YELLOW="33"
+BLUE="34"
+MAGENTA="35"
+CYAN="36"
+WHITE="37"
 
 gencol=(BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE)
 for a in ${gencol[@]} ; do
-  eval 'export '${a}'=$('$(eval echo \$${a})')'
+  eval 'export '${a}'=$('$(eval echo \${escape}\$${a}\${ender})')'
 done
 
 #bright colors
-BLACK_BRIGHT="${escape}[38;5;08m${ender}"
-RED_BRIGHT="${escape}[38;5;09m${ender}"
-GREEN_BRIGHT="${escape}[38;5;10m${ender}"
-YELLOW_BRIGHT="${escape}[38;5;11m${ender}"
-BLUE_BRIGHT="${escape}[38;5;12m${ender}"
-MAGENTA_BRIGHT="${escape}[38;5;13m${ender}"
-CYAN_BRIGHT="${escape}[38;5;14m${ender}"
-WHITE_BRIGHT="${escape}[38;5;15m${ender}"
+BLACK_BRIGHT="38;5;08"
+RED_BRIGHT="38;5;09"
+GREEN_BRIGHT="38;5;10"
+YELLOW_BRIGHT="38;5;11"
+BLUE_BRIGHT="38;5;12"
+MAGENTA_BRIGHT="38;5;13"
+CYAN_BRIGHT="38;5;14"
+WHITE_BRIGHT="38;5;15"
 
 brightcol=(BLACK_BRIGHT RED_BRIGHT GREEN_BRIGHT YELLOW_BRIGHT BLUE_BRIGHT MAGENTA_BRIGHT CYAN_BRIGHT WHITE_BRIGHT)
 for a in ${brightcol[@]} ; do
-  eval 'export '${a}'=$('$(eval echo \$${a})')'
+  eval 'export '${a}'=$('$(eval echo \${escape}\$${a}\${ender})')'
 done
 
 # special colors
-ERROR_RED="${escape}[38;5;196m${ender}"
+ERROR_RED="38;5;196"
 
 specialcol=(ERROR_RED)
 for a in ${specialcol[@]} ; do
-  eval 'export '${a}'=$('$(eval echo \$${a})')'
+  eval 'export '${a}'=$('$(eval echo \${escape}\$${a}\${ender})')'
 done
 
 ## colors chosen for OSX terminal
