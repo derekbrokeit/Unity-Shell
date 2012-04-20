@@ -1,14 +1,5 @@
 
 ## -- Colors --
-if [[ "$(basename $SHELL)" == "zsh" ]] ; then
-  escape="["
-  ender="m"
-else
-  # escape="\\033"
-  escape='printf "\\x1b['
-  ender='m"'
-fi
-
 # text attributes
 NC="0"
 BOLD="01"
@@ -16,11 +7,6 @@ UNDER="04"
 BLINK="05"
 INVER="07"
 CONC="08"
-
-attr=(NC BOLD UNDER BLINK INVER CONC)
-for a in ${attr[@]} ; do
-  eval 'export '${a}'=$('$(eval echo \${escape}\$${a}\${ender})')'
-done
 
 # general colors
 BLACK="30"
@@ -32,10 +18,6 @@ MAGENTA="35"
 CYAN="36"
 WHITE="37"
 
-gencol=(BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE)
-for a in ${gencol[@]} ; do
-  eval 'export '${a}'=$('$(eval echo \${escape}\$${a}\${ender})')'
-done
 
 #bright colors
 BLACK_BRIGHT="38;5;08"
@@ -47,18 +29,10 @@ MAGENTA_BRIGHT="38;5;13"
 CYAN_BRIGHT="38;5;14"
 WHITE_BRIGHT="38;5;15"
 
-brightcol=(BLACK_BRIGHT RED_BRIGHT GREEN_BRIGHT YELLOW_BRIGHT BLUE_BRIGHT MAGENTA_BRIGHT CYAN_BRIGHT WHITE_BRIGHT)
-for a in ${brightcol[@]} ; do
-  eval 'export '${a}'=$('$(eval echo \${escape}\$${a}\${ender})')'
-done
 
 # special colors
 ERROR_RED="38;5;196"
 
-specialcol=(ERROR_RED)
-for a in ${specialcol[@]} ; do
-  eval 'export '${a}'=$('$(eval echo \${escape}\$${a}\${ender})')'
-done
 
 ## colors chosen for OSX terminal
 #--- normal ---#
@@ -80,3 +54,40 @@ done
 # magenta - #9966CC
 # cyan    - #666699
 # white   - #FFFFFF
+
+# How we escape is based on on the shell
+if [[ "$(basename $SHELL)" == "zsh" ]] ; then
+  escape="["
+  ender="m"
+
+  center='='${escape}
+  close=${ender}
+elif [[ "$(basename $SHELL)" == "bash" ]] ; then
+  # escape="\\033"
+  escape='\\x1b['
+  ender='m'
+
+  center='=$(echo -e '"escape"
+  close=${ender}')'
+fi
+# define and escape all of the colors and attributes
+attr=(NC BOLD UNDER BLINK INVER CONC)
+for a in ${attr[@]} ; do
+  eval 'export '${a}\${center}\$${a}\${close}
+done
+
+gencol=(BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE)
+for a in ${gencol[@]} ; do
+  eval 'export '${a}\${center}\$${a}\${close}
+done
+
+brightcol=(BLACK_BRIGHT RED_BRIGHT GREEN_BRIGHT YELLOW_BRIGHT BLUE_BRIGHT MAGENTA_BRIGHT CYAN_BRIGHT WHITE_BRIGHT)
+for a in ${brightcol[@]} ; do
+  eval 'export '${a}\${center}\$${a}\${close}
+done
+
+specialcol=(ERROR_RED)
+for a in ${specialcol[@]} ; do
+  eval 'export '${a}\${center}\$${a}\${close}
+done
+
