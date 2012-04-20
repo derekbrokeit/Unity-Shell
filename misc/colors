@@ -63,7 +63,7 @@ if [[ "$(basename $SHELL)" == "zsh" ]] ; then
       eval 'export '${a}'="[${'${a}'}m"'
     done
   }
-elif [[ "$(basename $SHELL)" == "bash" ]] ; then
+elif [[ "$(basename $SHELL)" == "bash" || "$(basename $SHELL)" == "sh" ]] ; then
   # escape="\\033"
   escape='\\x1b['
   ender='m'
