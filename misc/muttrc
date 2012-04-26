@@ -267,6 +267,9 @@ bind pager 'D' delete-thread
 
 bind index 'U' undelete-thread
 bind pager 'U' undelete-thread
+
+bind index,pager \eg group-reply
+
 # --- show plain text first if available
 alternative_order text/enriched text/plain text application/postscript image/*
 # ---
