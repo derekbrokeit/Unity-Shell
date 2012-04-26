@@ -57,6 +57,17 @@ clear
 source $HOME/.zshrc
 }
 
+# virtualenv wrapper {{{2
+function prepvirtualwrapper() {
+  if [[ "x$(which virtualenvwrapper.sh)" != "x" ]] ; then
+    export WORKON_HOME=$HOME/.virtualenvs
+    export PROJECT_HOME=$HOME/dev
+    if [[ ! -d $WORKON_HOME ]] ; then
+      mkdir $WORKON_HOME 
+    fi
+    . $(which virtualenvwrapper.sh)
+  fi
+}
 
 # Inside a tmux session {{{2
 if [[ -n $TMUX ]] ; then

@@ -81,15 +81,6 @@ if [[ $TERM != dumb ]] ; then
   fi                                                           
   fpath=(~/.zsh/Completion $fpath)
 
-  # virtualenv wrapper
-  if [[ "x$(which virtualenvwrapper.sh)" != "x" ]] ; then
-    export WORKON_HOME=$HOME/.virtualenvs
-    export PROJECT_HOME=$HOME/dev
-    if [[ ! -d $WORKON_HOME ]] ; then
-      mkdir $WORKON_HOME 
-    fi
-    . $(which virtualenvwrapper.sh)
-  fi
 fi
 
 # This is a command that pipes all stderr to a red filter :)
