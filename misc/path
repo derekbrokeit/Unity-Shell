@@ -81,7 +81,11 @@ do
   if [[ $PYTHONPATH != *${dir}* ]] ; then
     # only insert the directory if it is unique
     # the order is irrelevant
-    export PYTHONPATH="$PYTHONPATH:${dir}"
+    if [[ "x$PYTHONPATH" == "x" ]] ; then
+      export PYTHONPATH=${dir}
+    else
+      export PYTHONPATH="$PYTHONPATH:${dir}"
+    fi
   fi
 done
 }
