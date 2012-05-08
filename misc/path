@@ -12,7 +12,7 @@ if [[ $COMP_TYPE == "local" ]] ; then
   export PATH="$PATH:/usr/local/bin"
 
   # add MacPorts python modules
-  export PATH=$PATH:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin
+  # export PATH=$PATH:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin
 else 
 
   export LD_LIBRARY_PATH="${HOME}/local/lib/:${HOME}/local/lib64/:${LD_LIBRARY_PATH}"
