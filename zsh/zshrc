@@ -86,11 +86,11 @@ fi
 # This is a command that pipes all stderr to a red filter :)
 # Compliments: http://skinwalker.wordpress.com/2012/01/24/stderr-zsh/
 
-# if [[ -f ~/dev/github_third-party/stderred/lib64/stderred.dylib ]] ; then
-#   export DYLD_INSERT_LIBRARIES=$HOME/dev/github_third-party/stderred/lib/stderred.dylib 
-#   export DYLD_FORCE_FLAT_NAMESPACE=1
-#   export STDERRED_ESC_CODE=$ERROR_RED
-# else
+if [[ -f ~/dev/github_third-party/stderred/lib/stderred.dylib ]] ; then
+  export DYLD_INSERT_LIBRARIES=$HOME/dev/github_third-party/stderred/lib/stderred.dylib 
+  export DYLD_FORCE_FLAT_NAMESPACE=1
+  export STDERRED_ESC_CODE=$ERROR_RED
+else
   exec 2>>( while read X; do print "${ERROR_RED}${X}${NC}" > /dev/tty; done & )
-# fi
+fi
 
