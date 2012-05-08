@@ -59,15 +59,16 @@ source $HOME/.zshrc
 
 # virtualenv wrapper {{{2
 function prepvirtualwrapper() {
-  if [[ "x$(which virtualenvwrapper.sh)" != "x" ]] ; then
+  if [[ -f /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh ]] ; then
     export WORKON_HOME=$HOME/.virtualenvs
     export PROJECT_HOME=$HOME/dev
     if [[ ! -d $WORKON_HOME ]] ; then
       mkdir $WORKON_HOME 
     fi
-    . $(which virtualenvwrapper.sh)
+    . /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
   fi
 }
+prepvirtualwrapper
 
 # Inside a tmux session {{{2
 if [[ -n $TMUX ]] ; then
