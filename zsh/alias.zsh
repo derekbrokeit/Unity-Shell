@@ -82,6 +82,7 @@ if [[ -n ipython ]] ; then
 else
   alias ipy="python"
 fi
+alias pydserve="pydoc -p 9999 "
 
 
 # pizza py
