@@ -97,6 +97,48 @@ done
 fi
 # Local-system specific functions {{{1o 
 if [[ "$COMP_TYPE" == "local" ]] ; then
+  # Make skeleton python package {{{2
+  function pyskeleton(){
+  dest=$1
+  if [[ "x$dest" == "x" ]] ; then
+    echo "${ERROR_RED}*** Please suply a destination name${NC}"
+    return
+  elif [[ -d $dest ]] ; then
+    echo "${ERROR_RED}*** The directory $dest already exists${NC}"
+    return
+  fi
+  git clone cello:/home/derekt/dev/py-skeleton.git $dest
+  echo "${BLUE_BRIGHT}skeleton $dest created$NC"
+
+  pushd . > /dev/null
+  cd $dest
+
+  # remove the ability to push back to skeleton repository
+  git remote rm origin
+  echo "${RED}- origin removed, cannot push${NC}"
+  
+  # rename the appropriate files to have the new package name
+  git mv NAME $dest
+  git mv $(ls tests/NAME_tests.py) tests/${dest}_tests.py
+
+  # account for the renamed python package
+  tmp=$(mktemp -t $(basename $0).XXX)
+  sed "s/NAME/$dest/g" setup.py > $tmp
+  mv $tmp setup.py
+  sed "s/NAME/${dest}/g" tests/${dest}_tests.py > $tmp 
+  mv $tmp tests/${dest}_tests.py
+
+  # make the first commit
+  git add .
+  git ci -m "Rename skeleton package to $dest"
+
+  # return
+  popd > /dev/null
+  
+
+  
+  }
+
   # fullpath: toggles full-path shown in finder {{{2
   function fullpath() {
   echo "fullpath: input=\"$1\""
