@@ -113,7 +113,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
 
   # restart the Finder app
   killall Finder
-}
+  }
 
 # gn: popup a growl notification {{{2
 function gn() {
