@@ -11,6 +11,7 @@ if [[ $COMP_TYPE == "local" ]] ; then
   # add another bin folder that doesn't seem to get added in zsh (bash had no problem)
   export PATH="$PATH:/usr/local/bin"
 
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HOME}/dev/py-lammps/lib/python
   # add MacPorts python modules
   # export PATH=$PATH:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin
 else 
@@ -88,6 +89,7 @@ do
     fi
   fi
 done
+export PYTHONPATH=/opt/pymol/modules:$PYTHONPATH
 }
 regenpathpy
 ##############################################################
