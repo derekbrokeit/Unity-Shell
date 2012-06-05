@@ -66,9 +66,11 @@ function prepvirtualwrapper() {
       mkdir $WORKON_HOME 
     fi
     . /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
+  else
+    echo "${ERROR_RED}*** virtualenvwrapper does not seem to be installed${NC}"
   fi
 }
-prepvirtualwrapper
+# prepvirtualwrapper
 
 # Inside a tmux session {{{2
 if [[ -n $TMUX ]] ; then
