@@ -29,6 +29,7 @@ del atexit, readline, rlcompleter, save_history, historyPath
 import numpy as np
 from numpy import array
 import scipy as sp
+import pylab as p
 import matplotlib as mpl
 
 # my linux machines do not have monitors
