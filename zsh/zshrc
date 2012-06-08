@@ -79,6 +79,11 @@ if [[ $TERM != dumb ]] ; then
   if [ -f /opt/local/etc/profile.d/autojump.sh ]; then         
     . /opt/local/etc/profile.d/autojump.sh                   
   fi                                                           
+  if [ -f $HOME/local/bin/autojump.zsh ] ; then
+    . $HOME/local/bin/autojump.zsh
+  fi
+
+  # auto extra zsh completion files
   fpath=(~/.zsh/Completion $fpath)
 fi
 
