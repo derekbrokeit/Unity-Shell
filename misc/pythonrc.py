@@ -25,13 +25,18 @@ atexit.register(save_history)
 del atexit, readline, rlcompleter, save_history, historyPath
 # ----
 
-# ---- From: http://docs.scipy.org/doc/scipy/reference/tutorial/index.html
 # import science related modules
 import numpy as np
+from numpy import array
 import scipy as sp
 import matplotlib as mpl
+
+# my linux machines do not have monitors
+import platform
+if platform.system() == 'Linux':
+    # use the Agg interface so that it doesn't try to use DISPLAY
+    mpl.use('Agg')
 import matplotlib.pyplot as plt
-# ----
 
 # welcome message
 print "Welcome!"
