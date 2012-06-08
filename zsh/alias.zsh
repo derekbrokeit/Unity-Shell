@@ -82,6 +82,7 @@ if [[ -n ipython ]] ; then
 else
   alias ipy="python"
 fi
+alias pydserve="pydoc -p 9999 "
 
 
 # pizza py
@@ -134,6 +135,9 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
 
   # lock the pc
   remotelock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+  # image editting (make the editor english for ease of use)
+  alias inkscape="LANG=C inkscape"
 
   ### Remote server aliases {{{1
 elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
