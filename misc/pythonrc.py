@@ -34,7 +34,10 @@ import matplotlib as mpl
 
 # my linux machines do not have monitors
 import platform
-if platform.system() == 'Linux':
+# if platform.system() == 'Linux':
+try:
+    display = os.environ['DISPLAY']
+except KeyError:
     # use the Agg interface so that it doesn't try to use DISPLAY
     mpl.use('Agg')
 import matplotlib.pyplot as plt
