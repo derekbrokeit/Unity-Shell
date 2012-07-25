@@ -67,7 +67,7 @@ function prepvirtualwrapper() {
     fi
     . /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
   else
-    echo "${ERROR_RED}*** virtualenvwrapper does not seem to be installed${NC}"
+    echo "*** virtualenvwrapper does not seem to be installed$" >&2
   fi
 }
 # prepvirtualwrapper
