@@ -7,7 +7,8 @@
 
 # the following is a better way from Oh-my-zsh
 if [[ $COMP_TYPE == "local" ]] ; then
-  local GPG_ENV=$HOME/.gnupg/gpg-agent.env
+  # local GPG_ENV=$HOME/.gnupg/gpg-agent.env
+  GPG_ENV=$HOME/.gnupg/gpg-agent.env
 
   function start_agent {
     echo "Enlisting a new gpg-agent"
