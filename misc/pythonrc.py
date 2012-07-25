@@ -2,9 +2,6 @@
 # Add auto-completion and a stored history file of commands to your Python
 # interactive interpreter. Requires Python 2.0+, readline. Autocomplete is
 # bound to the Esc key by default (you can change it - see readline docs).
-#
-# Store the file in ~/.pystartup, and set an environment variable to point
-# to it:  "export PYTHONSTARTUP=~/.pystartup" in bash.
 
 import atexit
 import os
@@ -26,6 +23,7 @@ del atexit, readline, rlcompleter, save_history, historyPath
 # ----
 
 # import science related modules
+import math as m
 import numpy as np
 from numpy import array
 import scipy as sp
@@ -41,6 +39,7 @@ except KeyError:
     # use the Agg interface so that it doesn't try to use DISPLAY
     mpl.use('Agg')
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure, show
 
 # welcome message
 print "Welcome!"
