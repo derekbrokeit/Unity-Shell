@@ -5,7 +5,7 @@
 export COMP_TYPE=$(cat $HOME/.comptype)
 
 # export EDITOR="vim"
-export EDITOR="$(which tmvim) -p"
+export EDITOR="LANG=C $(which tmvim) -p"
 export PAGER="$(which less)"
 export BROWSER="$(which v3m)"
 # export PAGER="vimpager"
