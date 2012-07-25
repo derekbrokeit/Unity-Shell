@@ -158,6 +158,17 @@ alias gir='gitrack -i'
 alias vgu='tmvim -p $(git ls-files --other --exclude-standard)'
 alias vgm='tmvim -p $(git ls-files --modified --exclude-standard)'
 
+# download webpage and all children
+alias wwwdown='wget --wait=20 \
+                    --radnom-wait \
+                    --limit-rate=20K \
+                    --no-parent \
+                    --recursive \
+                    --page-requisites \
+                    --html-extension \
+                    --convert-links \
+                    '
+
 # maybe useful for git
 alias undopush="git push -f origin HEAD^:master"
 
