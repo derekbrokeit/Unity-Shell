@@ -75,7 +75,9 @@ if [[ $TERM != dumb ]] ; then
   fi
 
   # MacPorts autojump
-  export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"   
+  if [[ $fpath != */opt/local/share/zsh/site-functions* ]] ; then
+      export FPATH="$FPATH:/opt/local/share/zsh/site-functions"   
+  fi
   if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then         
     . /opt/local/etc/profile.d/autojump.zsh                   
   fi                                                           
@@ -84,7 +86,9 @@ if [[ $TERM != dumb ]] ; then
   fi
 
   # auto extra zsh completion files
-  fpath=(~/.zsh/Completion $fpath)
+  if [[ $fpath != *.zsh/Completion* ]] ; then
+    fpath=(~/.zsh/Completion $fpath)
+  fi
 
 fi
 

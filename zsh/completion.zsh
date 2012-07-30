@@ -6,8 +6,8 @@ setopt autolist auto_menu
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/mwoodson/.zshrc'
 
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
+
 # End of lines added by compinstall
 ## completion system
 _force_rehash() {
