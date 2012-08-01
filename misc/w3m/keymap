@@ -396,6 +396,7 @@ keymap C-l      NEXT
 keymap  >       SHIFT_RIGHT
 keymap  <       SHIFT_LEFT
 keymap  TAB     NEXT_LINK
+keymap  [Z     PREV_LINK
 keymap  C-L     REDRAW
 keymap  !       SHELL
 keymap  @       READ_SHELL
