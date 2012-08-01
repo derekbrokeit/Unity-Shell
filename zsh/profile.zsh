@@ -11,6 +11,7 @@ export BROWSER="$(which v3m)"
 # export PAGER="vimpager"
 export MANPAGER="$PAGER"
 export GNUTERM="dumb"
+export VMAIL_HTML_PART_READER="w3m -dump -o display_link_number=1 "
 
 # vim temporary directory for swap files
 export EDITOR_TMP="${HOME}/.${EDITOR}-tmp"
