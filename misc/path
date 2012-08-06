@@ -89,7 +89,7 @@ do
     fi
   fi
 done
-export PYTHONPATH=/opt/pymol/modules:$PYTHONPATH
+# export PYTHONPATH=/opt/pymol/modules:$PYTHONPATH
 }
 regenpathpy
 ##############################################################
