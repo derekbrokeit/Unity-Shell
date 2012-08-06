@@ -22,6 +22,11 @@ export TMUX_CONF_NEST="${TMUX_CONF}.nested"
 export TMUX_CONF_TMWIN="${TMUX_CONF}.tmwin"
 export TMUX_CONF_MINI="${TMUX_CONF}.mini"
 
+# virtualenvwrapper
+if [[ -x /opt/local/bin/python ]] ; then
+    export VIRTUALENVWRAPPER_PYTHON=/opt/local/bin/python
+fi
+
 # executables
 export MD_EXE="md11"
 
