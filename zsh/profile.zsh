@@ -4,8 +4,8 @@
 ### Universal variables {{{1
 export COMP_TYPE=$(cat $HOME/.comptype)
 
-# export EDITOR="vim"
-export EDITOR="LANG=C $(which tmvim) -p"
+# export EDITOR="vim "
+export EDITOR="$HOME/bin/tmvim"
 export PAGER="$(which less)"
 export BROWSER="$(which v3m)"
 # export PAGER="vimpager"
@@ -34,7 +34,8 @@ export MD_EXE="md11"
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 # language variables
-export LANG=ja_JP.UTF-8  #C (used to be "C" for English)
+# export LANG=ja_JP.UTF-8  #C (used to be "C" for English)
+export LANG=C
 export W3MLANG=$LANG
 
 
