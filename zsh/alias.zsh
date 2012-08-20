@@ -8,17 +8,9 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # editors
-alias  vi=$EDITOR
-alias vim=$EDITOR
+alias  vi="$EDITOR"
+alias vim="$EDITOR"
 
-function viw {
-local location=$(which "$1")
-if [[ -f "$location" ]]; then
-  $EDITOR "$location"
-else
-  echo "$location isn't a file."
-fi
-}
 
 alias -- -='cd -'
 alias ..="cd .."
@@ -66,22 +58,22 @@ alias fileSize='du -h '
 
 # hilight stderr in make and configure scripts
 if  which hili NA  ; then 
-  alias make="hili make"
-  if [[ $COMP_TYPE == "remote" ]] ; then
-    alias config="hili ./configure --prefix=$HOME/local)"
-  fi
+    alias make="hili make"
+    if [[ $COMP_TYPE == "remote" ]] ; then
+        alias config="hili ./configure --prefix=$HOME/local)"
+    fi
 fi
 
 # handy command to detach tmux but keep the shell running (kind-of)
 if [[ -n $TMUX ]] ; then
-  alias detach="tmux detach" 
+    alias detach="tmux detach" 
 fi
 
 if [[ -n ipython ]] ; then
-  alias ipyc="ipython console"
-  alias ipy="ipython "
+    alias ipyc="ipython console"
+    alias ipy="ipython "
 else
-  alias ipy="python"
+    alias ipy="python"
 fi
 alias pydserve="pydoc -p 9999 "
 
@@ -91,8 +83,8 @@ alias pizza="python ~/dev/py-pizza/src/pizza.py"
 
 # remap mutt to tmuxified mutt
 # currently causing strange behavior, fixing
-alias mutt="tmux neww -n mutt -t 7 \"$SHELL -c 'source $HOME/.$(basename $SHELL)rc ;
-            mutt ;  '\""
+# alias mutt="tmux neww -n mutt -t 7 \"$SHELL -c 'source $HOME/.$(basename $SHELL)rc ;
+# mutt ;  '\""
 
 # syntax highlighter cat
 alias pcat="pygmentize -g"
@@ -103,48 +95,48 @@ pygmentize -g "$@" | less -R
 ### System specific aliases {{{1
 if [[ "$COMP_TYPE" == "local" ]] ; then
 
-  # proxy server connection for getting articles
-  alias proxyssh='tssh -P'
-  alias tsshk='tssh k "source $HOME/.path  ; tmx -d"'
+    # proxy server connection for getting articles
+    alias proxyssh='tssh -P'
+    alias tsshk='tssh k "source $HOME/.path  ; tmx -d"'
 
-  # system functions
-  # these reference shell scripts that I have created
-  alias batteryinfo='pmset -g'
-  alias suwifi='sudo tempwifi'
+    # system functions
+    # these reference shell scripts that I have created
+    alias batteryinfo='pmset -g'
+    alias suwifi='sudo tempwifi'
 
-  # calendar stuff
-  alias gcalw='gcalcli calw'  
-  alias gcalm='gcalcli calm'
-  alias gcala='gcalcli --details agenda'
-  alias gcaladd='google calendar add '
+    # calendar stuff
+    alias gcalw='gcalcli calw'  
+    alias gcalm='gcalcli calm'
+    alias gcala='gcalcli --details agenda'
+    alias gcaladd='google calendar add '
 
-  # Other
-  #alias simsummary='open http://dl.dropbox.com/u/7645999/mdLogs/index.html'
-  alias matlab='/Applications/MATLAB_SV74/bin/matlab -nojvm -nosplash -nodesktop'
-  alias octave='hili octave -q'
-  alias dterm='open /Applications/DTerm.app'
-  alias t='todotxt'
-  alias tree='tree -C'
-  alias tmo='tmoct'
-  alias tmv='tmvim'
-  if [[ "$(hostname -s)" == k* ]] ; then
-    alias ircw="tmux new-window -n irssi -t 8 'irc'"
-  else
-    alias ircw="tmux neww -n irssi -t 8 \"tssh k -t 'source $HOME/.path ; irc'\""
-    alias irc="tssh k -t 'source $HOME/.path ; irc'"
-  fi
+    # Other
+    #alias simsummary='open http://dl.dropbox.com/u/7645999/mdLogs/index.html'
+    alias matlab='/Applications/MATLAB_SV74/bin/matlab -nojvm -nosplash -nodesktop'
+    alias octave='hili octave -q'
+    alias dterm='open /Applications/DTerm.app'
+    alias t='todotxt'
+    alias tree='tree -C'
+    alias tmo='tmoct'
+    alias tmv='tmvim'
+    if [[ "$(hostname -s)" == k* ]] ; then
+        alias ircw="tmux new-window -n irssi -t 8 'irc'"
+    else
+        alias ircw="tmux neww -n irssi -t 8 \"tssh k -t 'source $HOME/.path ; irc'\""
+        alias irc="tssh k -t 'source $HOME/.path ; irc'"
+    fi
 
-  # lock the pc
-  remotelock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+    # lock the pc
+    remotelock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
-  # image editting (make the editor english for ease of use)
-  alias inkscape="LANG=C inkscape"
+    # image editting (make the editor english for ease of use)
+    alias inkscape="LANG=C inkscape"
 
-  ### Remote server aliases {{{1
+    ### Remote server aliases {{{1
 elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
-  #### linux
-  # PBS statistics
-  alias qme='qstat -u $USER'
+    #### linux
+    # PBS statistics
+    alias qme='qstat -u $USER'
 
 fi
 
@@ -161,14 +153,14 @@ alias vgm='tmvim -p $(git ls-files --modified --exclude-standard)'
 
 # download webpage and all children
 alias wwwdown='wget --wait=20 \
-                    --radnom-wait \
-                    --limit-rate=20K \
-                    --no-parent \
-                    --recursive \
-                    --page-requisites \
-                    --html-extension \
-                    --convert-links \
-                    '
+    --radnom-wait \
+    --limit-rate=20K \
+    --no-parent \
+    --recursive \
+    --page-requisites \
+    --html-extension \
+    --convert-links \
+    '
 
 # maybe useful for git
 alias undopush="git push -f origin HEAD^:master"
@@ -236,7 +228,7 @@ compdef ggpnp=git
 # --- for the lulz
 # the very important nyan cat alias
 if [[ -x `which nc` ]]; then
-  alias nyan='nc -v miku.acm.uiuc.edu 23' # nyan cat
+    alias nyan='nc -v miku.acm.uiuc.edu 23' # nyan cat
 fi
 
 # history lesson
