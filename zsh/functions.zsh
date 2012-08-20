@@ -36,6 +36,23 @@ else
 fi
 }
 
+# vs, viw: vim functions  {{{2
+function vs {
+sname=$1
+shift 1
+$EDITOR -p --servername $sname --remote-tab $@
+}
+
+function viw {
+local location=$(which "$1")
+if [[ -f "$location" ]]; then
+    $EDITOR "$location"
+else
+    echo "$location isn't a file."
+fi
+}
+
+
 # convertTimeStamp: convert a time stamp from seconds-from-epoch to readable format  {{{2
 function convertTimeStamp() { 
 # converts from seconds-from-epoch to readable format of date-timestamp
