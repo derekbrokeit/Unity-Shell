@@ -35,7 +35,8 @@ export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 # language variables
 # export LANG=ja_JP.UTF-8  #C (used to be "C" for English)
-export LANG=C
+export LANG="en_US.UTF-8"
+# export LANG=C
 export W3MLANG=$LANG
 
 
