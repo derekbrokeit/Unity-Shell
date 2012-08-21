@@ -36,12 +36,22 @@ else
 fi
 }
 
-# vs, viw: vim functions  {{{2
+# vs, ms, viw: vim functions  {{{2
 function vs {
 sname=$1
 shift 1
 $EDITOR -p --servername $sname --remote-tab $@
 }
+
+function ms {
+if [[ "x$@" != "x" ]] ; then
+    opts="--remote-tab-silent"
+else
+    opts=""
+fi
+mvim --servername mvim $opts $@
+}
+
 
 function viw {
 local location=$(which "$1")
