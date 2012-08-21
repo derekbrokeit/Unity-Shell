@@ -70,7 +70,6 @@ if [[ -n $TMUX ]] ; then
 fi
 
 if [[ -n ipython ]] ; then
-    alias ipyc="ipython console"
     alias ipy="ipython "
 else
     alias ipy="python"
