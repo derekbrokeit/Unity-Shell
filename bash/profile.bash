@@ -38,7 +38,8 @@ export PS2="\[$BLUE\]> \[$NC\]"
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 # language variables
-export LANG=ja_JP.UTF-8  #C (used to be "C" for English)
+# export LANG=ja_JP.UTF-8  #C (used to be "C" for English)
+export LANG="en_US.UTF-8"
 export W3MLANG=$LANG
 
 # grep coloring
