@@ -37,22 +37,22 @@ ERROR_RED="38;5;196"
 ## colors chosen for OSX terminal
 #--- normal ---#
 # black   - #000000
-# red     - #663333
-# green   - #669966
-# yellow  - #999933
-# blue    - #003366
-# magenta - #663366
-# cyan    - #333366
+# red     - #993333
+# green   - #339900
+# yellow  - #CC9900
+# blue    - #336699
+# magenta - #993399
+# cyan    - #009999
 # white   - #CCCCCC
 #
 #--- bright ---#
 # black   - #666666
-# red     - #996666
-# green   - #99CC99
-# yellow  - #CCCC33
+# red     - #FF6666
+# green   - #66CC33
+# yellow  - #FFFF66
 # blue    - #6699CC
-# magenta - #9966CC
-# cyan    - #666699
+# magenta - #CC99CC
+# cyan    - #33CCCC
 # white   - #FFFFFF
 
 # Now we escape based on on the shell
