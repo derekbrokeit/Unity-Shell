@@ -53,7 +53,7 @@ fi
 $ed -p --servername $sname --remote-tab $@
 }
 
-function ms {
+function ms () {
 if [[ "x$@" != "x" ]] ; then
     opts="--remote-tab-silent"
     mvim --servername mvim $opts $@
