@@ -56,8 +56,11 @@ $ed -p --servername $sname --remote-tab $@
 function ms {
 if [[ "x$@" != "x" ]] ; then
     opts="--remote-tab-silent"
+    mvim --servername mvim $opts $@
 else
-    opts=""
+    osascript -e 'tell application "MacVim"' \
+              -e "activate"                  \
+              -e "end tell"
 fi
 mvim --servername mvim $opts $@
 }
