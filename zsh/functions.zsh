@@ -37,10 +37,20 @@ fi
 }
 
 # vs, ms, viw: vim functions  {{{2
-function vs {
-sname=$1
-shift 1
-$EDITOR -p --servername $sname --remote-tab $@
+function vs () {
+if [[ "x$@" != "x" ]] ; then
+    sname=$1
+    ed="$EDITOR"
+    shift 1
+else
+    if [[ $(uname) == "Darwin" ]] ; then
+        sname="mvim"
+    else
+        sname="gvim"
+    fi
+    ed="$sname"
+fi
+$ed -p --servername $sname --remote-tab $@
 }
 
 function ms {
