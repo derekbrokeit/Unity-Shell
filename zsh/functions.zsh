@@ -62,7 +62,32 @@ else
               -e "activate"                  \
               -e "end tell"
 fi
-mvim --servername mvim $opts $@
+}
+
+function vs_restart () {
+if [[ "$(uname)" == "Darwin" && "x$@" == "x" ]] ; then
+    serv="mvim"
+    ed="mvim"
+else
+    if [[ "x$@" != "x" ]] ; then
+        serv="$1"
+        shift 1
+    else
+        serv="gvim"
+    fi
+    ed="$EDITOR"
+fi
+sess_file="$HOME/.vim-tmp/restart_sessionFile.vim"
+echo $ed --servername $serv --remote-send '<Esc>:mksession ~/.vim-tmp/sessionFile.vim<CR>:wqa<CR>'
+# save the session and quit out of it
+$ed --servername $serv --remote-send "<Esc>:mksession! $sess_file<CR>:wqa<CR>"
+echo "source $MYVIMRC" >> $sess_file
+# now open in back up in terminal editor (this usually should only be called when ssh'd into a server anyway)
+# if [[ $? -gt 0  ]] ; then
+$EDITOR --servername $serv -S $sess_file
+# else
+#     ! echo "*** Error ($?) occured while accessing server: $serv"
+# fi
 }
 
 
