@@ -43,12 +43,12 @@ if [[ "x$@" != "x" ]] ; then
     ed="$EDITOR"
     shift 1
 else
+    sname="vim"
     if [[ $(uname) == "Darwin" ]] ; then
-        sname="mvim"
+        ed="mvim"
     else
-        sname="gvim"
+        ed="gvim"
     fi
-    ed="$sname"
 fi
 $ed -p --servername $sname --remote-tab $@
 }
@@ -56,7 +56,7 @@ $ed -p --servername $sname --remote-tab $@
 function ms () {
 if [[ "x$@" != "x" ]] ; then
     opts="--remote-tab-silent"
-    mvim --servername mvim $opts $@
+    mvim --servername vim $opts $@
 else
     osascript -e 'tell application "MacVim"' \
               -e "activate"                  \
@@ -66,7 +66,7 @@ fi
 
 function vs_restart () {
 if [[ "$(uname)" == "Darwin" && "x$@" == "x" ]] ; then
-    serv="mvim"
+    serv="vim"
     ed="mvim"
 else
     if [[ "x$@" != "x" ]] ; then
