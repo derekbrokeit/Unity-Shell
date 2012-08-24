@@ -149,6 +149,7 @@ alias gir='gitrack -i'
 # open files in vim
 alias vgu='tmvim -p $(git ls-files --other --exclude-standard)'
 alias vgm='tmvim -p $(git ls-files --modified --exclude-standard)'
+alias mgm='ms $(git ls-files --modified --exclude-standard)'
 
 # download webpage and all children
 alias wwwdown='wget --wait=20 \
