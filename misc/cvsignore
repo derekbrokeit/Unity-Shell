@@ -5,3 +5,6 @@ tags
 .DS_Store
 *.pickle
 tags.*
+build
+dist
+*.egg-info
