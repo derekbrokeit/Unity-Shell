@@ -16,7 +16,7 @@ if [[ $COMP_TYPE == "local" ]] ; then
   # export PATH=$PATH:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin
 else 
 
-  export LD_LIBRARY_PATH="${HOME}/local/lib/:${HOME}/local/lib64/:${LD_LIBRARY_PATH}"
+  export LD_LIBRARY_PATH="${HOME}/local/lib/python2.7/site-packages:${HOME}/local/lib:${HOME}/local/lib64:${LD_LIBRARY_PATH}"
   export PATH="$HOME/local/bin:$PATH"
 
   # LAPACK libraries
