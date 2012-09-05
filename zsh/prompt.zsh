@@ -114,4 +114,5 @@ echo $pr
 # FILL_SPACES=${(l:PROMPT_LENGTH:: :)}
 PROMPT2='$(secondary_prompt)'
 
-
+# This is necessary if you plan to use tmux-powerline
+#PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
