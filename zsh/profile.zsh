@@ -61,6 +61,9 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   # keep log files together
   export LOGS_DIR="$DROPBOX/serverLogs"
 
+  # sshfs folders reside in this directory
+  export SSHFS_DIR="$HOME/sshfs"
+
   # the save directory for lynx
   export LYNX_SAVE_SPACE=$HOME/lynx-download
   export LYNX_CFG=$HOME/.lynx.cfg
