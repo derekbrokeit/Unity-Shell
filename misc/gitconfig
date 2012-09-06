@@ -1,0 +1,89 @@
+[include]
+    path = ~/.gitconfig_user
+[core]
+    excludesfile = ~/.cvsignore
+    editor       = vim
+[merge]
+    summary   = true
+    verbosity = 1
+[apply]
+    whitespace = nowarn
+[diff]
+    tool = vimdiff
+[alias]
+
+    # status
+    s    = status
+    st   = status
+    stat = status
+
+    # checkout
+    co = checkout
+    nb = checkout -b
+
+    # commit
+    c     = commit -m
+    ca    = commit -am
+    ci    = commit
+    amend = commit --amend
+
+    # branching
+    br  = branch
+    b   = branch
+
+    # diff
+    d    = diff
+    di   = diff
+    dc   = diff --cached
+    last = diff HEAD^
+
+    # show logs
+    l    = log -p
+    lg   = log --graph --date=short
+    lol  = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+    # list files
+    ls  = ls-files
+    ign = ls-files -o -i --exclude-standard
+
+    # pull and push
+    pl = pull
+    ps = push
+
+    # remote
+    r = remote -v
+
+    # reset
+    unstage  = reset HEAD              # remove files from index (tracking)
+    uncommit = reset --soft HEAD^     # go back before last commit, with files in uncommitted state
+    filelog  = log -u                  # show changes to a file
+    mt       = mergetool                    # fire up the merge tool
+
+    # stash
+    ss = stash                        # stash changes
+    sl = stash list                   # list stashes
+    sa = stash apply                  # apply stash (restore changes)
+    sd = stash drop                   # drop stashes (destory changes)
+
+[color]
+    ui     = true
+[color "branch"]
+    current = magenta bold
+    local   = yellow
+    remote  = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old  = red bold
+    new  = green bold
+[color "status"]
+    added     = green bold
+    changed   = yellow
+    untracked = red bold
+
+[advice]
+    statusHints = false
+[tig "bind"]
+    generic = g move-first-line
+    generic = G move-last-line
