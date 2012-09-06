@@ -1,27 +1,27 @@
-
+#!/bin/sh
 ##############################################################
 # --- PATH SETUP ---
 COMP_TYPE=$(cat $HOME/.comptype)
 if [[ $COMP_TYPE == "local" ]] ; then
-  # add macports to path
-  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-  # This makes GNU binaries override some apple binaries (ie. ls, grep, etc.)
-  export PATH="/opt/local/libexec/gnubin:$PATH"
+    # add macports to path
+    export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+    # This makes GNU binaries override some apple binaries (ie. ls, grep, etc.)
+    export PATH="/opt/local/libexec/gnubin:$PATH"
 
-  # add another bin folder that doesn't seem to get added in zsh (bash had no problem)
-  export PATH="$PATH:/usr/local/bin"
+    # add another bin folder that doesn't seem to get added in zsh (bash had no problem)
+    export PATH="$PATH:/usr/local/bin"
 
-  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HOME}/dev/py-lammps/lib/python
-  # add MacPorts python modules
-  # export PATH=$PATH:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin
+    #export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HOME}/dev/py-lammps/lib/python
+    # add MacPorts python modules
+    # export PATH=$PATH:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin
 else 
 
-  export LD_LIBRARY_PATH="${HOME}/local/lib/python2.7/site-packages:${HOME}/local/lib:${HOME}/local/lib64:${LD_LIBRARY_PATH}"
-  export PATH="$HOME/local/bin:$PATH"
+    export LD_LIBRARY_PATH="${HOME}/local/lib/python2.7/site-packages:${HOME}/local/lib:${HOME}/local/lib64:${LD_LIBRARY_PATH}"
+    export PATH="$HOME/local/bin:$PATH"
 
-  # LAPACK libraries
-  export BLAS_LIBS="$HOME/local/lib/libblas.a"
-  export LAPACK_LIBS="$HOME/local/lib/liblapack.a"
+    # LAPACK libraries
+    export BLAS_LIBS="$HOME/local/lib/libblas.a"
+    export LAPACK_LIBS="$HOME/local/lib/liblapack.a"
 
 fi
 
@@ -51,47 +51,49 @@ export PATH="$HOME/bin:$PATH"
 # }
 # regenpath
 
-function collectbin(){
-for dir in $(find $HOME/dev -type d -regex ".*\/bin" )
-do
-  for file in $(ls $dir) ; do
-    if [[  -f $HOME/bin/$file || -L $HOME/bin/$file ]] ; then
-      # there is already file or link in the desired bin directory :(
-      if [[ "$1" != "-q" ]] ; then
-        echo "Skipping $dir/$file ... already exists in ~/bin"
-      fi
-    else
-      echo "ln -s $dir/$file $HOME/bin/$file"
-      ln -s $dir/$file $HOME/bin/$file
-    fi
-  done
-done
+collectbin(){
+    for dir in $(find $HOME/dev -type d -regex ".*\/bin" )
+    do
+        for file in $(ls $dir) ; do
+            if [[  -f $HOME/bin/$file || -L $HOME/bin/$file ]] ; then
+                # there is already file or link in the desired bin directory :(
+                if [[ "$1" == "-v" || "$1" == "--verbose" ]] ; then
+                    echo "Skipping $dir/$file ... already exists in ~/bin"
+                fi
+            else
+                echo "ln -s $dir/$file $HOME/bin/$file"
+                ln -s $dir/$file $HOME/bin/$file
+            fi
+        done
+    done
 }
 
-function regenpathpy(){
-PYTHONPATH=
+regenpathpy(){
+    PYTHONPATH=
 
-# all the directories to search
-unset SEARCH_PATH
-if [[ $COMP_TYPE == "remote" ]] ; then
-  SEARCH_PATH=$HOME/local
-fi
-
-for dir in $(find $HOME/bin $HOME/dev $SEARCH_PATH -type d  -regex ".*\/py\(\w\|-\w\|\w*\/src\|-\w*\/src\)*")
-do
-  if [[ $PYTHONPATH != *${dir}* ]] ; then
-    # only insert the directory if it is unique
-    # the order is irrelevant
-    if [[ "x$PYTHONPATH" == "x" ]] ; then
-      export PYTHONPATH=${dir}
-    else
-      export PYTHONPATH="$PYTHONPATH:${dir}"
+    # all the directories to search
+    unset SEARCH_PATH
+    if [[ $COMP_TYPE == "remote" ]] ; then
+        SEARCH_PATH=$HOME/local
     fi
-  fi
-done
-# export PYTHONPATH=/opt/pymol/modules:$PYTHONPATH
+
+    for dir in $(find $HOME/bin $HOME/dev $SEARCH_PATH -type d  -regex ".*\/py\(\w\|-\w\|\w*\/src\|-\w*\/src\)*")
+    do
+        if [[ $PYTHONPATH != *${dir}* ]] ; then
+            # only insert the directory if it is unique
+            # the order is irrelevant
+            if [[ "x$PYTHONPATH" == "x" ]] ; then
+                export PYTHONPATH=${dir}
+            else
+                export PYTHONPATH="$PYTHONPATH:${dir}"
+            fi
+        fi
+    done
+    # export PYTHONPATH=/opt/pymol/modules:$PYTHONPATH
 }
 regenpathpy
 ##############################################################
 # removing CDPATH because autojump looks more promising
 # CDPATH=.:~:~/dev:~/bin
+
+# vim: set filetype=sh 
