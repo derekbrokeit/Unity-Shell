@@ -52,7 +52,7 @@ fi
 if [[ $TERM != dumb ]] ; then
 
   # now settup terminal multiplexer (the SSH_CONNECTION was originally meant to block the cellphone)
-  if [[ ! -n $TMUX  && "$COMP_TYPE" != "central"  &&  ! -n $SSH_CONNECTION ]] ; then
+  if [[ ! -n $DISABLE_TMX && ! -n $TMUX  && "$COMP_TYPE" != "central"  &&  ! -n $SSH_CONNECTION ]] ; then
     #if [[ ! -n $TMUX ]] && [[ "$COMP_TYPE" != "central" ]] ; then
     # This checks if tmux exists, and if it does, runs the startup script tmx
     {  hash tmux 2>&- && tmx $(hostname -s) ; } || echo >&2 "tmux did not startup on this machine (is it installed?) ..." 
