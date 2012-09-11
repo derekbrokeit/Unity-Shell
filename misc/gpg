@@ -1,7 +1,7 @@
 # --- GPG agent initialization
 
 if [[ $COMP_TYPE == "local" ]] ; then
-    local GPG_ENV=$HOME/.gnupg/gpg-agent.env
+    GPG_ENV=$HOME/.gnupg/gpg-agent.env
 
     function start_agent {
         echo "Enlisting a new gpg-agent"
