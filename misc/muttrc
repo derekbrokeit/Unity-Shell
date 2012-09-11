@@ -42,35 +42,35 @@ set certificate_file = "~/.mutt/certificates"
 
 ###Colors
 source $HOME/.mutt/source-first
-#olor   region       fg-color       bg-color    special-case
-color   normal       white          default
-color   quoted       green          default
-color   attachment   brightyellow   default
-color   hdrdefault   brightmagenta  default
+#olor   region      fg-color       bg-color    special-case
+color   normal      white          default
+color   quoted      green          default
+color   attachment  brightyellow   default
+color   hdrdefault  brightmagenta  default
 
-# color   indicator    white          cyan
-color   markers      brightred      default
-color   signature    color202       default
-color   status       color223       color24
-color   tilde        blue           default
-color   tree         red            default
-color   indicator    black          red
+# colo  indicator   white          cyan
+color   markers     brightred      default
+color   signature   color202       default
+color   status      color223       color24
+color   tilde       blue           default
+color   tree        red            default
+color   indicator   color000       red
 
-color   message      brightyellow   default
-color   error        color196      default
+color   message     brightyellow   default
+color   error       color196       default
 
-color   index        brightyellow   default ~N # new
-color   index        brightblue     default ~O # read
-color   index        green          default ~P # from myself
-color   index        red            default ~D # deleted
-color   index        color43     default ~F # flagged
-color   index        magenta        default ~T # tagged
+color   index       yellow         color235 ~N # new
+color   index       brightblue     default  ~O # read
+color   index       green          default  ~P # from myself
+color   index       red            default  ~D # deleted
+color   index       color43        default  ~F # flagged
+color   index       magenta        default  ~T # tagged
 
 # identifies email addresses
-color   body         brightred      default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color   body        brightred      default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
 
 # identifies URLs
-color   body         brightblue     default (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+color   body        brightblue     default (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
 
 # The following could allow specific coloring of the header
 #color header  brightgreen black ^From:
