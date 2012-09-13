@@ -4,3 +4,6 @@
 [submodule "bundle/irssi"]
 	path = bundle/irssi
 	url = git@github.com:scicalculator/Tmux-IRSSI.git
+[submodule "bundle/port-extended"]
+	path = bundle/port-extended
+	url = git@github.com:scicalculator/port-extended.git
