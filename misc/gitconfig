@@ -66,6 +66,13 @@
     sa = stash apply                  # apply stash (restore changes)
     sd = stash drop                   # drop stashes (destory changes)
 
+    # submodule
+    subinit   = submodule init
+    subadd    = submodule add
+    subcheck  = submodule foreach git_extra --sub_check
+    submaster = submodule foreach git_extra --pull
+    
+
 [color]
     ui     = true
 [color "branch"]
