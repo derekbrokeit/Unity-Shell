@@ -1,3 +1,6 @@
 [submodule "zsh/git-prompt"]
 	path = zsh/git-prompt
 	url = git://github.com/olivierverdier/zsh-git-prompt.git
+[submodule "bundle/irssi"]
+	path = bundle/irssi
+	url = git@github.com:scicalculator/Tmux-IRSSI.git
