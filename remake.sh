@@ -26,5 +26,18 @@ else
     make
     make install install-doc
     popd > /dev/null
+
+    pushd . > /dev/null
+    cd bundle/matplotlib
+    python setup.py build
+    if [[ "$COMP_TYPE" == "local" ]] ; then
+        echo
+        pwd
+        echo "sudo python setup.py install"
+        sudo python setup.py install
+    else
+        python setup.py install
+    fi
+    popd > /dev/null
 fi
 popd > /dev/null
