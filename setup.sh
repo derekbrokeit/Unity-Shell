@@ -110,11 +110,6 @@ fi
     # fi
   done
 
-  ## setup server connection file
-  if [[ "x$FAIL_LOGS_DIR" == "x" ]] && [[ ! -f $LOGS_DIR/serverconn ]] ; then
-    ./serversetup.sh
-  fi
-
   ## return to the original directory
   popd > /dev/null
 
