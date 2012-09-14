@@ -31,3 +31,6 @@
 [submodule "bundle/tig"]
 	path = bundle/tig
 	url = git://github.com/jonas/tig.git
+[submodule "bundle/matplotlib"]
+	path = bundle/matplotlib
+	url = git://github.com/matplotlib/matplotlib.git
