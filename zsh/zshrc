@@ -95,11 +95,11 @@ fi
 # This is a command that pipes all stderr to a red filter :)
 # Compliments: http://skinwalker.wordpress.com/2012/01/24/stderr-zsh/
 
-if [[ -f ~/dev/github_third-party/stderred/build/libstderred.dylib ]] ; then
+if [[ -f $HOME/.rcbundles/stderred/build/libstderred.dylib ]] ; then
   # export DYLD_INSERT_LIBRARIES=$HOME/dev/github_third-party/stderred/lib/stderred.dylib 
   # export DYLD_FORCE_FLAT_NAMESPACE=1
 
-  export DYLD_INSERT_LIBRARIES="$HOME/dev/github_third-party/stderred/build/libstderred.dylib${DYLD_INSERT_LIBRARIES:+:$DYLD_INSERT_LIBRARIES}"
+  export DYLD_INSERT_LIBRARIES="$HOME/.rcbundles/stderred/build/libstderred.dylib${DYLD_INSERT_LIBRARIES:+:$DYLD_INSERT_LIBRARIES}"
   export STDERRED_ESC_CODE=$ERROR_RED
 else
   echo "${ERROR_RED}*** stderr is being piped to red output: may cause strange behavior"
