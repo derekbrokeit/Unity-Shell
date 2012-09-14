@@ -69,7 +69,9 @@
 
     # submodule
     subinit   = submodule init
+    subup     = submodule update
     subadd    = submodule add
+    substart  = ! git submodule init && git submodule update
     subcheck  = submodule foreach git_extra --sub_check
     submaster = submodule foreach git_extra --pull
     
