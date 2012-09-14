@@ -28,3 +28,6 @@
 [submodule "bundle/xls2csv"]
 	path = bundle/xls2csv
 	url = https://github.com/hempalex/xls2csv.git
+[submodule "bundle/tig"]
+	path = bundle/tig
+	url = git://github.com/jonas/tig.git
