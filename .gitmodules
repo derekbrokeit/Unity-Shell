@@ -7,3 +7,6 @@
 [submodule "bundle/port-extended"]
 	path = bundle/port-extended
 	url = git@github.com:scicalculator/port-extended.git
+[submodule "bundle/tmx"]
+	path = bundle/tmx
+	url = git@github.com:scicalculator/tmux-tmx.git
