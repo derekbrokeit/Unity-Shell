@@ -164,6 +164,9 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
   # export MD_BIN="$MD_SVN/bin-md"
   # export PATH="$MD_BIN:$PATH"
 
+  # make sure that git doesn't throw errors on https:// sites
+  export GIT_SSL_NO_VERIFY=true
+
   export MD_EXE="md11"
 
   export LAMMPS_SRC="$MD_SVN/lammps"
