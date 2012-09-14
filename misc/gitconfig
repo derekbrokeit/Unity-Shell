@@ -68,6 +68,7 @@
     sd = stash drop                   # drop stashes (destory changes)
 
     # submodule
+    sub       = submodule
     subinit   = submodule init
     subup     = submodule update
     subadd    = submodule add
