@@ -3,17 +3,19 @@
 # --- PATH SETUP ---
 COMP_TYPE=$(cat $HOME/.comptype)
 if [[ $COMP_TYPE == "local" ]] ; then
-    # add macports to path
-    export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-    # This makes GNU binaries override some apple binaries (ie. ls, grep, etc.)
-    export PATH="/opt/local/libexec/gnubin:$PATH"
+    ## add macports to path
+    #export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+    ## This makes GNU binaries override some apple binaries (ie. ls, grep, etc.)
+    #export PATH="/opt/local/libexec/gnubin:$PATH"
 
-    # add another bin folder that doesn't seem to get added in zsh (bash had no problem)
-    export PATH="$PATH:/usr/local/bin"
+    ## add another bin folder that doesn't seem to get added in zsh (bash had no problem)
+    #export PATH="$PATH:/usr/local/bin"
 
     #export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HOME}/dev/py-lammps/lib/python
     # add MacPorts python modules
     # export PATH=$PATH:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin
+    export PATH="/Users/derekt/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin:"
+    export PYTHONPATH="/Users/derekt/dev/github_third-party/src/package/doc/pyplots:/Users/derekt/dev/github_third-party/src/package/examples/pylab_examples:/Users/derekt/dev/github_third-party/src/package/lib/pytz:"
 else 
 
     export LD_LIBRARY_PATH="${HOME}/local/lib/python2.7/site-packages:${HOME}/local/lib:${HOME}/local/lib64:${LD_LIBRARY_PATH}"
@@ -23,6 +25,10 @@ else
     export BLAS_LIBS="$HOME/local/lib/libblas.a"
     export LAPACK_LIBS="$HOME/local/lib/liblapack.a"
 
+    export PATH="/home/derekt/local/bin:/home/derekt/bin:/bin:/opt/cross/bin:/opt/intel/fce/10.1.018/bin:/opt/kde3/bin:/usr/X11R6/bin:/usr/bin:/usr/bin/X11:/usr/games:/usr/lib/mit/bin:/usr/lib/mit/sbin:/usr/lib/qt3/bin:/usr/local/bin:/usr/local/mpich2/bin:"
+
+    export PYTHONPATH="/home/derekt/local/pymol:/home/derekt/local/pymol/modules/pymol/pymol_path:/home/derekt/local/pymol/modules/pymol/pymol_path/data/pymol:/home/derekt/local/pymol/modules/pymol2:"
+#/home/derekt/dev/lammps/python:/home/derekt/dev/lammps/tools/pymol_asphere:/home/derekt/dev/lammps/tools/pymol_asphere/src:/home/derekt/dev/lammps/tools/python:/home/derekt/dev/py-lammps:/home/derekt/dev/pystal:/home/derekt/dev/pystal/pystal:/home/derekt/dev/pystal/build/lib/pystal:/home/derekt/dev/pylam:/home/derekt/dev/pylam/pylam:/home/derekt/dev/pylam/build/lib/pylam:/home/derekt/local/lib/python2.7/site-packages/numpy/distutils/tests/pyrex_ext:/home/derekt/local/lib/python2.7/site-packages/IPython/zmq/pylab:/home/derekt/local/lib/python2.7/site-packages/IPython/config/profile/python3:/home/derekt/local/lib/python2.7/site-packages/IPython/config/profile/pysh:/home/derekt/local/lib/python2.7/site-packages/IPython/frontend/html/notebook/static/codemirror/mode/python:/home/derekt/local/lib/python2.7/site-packages/IPython/external/pyparsing:/home/derekt/local/lib/python2.7/site-packages/pytz:/home/derekt/local/lib/python2.7/site-packages/pystal:/home/derekt/local/lib/python2.7/site-packages/pylam:/home/derekt/local/lib/python2.7/pydoc_data:/home/derekt/local/pymol:/home/derekt/local/pymol/modules/pymol2:/home/derekt/local/pymol/modules/pymol/pymol_path:/home/derekt/local/pymol/modules/pymol/pymol_path/data/pymol
 fi
 
 # make sure the regular bin is available
@@ -51,47 +57,48 @@ export PATH="$HOME/bin:$PATH"
 # }
 # regenpath
 
-collectbin(){
-    for dir in $(find $HOME/dev -type d -regex ".*\/bin" )
-    do
-        for file in $(ls $dir) ; do
-            if [[  -f $HOME/bin/$file || -L $HOME/bin/$file ]] ; then
-                # there is already file or link in the desired bin directory :(
-                if [[ "$1" == "-v" || "$1" == "--verbose" ]] ; then
-                    echo "Skipping $dir/$file ... already exists in ~/bin"
-                fi
-            else
-                echo "ln -s $dir/$file $HOME/bin/$file"
-                ln -s $dir/$file $HOME/bin/$file
-            fi
-        done
-    done
-}
+#collectbin(){
+    #for dir in $(find $HOME/dev -type d -regex ".*\/bin" )
+    #do
+        #for file in $(ls $dir) ; do
+            #if [[  -f $HOME/bin/$file || -L $HOME/bin/$file ]] ; then
+                ## there is already file or link in the desired bin directory :(
+                #if [[ "$1" == "-v" || "$1" == "--verbose" ]] ; then
+                    #echo "Skipping $dir/$file ... already exists in ~/bin"
+                #fi
+            #else
+                #echo "ln -s $dir/$file $HOME/bin/$file"
+                #ln -s $dir/$file $HOME/bin/$file
+            #fi
+        #done
+    #done
+#}
 
-regenpathpy(){
-    PYTHONPATH=
+#regenpathpy(){
+    #PYTHONPATH=
 
-    # all the directories to search
-    unset SEARCH_PATH
-    if [[ $COMP_TYPE == "remote" ]] ; then
-        SEARCH_PATH=$HOME/local
-    fi
+    ## all the directories to search
+    #unset SEARCH_PATH
+    #if [[ $COMP_TYPE == "remote" ]] ; then
+        #SEARCH_PATH=$HOME/local
+    #fi
 
-    for dir in $(find $HOME/bin $HOME/dev $SEARCH_PATH -type d  -regex ".*\/py\(\w\|-\w\|\w*\/src\|-\w*\/src\)*")
-    do
-        if [[ $PYTHONPATH != *${dir}* ]] ; then
-            # only insert the directory if it is unique
-            # the order is irrelevant
-            if [[ "x$PYTHONPATH" == "x" ]] ; then
-                export PYTHONPATH=${dir}
-            else
-                export PYTHONPATH="$PYTHONPATH:${dir}"
-            fi
-        fi
-    done
-    # export PYTHONPATH=/opt/pymol/modules:$PYTHONPATH
-}
-regenpathpy
+    #for dir in $(find $HOME/bin $HOME/dev $SEARCH_PATH -type d  -regex ".*\/py\(\w\|-\w\|\w*\/src\|-\w*\/src\)*")
+    #do
+        #if [[ $PYTHONPATH != *${dir}* ]] ; then
+            ## only insert the directory if it is unique
+            ## the order is irrelevant
+            #if [[ "x$PYTHONPATH" == "x" ]] ; then
+                #export PYTHONPATH=${dir}
+            #else
+                #export PYTHONPATH="$PYTHONPATH:${dir}"
+            #fi
+        #fi
+    #done
+    ## export PYTHONPATH=/opt/pymol/modules:$PYTHONPATH
+#}
+#regenpathpy
+
 ##############################################################
 # removing CDPATH because autojump looks more promising
 # CDPATH=.:~:~/dev:~/bin
