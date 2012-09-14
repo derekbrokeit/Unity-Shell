@@ -112,14 +112,11 @@ if [[ ! -f $chshfile ]] ; then
     done
 
     ## setup bundles
-    if [[ -L $HOME/.rcbundles ]] ; then
-        rm $HOME/.rcbundles
-    fi
-    ln -s $dir/bundle $HOME/.rcbundles
 
     collectbin(){
         mkdir -p $HOME/bin
-        for dir in $(find $abs_path/bundle -type d -regex ".*\/bin" )
+        #for dir in $(find $abs_path/bundle -type d -regex ".*\/bin" )
+        for dir in $(find $bundles -type d -regex ".*\/bin" )
         do
             for file in $(ls $dir) ; do
                 if [[  -f $HOME/bin/$file || -L $HOME/bin/$file ]] ; then
@@ -136,19 +133,19 @@ if [[ ! -f $chshfile ]] ; then
         echo "## -- executables in non-standard directories"
         OIFS="$IFS"
         IFS=$'\n'
-        for file in $(find $abs_path/bundle -executable) ; do
+        for file in $(find $bundles -executable) ; do
             if [[ -d "$file" ]] ; then
                 continue
             elif [[ ! -L $HOME/bin/$(basename $file) ]] ; then
                 while [[ 1 ]] ; do
-                    read -p "ln -s $file ~/bin/$(basename $file) ?(y/n) " yn
+                    read -p "ln -s $file ~/bin/$(basename $file) ?(y/N) " yn
                     case $yn in
                         [yY] )
                             echo "ln -s $file $HOME/bin/$(basename $file)"
                             ln -s $file $HOME/bin/$(basename $file)
                             break
                             ;;
-                        [nN] )
+                        * )
                             break
                             ;;
                     esac
@@ -160,8 +157,14 @@ if [[ ! -f $chshfile ]] ; then
 
     }
     echo "## -- collecing executables"
+    if [[ -L $HOME/.rcbundles ]] ; then
+        rm $HOME/.rcbundles
+    fi
+    bundles=$HOME/.rcbundles
+    echo "ln -s $abs_path/bundle $bundles"
+    ln -s $abs_path/bundle $bundles
+    bundles=$bundles/
     collectbin
-
 
     ## return to the original directory
     popd > /dev/null
