@@ -1,0 +1,17 @@
+#!/bin/bash
+# initiate internet sharing
+
+
+isRunning=$(ps ax | grep -v grep | grep InternetSharing)
+if [[ "x$isRunning" == "x" ]] ; then
+   sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.InternetSharing.plist  \
+      && growlnotify "Internet Sharing (Enabled)" -m "Enabled internet sharing" \
+         --image $MD_SVN/computer-stuff/icons/internet-explorer-icon.png  \
+      && echo "Internet Sharing: Enabled"
+else
+   sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.InternetSharing.plist  \
+      && growlnotify "Internet Sharing (Disabled)" -m "Disable internet sharing" \
+         --image $MD_SVN/computer-stuff/icons/internet-explorer-icon.png  \
+      && echo "Internet Sharing: Disabled"
+fi
+

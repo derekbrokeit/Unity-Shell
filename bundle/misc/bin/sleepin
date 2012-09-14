@@ -1,0 +1,62 @@
+#!/bin/bash
+
+if [[ "$1" == "-b" ]] && [[ "x$2" != "x" ]]  && [[ "x$3" != "x" ]] ; then
+   breaker=$2
+   bunit=$3
+   shift 3
+   isbreaker=0
+else
+   isbreaker=1
+   bunit="s"
+fi
+
+if [ $(expr $# % 2 ) -ne 0 ] || [ $# -le 0 ] ; then
+   echo "sleepin: takes input to calculate how long to sleep"
+   echo "example: sleepin 5 h 30 m # sleeps for 5 hours and 30 minutes"
+   echo "  units: s (seconds), m (minutes), h (hours), d (days)"
+   exit 1
+fi
+
+while [ $# -gt 0 ] ; do
+
+   numb=$1
+   unit=$2
+   
+   case $unit in
+      s)
+         numb=$numb 
+         ;;
+      m)
+         numb=$(expr $numb \* 60)
+         ;;
+      h)
+         numb=$(expr $numb \* 60 \* 60)
+         ;;
+      d)
+         numb=$(expr $numb \* 60 \* 60 \* 24)
+         ;;
+      *)
+         echo "*** sleepin: error reading in format \"$numb $unit\""
+         sleepin
+         exit $?
+         ;;
+   esac
+   
+   shift 2
+done
+# breaks up the segments into 60 seconds
+if [[ $isbreaker -eq 1 ]] ; then
+   breaker=$numb
+fi
+
+runs=$(expr $numb / $breaker)
+remain=$(expr $numb % $breaker)
+for ((i=1; i<=$runs; i++)); do
+   sleep $breaker
+   echo "Sleepin:   $i $bunit / $runs" 
+done
+if [[ $remain -gt 0 ]] ; then
+   sleep $remain
+   echo "Sleepin: + $remain s"
+fi
+

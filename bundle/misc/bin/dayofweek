@@ -1,0 +1,29 @@
+#!/bin/bash
+d=$(date +"%u")
+case $d in 
+   1)
+      echo "月"
+      ;;
+   2)
+      echo "火"
+      ;;
+   3)
+      echo "水"
+      ;;
+   4)
+      echo "木"
+      ;;
+   5)
+      echo "金"
+      ;;
+   6)
+      echo "土"
+      ;;
+   7)
+      echo "日"
+      ;;
+   *)
+      echo "*?*"
+      ;;
+esac
+

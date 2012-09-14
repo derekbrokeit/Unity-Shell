@@ -1,0 +1,20 @@
+#!/bin/bash
+
+source $SVN_BASH/profile
+PUB_HTML=$MD_SVN/public_html
+
+if [[ ${HOSTNAME} == momo* ]] ; then
+  echo -ne "  publishing ..."
+  scp -r $PUB_HTML/*  $IP_CELLO3:~/public_html/
+else
+  # first, open tunnel
+  port=6767
+  echo -ne "  establishing tunnel ..."
+  ssh -f2 -L $port:$IP_CELLO3:22 $CELLO_SITE 'sleep 60' > /dev/null  2> /dev/null
+
+  # now establish connection to final destination
+  echo -e "\r  publishing ...             "
+  scp -P $port -r $PUB_HTML/* localhost:"~/public_html/"
+fi
+
+ 

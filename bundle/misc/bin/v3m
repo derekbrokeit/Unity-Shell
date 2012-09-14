@@ -1,0 +1,8 @@
+#!/bin/sh
+
+tmp=$(mktemp -t $(basename $0).XXX)
+
+echo "W3m $@" > $tmp
+
+tmvim -S $tmp
+rm $tmp

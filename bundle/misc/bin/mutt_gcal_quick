@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+while [ true ] ; do
+  echo -n "gcal event: "
+  read  event
+
+  if [[ "x$event" != "x" ]] ; then
+    echo "${BLUE_BRIGHT}gcalcli quick $event${NC}"
+    gcalcli quick $event
+    break
+  else
+    ! echo -e "*** nothing given (ex. '5pm dinner')" 1>&2
+  fi
+done
+tmux select-pane -t 7.0

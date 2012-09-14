@@ -1,0 +1,31 @@
+#!/bin/sh
+echo "command: $SSH_ORIGINAL_COMMAND"
+case "$SSH_ORIGINAL_COMMAND" in
+   *\&*)
+      echo "Rejected 1"
+      ;;
+   *\(*)
+      echo "Rejected 2"
+      ;;
+   *\{*)
+      echo "Rejected 3"
+      ;;
+   *\;*)
+      echo "Rejected 4"
+      ;;
+   *\<*)
+      echo "Rejected 5"
+      ;;
+   *\`*)
+      echo "Rejected 6"
+      ;;
+   *\|*)
+      echo "Rejected 7"
+      ;;
+   rsync\ --server*)
+      $SSH_ORIGINAL_COMMAND
+      ;;
+   *)
+      echo "Rejected 8"
+      ;;
+esac 

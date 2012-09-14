@@ -1,0 +1,55 @@
+#!/usr/bin/env python
+
+import matplotlib as mpl
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
+import numpy as np
+
+from os.path import expanduser
+import sys
+
+def load_image(fname):
+    fname = expanduser(fname)
+    # load image
+    img = mpimg.imread(fname)
+
+    return img
+
+def plot_img(data):
+    fig = plt.figure(frameon=False)
+    ax = plt.Axes(fig, [0., 0., 1., 1.])
+    ax.set_axis_off()
+    fig.add_axes(ax)
+
+    ax.imshow(data, aspect='normal')
+    plt.show()
+
+def test_save(fname=None):
+    if not fname:
+        fname = "/tmp/test.png"
+
+    x = np.arange(100)
+    y = x**2
+
+    plt.plot(x,y)
+    plt.savefig(fname)
+
+    plt.close()
+    return fname
+
+def print_usage(err=1):
+    print "USAGE: imv [filename]"
+    sys.exit(err)
+
+if __name__ == "__main__":
+
+    try:
+        img_file = sys.argv[1]
+        if img_file == "--test":
+            img_file = test_save()
+            print "*** Using test value"
+    except IndexError:
+        print_usage()
+
+    img = load_image(img_file)
+    plot_img(img)

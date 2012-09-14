@@ -1,0 +1,29 @@
+#!/bin/bash
+
+host=$(hostname -s)
+dir=/Users/derekt/Dropbox/serverLogs
+logFile=$dir/ip.$host
+tempFile=$dir/.temp.ip.$host
+
+/usr/bin/curl -s icanhazip.com >> $logFile
+cat $logFile | uniq > $tempFile
+
+mv $tempFile $logFile
+
+# new log file for tssh
+if [[ $host != momo* ]] ; then
+  logFile=$dir/serverconn
+
+  # get the ip address
+  addr=$(curl -s icanhazip.com)
+  sed "/^${host}|/d" $logFile > $tempFile
+  # cat $tempFile
+  # echo "------"
+
+  # # rewrite the server file
+  echo "$host|$addr|$USER|" >> $tempFile
+  mv $tempFile $logFile
+
+  # cat $logFile
+fi
+

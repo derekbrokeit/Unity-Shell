@@ -1,0 +1,27 @@
+#!/bin/sh
+# best results if used with nohup
+#
+# example:
+#   $ sudo nohup tempwifi 30m & # run a temporary wifi server for 30 minutes
+#
+
+logFile="$LOGS_DIR/tempwifi" 
+#touch $logFile 
+
+#{
+   echo "tempwifi: $(date)"
+   echo "----------------------------------"
+   echo "  - time: ${@}" 
+   if [[ "x$@" != "x" ]] ; then
+      
+     # time { # time the internet sharing process
+         internetSharing #turn it on
+         sleepin -b 60 m $@
+         internetSharing #turn it off
+     # }
+      
+   else
+      echo "*** Please provide the time to keep wifi open (ex. 5 s = 5 seconds,2 h = 2 hours)"
+   fi
+   echo ""
+#} >> $logFile

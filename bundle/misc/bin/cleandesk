@@ -1,0 +1,49 @@
+#!/bin/bash
+
+function labeled(){
+  mdfind -onlyin . -literal 'kMDItemFSLabel > 0'
+}
+function unlabeled() {
+  # make temp files
+  tmp=$(mktemp -t $(basename $0).XXX)
+  tmpAll=$(mktemp -t $(basename $0).all.XXX)
+  tmpLab=$(mktemp -t $(basename $0).lab.XXX)
+  tmpUlab=$(mktemp -t $(basename $0).ulab.XXX)
+
+  # grab all directories
+  ls $HOME/Desktop > $tmpAll
+  labeled  > $tmpLab
+
+  sort $tmpAll > $tmp
+  cat $tmp > $tmpAll
+  sort $tmpLab > $tmp
+  cat $tmp > $tmpLab
+
+  # get all files that are unlabeled
+  comm -23 $tmpAll $tmpLab > $tmpUlab
+  echo $tmpUlab
+
+  # clean up
+  rm $tmp
+  rm $tmpAll
+  rm $tmpLab
+}
+function monthlyFolder() {
+  date "+%Y年%m月"
+}
+
+# get initial variables
+uFiles=$(unlabeled)
+folder="${HOME}/Documents/cleaner/$(monthlyFolder)"
+
+# make the folder quietly
+mkdir -p $folder 
+
+while read line; do
+  mv "$line" "$folder"
+  # echo mv "$line" "$folder"
+done < $uFiles
+
+rm $uFiles
+
+open $folder

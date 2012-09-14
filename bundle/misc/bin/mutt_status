@@ -1,0 +1,31 @@
+#!/bin/sh
+# Demonstration of format string pipes. Sets the xterm title to the 2nd argument,
+# and returns the first  unchanged.
+#
+# this sets the title
+
+data=$2
+mailCount=$(echo $2 | awk '{print $1}')
+newCount=$(echo $2 | awk '{print $2}')
+unreadCount=$(echo $2 | awk '{print $3}')
+
+title="m:$(echo $mailCount | awk '{printf "%3d",$1}')・n:$(echo $newCount | awk '{printf "%3d",$1}')"
+if [[ $newCount -gt 0 ]] ; then
+   alert='!'
+else
+   alert=' '
+fi
+# set xterm title
+TEMP_TERM=$TERM
+export TERM=xterm-256color
+printf "\033]0;$(hostname -s): mutt > ${title}・n:$(echo $newCount | awk '{printf "%3d",$1}')\007" > /dev/tty
+export TERM=$TEMP_TERM
+
+#tmux rename-window -t $winNum "mutt:{$title}$alert"
+win_num=$(cat $HOME/.mutt/tmux_win 2> /dev/null)
+if [[ "x$win_num" != "x" ]] ; then
+    tmux rename-window -t $win_num "mutt:${title}$alert" 2> /dev/null
+fi
+
+#echo $1
+# end of script

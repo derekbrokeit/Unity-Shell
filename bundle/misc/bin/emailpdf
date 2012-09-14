@@ -1,0 +1,69 @@
+#!/bin/bash
+
+if [[ $# -lt 1 ]] ; then
+  echo "usage: $0 something.pdf"
+  exit 1
+else
+  pdf=$1
+  html=email
+  xml=output.txt
+fi
+
+### personal info
+pass=$(cat $HOME/.mutt/.imap_smtp | sed "1d" | cut -f 2 -d\") ; pass=${pass%\"}
+me="derekathomas@gmail.com"
+receiver="readlater.pmozop1ed79@instapaper.com"
+#receiver=$me
+###
+
+pushd . > /dev/null
+
+tmp=$(mktemp -t $(basename $0).XXXX)
+rm $tmp
+dir=$tmp
+
+mkdir -p $dir
+cp "$pdf" $dir
+cd $dir
+
+success(){
+  echo -e "${GREEN}  - Success\!${NC}"
+}
+failure(){
+  echo -e "${ERROR_RED}  - Failure\!${NC}"
+}
+#convert the pdf file to an html file
+echo -e "${CYAN}< pdf 2 html >${NC}"
+{
+  pdftohtml -c -s -noframes -nodrm "$pdf" $html && success
+} || {
+  failure
+  exit 1
+}
+html=${html}.html
+open $html
+#html=${html}-html.html
+
+#prepare the html file for email
+echo -e "${CYAN}< html 2 email >${NC}"
+{
+  html2email $html $xml && success
+} || {
+  failure
+  exit 1
+}
+cp $xml  $xml.html
+
+#prepare the html file for email
+title=$(ssed -n 's/.*<title>\(.*\)<\/title>.*/\1/ip;T;q' $html)
+echo -e "${MAGENTA}< sending mail >${NC}"
+{
+  echo "  - Title: $title" 
+  sendemail -u "$title" -f $me -t $receiver -s smtp.gmail.com:587 -o tls=yes -xu $me -xp $pass -o message-format=raw -o message-file="$xml" &&  success
+} || {
+  failure
+  exit 1
+}
+
+popd > /dev/null
+rm -rf  $dir

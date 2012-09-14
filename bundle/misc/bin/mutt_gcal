@@ -1,0 +1,47 @@
+#!/bin/sh
+
+currentPane=$(tmux list-panes | grep "(active)" | awk '{print $1}' | cut -f 1 -d:)
+sendPane=$(($currentPane + 1))
+orientation=h
+width=95
+win_num=$(cat $HOME/.mutt/tmux_win 2> /dev/null)
+
+function open_pane(){
+if [[ "x$(tmux list-panes | awk '{print $1}' | cut -f 1 -d: | grep $sendPane)" == "x" ]] ; then
+  # could not find the sendpane, so make it
+  tmux split-window -${orientation} -l $width -d
+fi
+}
+cmd=$1
+case $cmd in
+  quick )
+    open_pane
+    tmux send-keys -t $win_num.${sendPane} "escape" "dd" "i" "mutt_gcal_quick" "enter"
+    tmux select-pane -t $win_num.1
+    ;;
+  close)
+    for pane in $(tmux list-panes | grep -v "(active)" | awk '{print $1}' | cut -f 1 -d:) ; do
+      if [[ $pane != $currentPane ]] ; then
+        tmux kill-pane -t $pane
+      fi
+    done
+    ;;
+  copy)
+    tmux copy-mode -t $win_num.$sendPane
+    tmux select-pane -t $win_num.$sendPane
+    ;;
+  *)
+    open_pane
+    tmux send-keys -t $win_num.${sendPane} "escape" "dd" "i" "clear ; gcalcli" " " $@ "Enter"
+    ;;
+esac
+
+
+#     September 2012
+#  Su Mo Tu We Th Fr Sa
+#                     1
+#   2  3  4  5  6  7  8
+#   9<10>11 12 13 14 15
+#  16 17 18 19 20 21 22
+#  23 24 25 26 27 28 29
+#  30                  
