@@ -133,19 +133,28 @@ if [[ ! -f $chshfile ]] ; then
         echo "## -- executables in non-standard directories"
         OIFS="$IFS"
         IFS=$'\n'
-        for file in $(find $bundles -executable) ; do
-            if [[ -d "$file" ]] ; then
-                continue
-            elif [[ ! -L $HOME/bin/$(basename $file) ]] ; then
+ignore=$abs_path/.ignore_bundles
+touch $ignore
+tmp=$(mktemp -t $(basename $0).XXX)
+find $bundles -executable > $tmp
+        for file in $(cat $tmp) ; do
+link=$HOME/bin/$(basename $file)
+            if [[ "x$(grep $file $ignore)" == "x" && ! -d $file && ! -L $link ]] ; then
+# criteria:
+#        1. Not in the ignore list
+#        2. not a directory
+#        3. no link already exists
                 while [[ 1 ]] ; do
-                    read -p "ln -s $file ~/bin/$(basename $file) ?(y/N) " yn
+printf "ln -s $file ~/bin/$(basename $file) ? (y/N) "
+                    read  yn
                     case $yn in
                         [yY] )
-                            echo "ln -s $file $HOME/bin/$(basename $file)"
-                            ln -s $file $HOME/bin/$(basename $file)
+                            echo "ln -s $file $link"
+                            ln -s $file $link
                             break
                             ;;
                         * )
+echo $file >> $ignore
                             break
                             ;;
                     esac
@@ -154,19 +163,37 @@ if [[ ! -f $chshfile ]] ; then
             #read line
         done
         IFS="$OIFS"
-
+rm $tmp &> /dev/null
+echo "## -- ignoring bundles ($ignore)"
+cat $ignore
     }
     echo "## -- collecing executables"
+if [[ -n $DYLD_INSERT_LIBRARIES ]] ; then
+    temp=$DYLD_INSERT_LIBRARIES
+    unset DYLD_INSERT_LIBRARIES
+fi
     if [[ -L $HOME/.rcbundles ]] ; then
         rm $HOME/.rcbundles
     fi
+if [[ -n $temp ]] ; then
+    export DYLD_INSERT_LIBRARIES=$temp
+fi
     bundles=$HOME/.rcbundles
     echo "ln -s $abs_path/bundle $bundles"
     ln -s $abs_path/bundle $bundles
     bundles=$bundles/
     collectbin
 
+    echo "## -- setup up vim"
+    if [[ -L $HOME/.vim ]] ; then
+        rm $HOME/.vim
+    fi
+    ln -s $abs_path/vim $HOME/.vim
+    cd $HOME/.vim
+    ./setup.sh
+
     ## return to the original directory
     popd > /dev/null
 
     echo "## -- you may need to restart your terminal for changes to take effect"
+
