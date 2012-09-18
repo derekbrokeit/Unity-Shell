@@ -7,6 +7,10 @@ cd $abs_path
 if [[ "$1" == "clean" ]] ; then
     pushd . > /dev/null
     cd bundle/stderred
+    if [[ -n $DYLD_INSERT_LIBRARIES ]] ; then
+        temp=$DYLD_INSERT_LIBRARIES
+        unset $DYLD_INSERT_LIBRARIES
+    fi
     make clean
     popd > /dev/null
 
@@ -18,7 +22,14 @@ if [[ "$1" == "clean" ]] ; then
 else
     pushd . > /dev/null
     cd bundle/stderred
+    if [[ -n $DYLD_INSERT_LIBRARIES ]] ; then
+        temp=$DYLD_INSERT_LIBRARIES
+        unset DYLD_INSERT_LIBRARIES
+    fi
     make all
+    if [[ -n $temp ]] ; then
+        export DYLD_INSERT_LIBRARIES=$temp
+    fi
     popd > /dev/null
 
     pushd . > /dev/null
