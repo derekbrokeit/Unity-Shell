@@ -69,131 +69,128 @@ if [[ ! -f $chshfile ]] ; then
         if [[ $found -eq 1 ]] ; then
             # attempt to change the shell
             echo "- changing shell to '$shell'"
-            { chsh -s /bin/$shell && echo '! Success' ; touch $chshfile ; } || echo '*** Error changing shells '
-                break
+            chsh -s /bin/$shell && echo '! Success'
+            if [[ $? -gt 0 ]] ; then
+                echo '*** Error changing shells '
             else
-                #no startup scripts, so we can't
-                echo '*** Startup scripts for that shell were not found'
+                touch $chshfile
+                break
             fi
-        done
-    else
-        # the choice has been made, but make sure the links are in place
-        echo "## -- setting up shell -- ##"
-        shell=${SHELL##*/}
-        for file in $(find . -maxdepth 1 ) ; do
-            if [[ $file == "./$shell"* ]] ; then
-                file=${file#./}
-                rm $HOME/.$file &> /dev/null
-                ln -s $PWD/$file $HOME/.$file
-                echo "ln -s $file \$HOME/.$file"
-            fi
-        done
-    fi
-
-
-    ## setup symbolic links
-    i=0
-    altdir="misc"
-    for file in $(find $altdir/ -maxdepth 1 | sed "s/$altdir\///g");do
-        # if [[ ! -L "$HOME/.$file" ]] ; then
-
-        if [[ $i -eq 0 ]] ; then
-            echo "## -- setting up symbolic links -- ##"
-            i=1
+        else
+            #no startup scripts, so we can't
+            echo '*** Startup scripts for that shell were not found'
         fi
-
-        rm $HOME/.$file &> /dev/null
-        ln -s ${PWD}/${altdir}/${file} ${HOME}/.${file}
-        echo "ln -s ${altdir}/$file \$HOME/.$file"
-
-        #else
-        #rm $HOME/.$file
-        # fi
     done
+else
+    # the choice has been made, but make sure the links are in place
+    echo "## -- setting up shell -- ##"
+    shell=${SHELL##*/}
+    for file in $(find . -maxdepth 1 ) ; do
+        if [[ $file == "./$shell"* ]] ; then
+            file=${file#./}
+            rm $HOME/.$file &> /dev/null
+            ln -s $PWD/$file $HOME/.$file
+            echo "ln -s $file \$HOME/.$file"
+        fi
+    done
+fi
 
-    ## setup bundles
 
-    collectbin(){
-        mkdir -p $HOME/bin
-        #for dir in $(find $abs_path/bundle -type d -regex ".*\/bin" )
-        for dir in $(find $bundles -type d -regex ".*\/bin" )
-        do
-            for file in $(ls $dir) ; do
-                if [[  -f $HOME/bin/$file || -L $HOME/bin/$file ]] ; then
-                    # there is already file or link in the desired bin directory :(
-                    if [[ "$1" == "-v" || "$1" == "--verbose" ]] ; then
-                        echo "Skipping $dir/$file ... already exists in ~/bin"
-                    fi
-                else
-                    echo "ln -s $dir/$file $HOME/bin/$file"
-                    ln -s $dir/$file $HOME/bin/$file
+## setup symbolic links
+i=0
+altdir="misc"
+for file in $(find $altdir/ -maxdepth 1 | sed "s/$altdir\///g");do
+    # if [[ ! -L "$HOME/.$file" ]] ; then
+
+    if [[ $i -eq 0 ]] ; then
+        echo "## -- setting up symbolic links -- ##"
+        i=1
+    fi
+
+    rm $HOME/.$file &> /dev/null
+    ln -s ${PWD}/${altdir}/${file} ${HOME}/.${file}
+    echo "ln -s ${altdir}/$file \$HOME/.$file"
+
+    #else
+    #rm $HOME/.$file
+    # fi
+done
+
+## setup bundles
+
+collectbin(){
+    mkdir -p $HOME/bin
+    #for dir in $(find $abs_path/bundle -type d -regex ".*\/bin" )
+    for dir in $(find $bundles -type d -regex ".*\/bin" )
+    do
+        for file in $(ls $dir) ; do
+            if [[  -f $HOME/bin/$file || -L $HOME/bin/$file ]] ; then
+                # there is already file or link in the desired bin directory :(
+                if [[ "$1" == "-v" || "$1" == "--verbose" ]] ; then
+                    echo "Skipping $dir/$file ... already exists in ~/bin"
                 fi
-            done
-        done
-        echo "## -- executables in non-standard directories"
-        OIFS="$IFS"
-        IFS=$'\n'
-ignore=$abs_path/.ignore_bundles
-touch $ignore
-tmp=$(mktemp -t $(basename $0).XXX)
-find $bundles -executable > $tmp
-        for file in $(cat $tmp) ; do
-link=$HOME/bin/$(basename $file)
-            if [[ "x$(grep $file $ignore)" == "x" && ! -d $file && ! -L $link ]] ; then
-# criteria:
-#        1. Not in the ignore list
-#        2. not a directory
-#        3. no link already exists
-                while [[ 1 ]] ; do
-printf "ln -s $file ~/bin/$(basename $file) ? (y/N) "
-                    read  yn
-                    case $yn in
-                        [yY] )
-                            echo "ln -s $file $link"
-                            ln -s $file $link
-                            break
-                            ;;
-                        * )
-echo $file >> $ignore
-                            break
-                            ;;
-                    esac
-                done
+            else
+                echo "ln -s $dir/$file $HOME/bin/$file"
+                ln -s $dir/$file $HOME/bin/$file
             fi
-            #read line
         done
-        IFS="$OIFS"
-rm $tmp &> /dev/null
-echo "## -- ignoring bundles ($ignore)"
-cat $ignore
-    }
-    echo "## -- collecing executables"
-if [[ -n $DYLD_INSERT_LIBRARIES ]] ; then
-    temp=$DYLD_INSERT_LIBRARIES
-    unset DYLD_INSERT_LIBRARIES
-fi
-    if [[ -L $HOME/.rcbundles ]] ; then
-        rm $HOME/.rcbundles
-    fi
-if [[ -n $temp ]] ; then
-    export DYLD_INSERT_LIBRARIES=$temp
-fi
-    bundles=$HOME/.rcbundles
-    echo "ln -s $abs_path/bundle $bundles"
+    done
+    echo "## -- executables in non-standard directories"
+    OIFS="$IFS"
+    IFS=$'\n'
+    ignore=$abs_path/.ignore_bundles
+    touch $ignore
+    tmp=$(mktemp -t $(basename $0).XXX)
+    find $bundles -executable > $tmp
+    for file in $(cat $tmp) ; do
+        link=$HOME/bin/$(basename $file)
+        if [[ "x$(grep $file $ignore)" == "x" && ! -d $file && ! -L $link ]] ; then
+            # criteria:
+            #        1. Not in the ignore list
+            #        2. not a directory
+            #        3. no link already exists
+            while [[ 1 ]] ; do
+                printf "ln -s $file ~/bin/$(basename $file) ? (y/N) "
+                read  yn
+                case $yn in
+                    [yY] )
+                        echo "ln -s $file $link"
+                        ln -s $file $link
+                        break
+                        ;;
+                    * )
+                        echo $file >> $ignore
+                        break
+                        ;;
+                esac
+            done
+        fi
+        #read line
+    done
+    IFS="$OIFS"
+    rm $tmp &> /dev/null
+    echo "## -- ignoring bundles ($ignore)"
+    cat $ignore
+}
+echo "## -- collecing executables"
+bundles=$HOME/.rcbundles
+echo "ln -s $abs_path/bundle $bundles"
+if [[ ! -L $bundles ]] ; then
     ln -s $abs_path/bundle $bundles
-    bundles=$bundles/
-    collectbin
+fi
+bundles=$bundles/
+collectbin
 
-    echo "## -- setup up vim"
-    if [[ -L $HOME/.vim ]] ; then
-        rm $HOME/.vim
-    fi
-    ln -s $abs_path/vim $HOME/.vim
-    cd $HOME/.vim
-    ./setup.sh
+echo "## -- setup up vim"
+if [[ -L $HOME/.vim ]] ; then
+    rm $HOME/.vim
+fi
+ln -s $abs_path/vim $HOME/.vim
+cd $HOME/.vim
+./setup.sh
 
-    ## return to the original directory
-    popd > /dev/null
+## return to the original directory
+popd > /dev/null
 
-    echo "## -- you may need to restart your terminal for changes to take effect"
+echo "## -- you may need to restart your terminal for changes to take effect"
 
