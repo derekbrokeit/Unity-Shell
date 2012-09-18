@@ -34,3 +34,6 @@
 [submodule "bundle/matplotlib"]
 	path = bundle/matplotlib
 	url = git://github.com/matplotlib/matplotlib.git
+[submodule "vim"]
+	path = vim
+	url = git@github.com:scicalculator/dotvim.git
