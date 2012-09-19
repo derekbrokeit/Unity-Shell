@@ -50,5 +50,17 @@ else
         python setup.py install
     fi
     popd > /dev/null
+
+    pushd . > /dev/null
+    cd bundle/ag
+    if [[ "$COMP_TYPE" == "local" ]] ; then
+        ./build.sh
+        echo "sudo make install"
+        sudo make install
+    else
+        ./build.sh --prefix=$HOME/local
+        make install
+    fi
+    popd > /dev/null
 fi
 popd > /dev/null

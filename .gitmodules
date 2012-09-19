@@ -37,3 +37,6 @@
 [submodule "vim"]
 	path = vim
 	url = git@github.com:scicalculator/dotvim.git
+[submodule "bundle/ag"]
+	path = bundle/ag
+	url = git://github.com/ggreer/the_silver_searcher.git
