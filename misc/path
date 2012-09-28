@@ -14,8 +14,8 @@ if [[ $COMP_TYPE == "local" ]] ; then
     #export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HOME}/dev/py-lammps/lib/python
     # add MacPorts python modules
     # export PATH=$PATH:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin
-    export PATH="/Users/derekt/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin:"
-    export PYTHONPATH="/Users/derekt/dev/github_third-party/src/package/doc/pyplots:/Users/derekt/dev/github_third-party/src/package/examples/pylab_examples:/Users/derekt/dev/github_third-party/src/package/lib/pytz:"
+    export PATH=/Users/derekt/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin
+    export PYTHONPATH=$HOME/bin/modules
 else 
 
     export LD_LIBRARY_PATH="${HOME}/local/lib/python2.7/site-packages:${HOME}/local/lib:${HOME}/local/lib64:${LD_LIBRARY_PATH}"
