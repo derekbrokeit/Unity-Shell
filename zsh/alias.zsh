@@ -80,6 +80,10 @@ alias pydserve="pydoc -p 9999 "
 # pizza py
 alias pizza="python ~/dev/py-pizza/src/pizza.py"
 
+# # pymol
+# alias pymol="pymol -M"
+# alias pym="pymol -M"
+
 # remap mutt to tmuxified mutt
 # currently causing strange behavior, fixing
 # alias mutt="tmux neww -n mutt -t 7 \"$SHELL -c 'source $HOME/.$(basename $SHELL)rc ;
