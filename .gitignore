@@ -1,7 +1,6 @@
 misc/irssi/config*
 .submoduleinit
 misc/w3m/cookie
-.ignore_bundles
 misc/matplotlib/fontList.cache
 misc/matplotlib/sample_data
 misc/maid/maid.log

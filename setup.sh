@@ -95,11 +95,14 @@ else
     done
 fi
 
-
+escape_dir(){
+    # takes a dir name and escapes it
+    echo $1 | sed -e 's/\//\\\//g' -e 's/\./\\./g'
+}
 ## setup symbolic links
 i=0
 altdir="misc"
-for file in $(find $altdir/ -maxdepth 1 | sed "s/$altdir\///g");do
+for file in $(find $altdir/ -maxdepth 1 | sed -e "s/$altdir\///g");do
     # if [[ ! -L "$HOME/.$file" ]] ; then
 
     if [[ $i -eq 0 ]] ; then
@@ -138,13 +141,17 @@ collectbin(){
     echo "## -- executables in non-standard directories"
     OIFS="$IFS"
     IFS=$'\n'
-    ignore=$abs_path/.ignore_bundles
+    ignore=$abs_path/ignore_exec
     touch $ignore
     tmp=$(mktemp -t $(basename $0).XXX)
     find $bundles -executable > $tmp
+    #sed -i "/$(escape_dir $bundles)/d" $tmp
     for file in $(cat $tmp) ; do
+        [[ $file == $bundles ]] && continue
+        #echo $file
+        f_ig=$(echo $file | sed "s/$(escape_dir $bundles)//")
         link=$HOME/bin/$(basename $file)
-        if [[ "x$(grep $file $ignore)" == "x" && ! -d $file && ! -L $link ]] ; then
+        if [[ "x$(grep $f_ig $ignore)" == "x" && ! -d $file && ! -L $link ]] ; then
             # criteria:
             #        1. Not in the ignore list
             #        2. not a directory
@@ -159,7 +166,7 @@ collectbin(){
                         break
                         ;;
                     * )
-                        echo $file >> $ignore
+                        echo $f_ig >> $ignore
                         break
                         ;;
                 esac
