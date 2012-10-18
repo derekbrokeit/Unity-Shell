@@ -15,10 +15,10 @@
 	url = git@github.com:scicalculator/tssh.git
 [submodule "bundle/gcalcli"]
 	path = bundle/gcalcli
-	url = https://github.com/insanum/gcalcli.git
+	url = git://github.com/insanum/gcalcli.git
 [submodule "bundle/stderred"]
 	path = bundle/stderred
-	url = https://github.com/sickill/stderred.git
+	url = git://github.com/sickill/stderred.git
 [submodule "bundle/terminal-notifier"]
 	path = bundle/terminal-notifier
 	url = git://github.com/alloy/terminal-notifier.git
@@ -27,7 +27,7 @@
 	url = git://igcc.git.sourceforge.net/gitroot/igcc/igcc
 [submodule "bundle/xls2csv"]
 	path = bundle/xls2csv
-	url = https://github.com/hempalex/xls2csv.git
+	url = git://github.com/hempalex/xls2csv.git
 [submodule "bundle/tig"]
 	path = bundle/tig
 	url = git://github.com/jonas/tig.git
