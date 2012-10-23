@@ -3,6 +3,8 @@
 [core]
     excludesfile = ~/.cvsignore
     editor       = vim
+[push]
+    default   = simple
 [merge]
     summary   = true
     verbosity = 1
