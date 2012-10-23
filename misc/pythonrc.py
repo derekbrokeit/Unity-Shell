@@ -27,12 +27,9 @@ import math as m
 import numpy as np
 from numpy import array
 import scipy as sp
-import pylab as p
-import matplotlib as mpl
 
-# my linux machines do not have monitors
-import platform
-# if platform.system() == 'Linux':
+# import matplotlib
+import matplotlib as mpl
 try:
     display = os.environ['DISPLAY']
 except KeyError:
@@ -40,6 +37,7 @@ except KeyError:
     mpl.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure, show
+import pylab as p
 
 # welcome message
 print "Welcome!"
