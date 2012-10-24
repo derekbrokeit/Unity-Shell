@@ -31,7 +31,7 @@ if [[ ! -f $HOME/.comptype ]] ; then
                 ;;
         esac
     done
-    echo -e "${COMP_TYPE}" > $HOME/.comptype
+    printf "${COMP_TYPE}" > $HOME/.comptype
 fi
 if [[ $COMP_TYPE == "local" ]] && [[ -d $HOME/Dropbox ]] ; then
     LOGS_DIR=$HOME/Dropbox/serverLogs
@@ -42,7 +42,7 @@ fi
 
 # check shell
 chshfile=$HOME/.chsh
-if [[ ! -f $chshfile ]] ; then
+if [[ -x $(which chsh 2> /dev/null) && ! -f $chshfile ]] ; then
     echo "## -- setting up shell -- ##"
     while [[ 1 ]] ; do
         read -p 'SHELL =? ' shell
@@ -102,7 +102,7 @@ escape_dir(){
 ## setup symbolic links
 i=0
 altdir="misc"
-for file in $(find $altdir/ -maxdepth 1 | sed -e "s/$altdir\///g");do
+for file in $(find $altdir -maxdepth 1 | sed -e "s/$altdir\///g");do
     # if [[ ! -L "$HOME/.$file" ]] ; then
 
     if [[ $i -eq 0 ]] ; then

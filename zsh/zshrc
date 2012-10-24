@@ -22,7 +22,7 @@ SAVEHIST=1000
 
 ### Setup computer type 
 if [[ -f $HOME/.comptype ]] ; then
-  COMP_TYPE=$(sed "1q;d" $HOME/.comptype)
+  export COMP_TYPE=$(sed "1q;d" $HOME/.comptype)
 else
   echo "*** Please run the setup.sh script in the dot file directory"
   echo "    things may not run smoothly until this is done. Thank you."
