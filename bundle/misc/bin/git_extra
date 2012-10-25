@@ -58,7 +58,7 @@ def command_per_remote(cmd_line): #{{{1
         #os.write(1, stdout)
         os.system(esc_cmd)
 
-def evaluate_args(): #{{{1
+def main(): #{{{1
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--pull", help="Run `git pull %s master` for all remote",
@@ -69,6 +69,7 @@ def evaluate_args(): #{{{1
             action="store_true")
     args = parser.parse_args()
 
+    # print branch name
     branch = get_branch()
     if branch in ["master", "HEAD"]:
         color = green
@@ -90,5 +91,5 @@ def evaluate_args(): #{{{1
     
 
 if __name__ == "__main__": #{{{1
-    evaluate_args()
+    main()
     print
