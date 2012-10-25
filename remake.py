@@ -19,7 +19,7 @@ cwd          = os.getcwd()
 bundle = {
         "ag":{
                 "dir":      "bundle/ag",
-                "make" :    ["./build.sh", "make", "make install"],
+                "make" :    ["./build.sh","make clean","./configure --prefix=$HOME/local", "make", "make install"],
                 "clean":    "make clean"
             },
         "stderred":{
@@ -38,6 +38,9 @@ bundle = {
                 "clean":    "make clean"
             }
         }
+
+def cmd_gen(cmd):
+    return [s.replace("$HOME",os.environ["HOME"]) for s in cmd.split()]
 
 def clean(items):
     for name, props in items:
@@ -64,7 +67,7 @@ def make(items):
 
         for cmd in props["make"]:
             print yellow(cmd)
-            c = subprocess.call(cmd.split())
+            c = subprocess.call(cmd_gen(cmd))
             if c != 0:
                 print red("Error encountered (%s: %s)" % (cyan(name), yellow(cmd)))
                 sys.exit()
