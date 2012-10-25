@@ -4,7 +4,7 @@
 COMP_TYPE=$(cat $HOME/.comptype)
 if [[ $COMP_TYPE == "local" ]] ; then
     export PATH=/opt/gpg2/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin
-    export PYTHONPATH=$HOME/bin/modules:$HOME/bin/modules/lib/python2.7/site-packages 
+    export PYTHONPATH=$HOME/bin/modules
 else 
 
     export LD_LIBRARY_PATH="${HOME}/local/lib/python2.7/site-packages:${HOME}/local/lib:${HOME}/local/lib64:${LD_LIBRARY_PATH}"
@@ -25,6 +25,7 @@ else
         export PATH=$PATH:$(cat $HOME/.ld_path.orig)
     fi
 fi
-# make sure the regular bin is available
-export PATH="$HOME/bin:$PATH"
 
+# make sure the regular bin is available
+export PATH="$HOME/bin:$HOME/local/bin:$PATH"
+export PYTHONPATH=$HOME/bin/modules/lib/python2.7/site-packages:$PYTHONPATH
