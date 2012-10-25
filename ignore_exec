@@ -112,3 +112,4 @@ tig/contrib/tig-completion.bash
 tig/contrib/update-release-docs.sh
 tig/test-graph
 tmx/setup.sh
+matplotlib/build/lib.macosx-10.8-intel-2.7/matplotlib/ft2font.so
