@@ -12,6 +12,22 @@ except ImportError:
 import sys
 import os
 
+def shell_quote(s):
+    ''' Takes a string designed for shell-command and escapes it by
+    surounding each word with single-quotes. Also, it attempts to escape
+    single-quotes embedded in the string. '''
+    return " ".join(["'"+p.replace("'", "'\\''")+"'" for p in s.split(" ")])
+
+def test_shell_escape():
+    cmd= shell_quote("echo hello ; fun.sh")
+    print
+    print "cmd:",cmd
+    os.system(cmd)
+    cmd=shell_quote("echo 'hello ; ' ; fun.sh")
+    print
+    print "cmd:",cmd
+    os.system(cmd)
+
 def get_branch(): #{{{1
     p = Popen("git rev-parse --abbrev-ref HEAD", shell=True, stdout=PIPE, stderr=PIPE)
     stdout, stderr = p.communicate()
@@ -33,19 +49,14 @@ def get_remote(): #{{{1
 def command_per_remote(cmd_line): #{{{1
 
     for i, remote in enumerate(get_remote()):
-        try:
-            temp = os.getenv( "DYLD_INSERT_LIBRARIES" )
-            os.unsetenv("DYLD_INSERT_LIBRARIES")
-        except KeyError:
-            temp = None
         cmd = (cmd_line % remote)
+        esc_cmd = shell_quote(cmd) # safely escape each word in the command by surrounding it with single-quotes
         print "%d. %s" % (i, bold(blue(cmd)))
-        p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
-        if temp:
-            os.environ["DYLD_INSERT_LIBRARIES"] = temp
-        stdout, stderr = p.communicate()
-        os.write(2, stderr)
-        os.write(1, stdout)
+        #p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
+        #stdout, stderr = p.communicate()
+        #os.write(2, stderr)
+        #os.write(1, stdout)
+        os.system(esc_cmd)
 
 def evaluate_args(): #{{{1
     import argparse
