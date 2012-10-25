@@ -53,21 +53,22 @@
     # pull and push
     pl = pull
     ps = push
+    pr = ! git_extra --push             # git push to all remotes
 
     # remote
     r = remote -v
 
     # reset
-    unstage  = reset HEAD              # remove files from index (tracking)
-    uncommit = reset --soft HEAD^     # go back before last commit, with files in uncommitted state
-    filelog  = log -u                  # show changes to a file
-    mt       = mergetool                    # fire up the merge tool
+    unstage  = reset HEAD          # remove files from index (tracking)
+    uncommit = reset --soft HEAD^  # go back before last commit, with files in uncommitted state
+    filelog  = log -u              # show changes to a file
+    mt       = mergetool           # fire up the merge tool
 
     # stash
-    ss = stash                        # stash changes
-    sl = stash list                   # list stashes
-    sa = stash apply                  # apply stash (restore changes)
-    sd = stash drop                   # drop stashes (destory changes)
+    ss = stash                     # stash changes
+    sl = stash list                # list stashes
+    sa = stash apply               # apply stash (restore changes)
+    sd = stash drop                # drop stashes (destory changes)
 
     # submodule
     sub       = submodule

@@ -65,13 +65,19 @@ def evaluate_args(): #{{{1
             action="store_true")
     parser.add_argument("-s","--sub_check", help="Run `git remote %s` update for each remote'",
             action="store_true")
+    parser.add_argument("-u","--push", help="Run `git push %s master` for all remote",
+            action="store_true")
     args = parser.parse_args()
 
     if args.pull:
         command_per_remote("git pull %s master")
 
+    if args.push:
+        command_per_remote("git push %s master")
+
     if args.sub_check:
         command_per_remote("git remote update %s")
+    
 
 if __name__ == "__main__": #{{{1
     branch = get_branch()
