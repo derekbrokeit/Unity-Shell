@@ -3,19 +3,8 @@
 # --- PATH SETUP ---
 COMP_TYPE=$(cat $HOME/.comptype)
 if [[ $COMP_TYPE == "local" ]] ; then
-    ## add macports to path
-    #export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-    ## This makes GNU binaries override some apple binaries (ie. ls, grep, etc.)
-    #export PATH="/opt/local/libexec/gnubin:$PATH"
-
-    ## add another bin folder that doesn't seem to get added in zsh (bash had no problem)
-    #export PATH="$PATH:/usr/local/bin"
-
-    #export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HOME}/dev/py-lammps/lib/python
-    # add MacPorts python modules
-    # export PATH=$PATH:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin
-    export PATH=/opt/gpg2/bin:/Users/derekt/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin
-    export PYTHONPATH=$HOME/bin/modules
+    export PATH=/opt/gpg2/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin
+    export PYTHONPATH=$HOME/bin/modules:$HOME/bin/modules/lib/python2.7/site-packages 
 else 
 
     export LD_LIBRARY_PATH="${HOME}/local/lib/python2.7/site-packages:${HOME}/local/lib:${HOME}/local/lib64:${LD_LIBRARY_PATH}"
@@ -25,10 +14,9 @@ else
     export BLAS_LIBS="$HOME/local/lib/libblas.a"
     export LAPACK_LIBS="$HOME/local/lib/liblapack.a"
 
-    export PATH="${HOME}/local/bin:${HOME}/bin:/bin:/opt/cross/bin:/opt/intel/fce/10.1.018/bin:/opt/kde3/bin:/usr/X11R6/bin:/usr/bin:/usr/bin/X11:/usr/games:/usr/lib/mit/bin:/usr/lib/mit/sbin:/usr/lib/qt3/bin:/usr/local/bin:/usr/local/mpich2/bin:"
+    export PATH="${HOME}/local/bin:/bin:/opt/cross/bin:/opt/intel/fce/10.1.018/bin:/opt/kde3/bin:/usr/X11R6/bin:/usr/bin:/usr/bin/X11:/usr/games:/usr/lib/mit/bin:/usr/lib/mit/sbin:/usr/lib/qt3/bin:/usr/local/bin:/usr/local/mpich2/bin:"
 
-    export PYTHONPATH="${HOME}/local/pymol:${HOME}/local/pymol/modules/pymol/pymol_path:${HOME}/local/pymol/modules/pymol/pymol_path/data/pymol:${HOME}/local/pymol/modules/pymol2:"
-#${HOME}/dev/lammps/python:${HOME}/dev/lammps/tools/pymol_asphere:${HOME}/dev/lammps/tools/pymol_asphere/src:${HOME}/dev/lammps/tools/python:${HOME}/dev/py-lammps:${HOME}/dev/pystal:${HOME}/dev/pystal/pystal:${HOME}/dev/pystal/build/lib/pystal:${HOME}/dev/pylam:${HOME}/dev/pylam/pylam:${HOME}/dev/pylam/build/lib/pylam:${HOME}/local/lib/python2.7/site-packages/numpy/distutils/tests/pyrex_ext:${HOME}/local/lib/python2.7/site-packages/IPython/zmq/pylab:${HOME}/local/lib/python2.7/site-packages/IPython/config/profile/python3:${HOME}/local/lib/python2.7/site-packages/IPython/config/profile/pysh:${HOME}/local/lib/python2.7/site-packages/IPython/frontend/html/notebook/static/codemirror/mode/python:${HOME}/local/lib/python2.7/site-packages/IPython/external/pyparsing:${HOME}/local/lib/python2.7/site-packages/pytz:${HOME}/local/lib/python2.7/site-packages/pystal:${HOME}/local/lib/python2.7/site-packages/pylam:${HOME}/local/lib/python2.7/pydoc_data:${HOME}/local/pymol:${HOME}/local/pymol/modules/pymol2:${HOME}/local/pymol/modules/pymol/pymol_path:${HOME}/local/pymol/modules/pymol/pymol_path/data/pymol
+    export PYTHONPATH="${HOME}/local/pymol:${HOME}/local/pymol/modules/pymol/pymol_path:${HOME}/local/pymol/modules/pymol/pymol_path/data/pymol:${HOME}/local/pymol/modules/pymol2:$HOME/bin/modules/lib/python2.7/site-packages"
 
     if [[ -f $HOME/.ld_path.orig ]] ; then
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(cat $HOME/.ld_path.orig)
@@ -40,73 +28,3 @@ fi
 # make sure the regular bin is available
 export PATH="$HOME/bin:$PATH"
 
-# --- regenpath: generate PATH---
-# export PATH_ORIG="$PATH"
-# function regenpath(){
-# if [[ -n $PATH_ORIG ]] ; then
-#   export PATH=$PATH_ORIG
-# fi
-# # all the directories to search
-# unset SEARCH_PATH
-# if [[ $COMP_TYPE == "remote" ]] ; then
-#   SEARCH_PATH=$HOME/local
-# fi
-# for dir in $(find $HOME/bin $HOME/dev $SEARCH_PATH -type d  -regex ".*\/bin" )
-# do
-#   # strip the trailing colon (not actually necessary)
-#   if [[ $PATH != *${dir}* ]] ; then
-#     # only insert the directory if it is unique
-#     # user defined functions take precedence over system functions
-#     export PATH="${dir}:$PATH"
-#   fi
-# done
-# }
-# regenpath
-
-#collectbin(){
-    #for dir in $(find $HOME/dev -type d -regex ".*\/bin" )
-    #do
-        #for file in $(ls $dir) ; do
-            #if [[  -f $HOME/bin/$file || -L $HOME/bin/$file ]] ; then
-                ## there is already file or link in the desired bin directory :(
-                #if [[ "$1" == "-v" || "$1" == "--verbose" ]] ; then
-                    #echo "Skipping $dir/$file ... already exists in ~/bin"
-                #fi
-            #else
-                #echo "ln -s $dir/$file $HOME/bin/$file"
-                #ln -s $dir/$file $HOME/bin/$file
-            #fi
-        #done
-    #done
-#}
-
-#regenpathpy(){
-    #PYTHONPATH=
-
-    ## all the directories to search
-    #unset SEARCH_PATH
-    #if [[ $COMP_TYPE == "remote" ]] ; then
-        #SEARCH_PATH=$HOME/local
-    #fi
-
-    #for dir in $(find $HOME/bin $HOME/dev $SEARCH_PATH -type d  -regex ".*\/py\(\w\|-\w\|\w*\/src\|-\w*\/src\)*")
-    #do
-        #if [[ $PYTHONPATH != *${dir}* ]] ; then
-            ## only insert the directory if it is unique
-            ## the order is irrelevant
-            #if [[ "x$PYTHONPATH" == "x" ]] ; then
-                #export PYTHONPATH=${dir}
-            #else
-                #export PYTHONPATH="$PYTHONPATH:${dir}"
-            #fi
-        #fi
-    #done
-    ## export PYTHONPATH=/opt/pymol/modules:$PYTHONPATH
-#}
-#regenpathpy
-
-##############################################################
-# removing CDPATH because autojump looks more promising
-# CDPATH=.:~:~/dev:~/bin
-
-# vim: set filetype=sh 
