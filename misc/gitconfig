@@ -53,7 +53,8 @@
     # pull and push
     pl = pull
     ps = push
-    pr = ! git_extra --push             # git push to all remotes
+    plr = ! git_extra --pull             # git push to all remotes
+    psr = ! git_extra --push             # git push to all remotes
 
     # remote
     r = remote -v

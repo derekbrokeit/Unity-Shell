@@ -61,14 +61,24 @@ def command_per_remote(cmd_line): #{{{1
 def evaluate_args(): #{{{1
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p","--pull", help="Run `git pull %s master` for all remote",
+    parser.add_argument("--pull", help="Run `git pull %s master` for all remote",
             action="store_true")
     parser.add_argument("-s","--sub_check", help="Run `git remote %s` update for each remote'",
             action="store_true")
-    parser.add_argument("-u","--push", help="Run `git push %s master` for all remote",
+    parser.add_argument("--push", help="Run `git push %s master` for all remote",
             action="store_true")
     args = parser.parse_args()
 
+    branch = get_branch()
+    if branch in ["master", "HEAD"]:
+        color = green
+    else:
+        color = yellow
+
+    print "Branch: " + bold(color(branch))
+    print "-"*30
+
+    # check args
     if args.pull:
         command_per_remote("git pull %s master")
 
@@ -80,13 +90,5 @@ def evaluate_args(): #{{{1
     
 
 if __name__ == "__main__": #{{{1
-    branch = get_branch()
-    if branch in ["master", "HEAD"]:
-        color = green
-    else:
-        color = yellow
-
-    print "Branch: " + bold(color(branch))
-    print "-"*30
     evaluate_args()
     print
