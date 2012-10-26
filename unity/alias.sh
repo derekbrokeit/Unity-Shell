@@ -96,7 +96,6 @@ alias gst='git status'
 alias gl='git pull'
 alias gup='git fetch && git rebase'
 alias gp='git push'
-gdv() { git diff -w "$@" | view - }
 alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gco='git checkout'
@@ -157,7 +156,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
     fi
 
     ### Remote server aliases {{{1
-elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
+elif [[ "$COMP_TYPE" == "central" || "$COMP_TYPE" == "remote" ]] ; then
     #### linux
     # PBS statistics
     alias qme='qstat -u $USER'
