@@ -94,6 +94,8 @@ else
         fi
     done
 fi
+echo ln -s unity \$HOME/.unity
+ln -s $PWD/unity $HOME/.unity
 
 escape_dir(){
     # takes a dir name and escapes it
