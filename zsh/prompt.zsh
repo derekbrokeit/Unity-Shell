@@ -58,14 +58,6 @@ function reset_tmux_window(){
 }
   
 
-# load the git-prompt which gives information on the repo
-. $HOME/.zsh/git-prompt/zshrc.sh
-ZSH_THEME_GIT_PROMPT_NOCACHE="1"
-ZSH_THEME_GIT_PROMPT_CHANGED="${PR_RED_BRIGHT}+"
-ZSH_THEME_GIT_PROMPT_STAGED="${PR_GREEN}● "
-ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
-ZSH_THEME_GIT_PROMPT_CONFLICTS="${PR_ERROR_RED}× "
-
 # initial vi-color: first prompt starts in insert-mode
 KEYMAP_VI_CMD=${PR_RED_BRIGHT}
 KEYMAP_VI_INS=${PR_GREEN_BRIGHT}
@@ -95,7 +87,7 @@ bindkey -M vicmd 'R'   zle-vi-replace
 
 
 # setup main prompt
-PROMPT='%{$(reset_tmux_window)%}${PROMPT_LINE}${PR_GREEN}:${PR_RESET}$(git_super_status)%(!.%B%F{red}%#%f%b.%B${VI_MODE}$%f%b) ${PR_RESET}'
+PROMPT='%{$(reset_tmux_window)%}${PROMPT_LINE}${PR_GREEN}:${PR_RESET}%(!.%B%F{red}%#%f%b.%B${VI_MODE}$%f%b) ${PR_RESET}'
 
 
 function secondary_prompt(){
@@ -115,4 +107,4 @@ echo $pr
 PROMPT2='$(secondary_prompt)'
 
 # This is necessary if you plan to use tmux-powerline
-#PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
+PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
