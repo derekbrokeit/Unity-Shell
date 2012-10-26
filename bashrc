@@ -22,5 +22,6 @@
 #   esac
 # fi
 source $HOME/.bash/bash_profile
+BASH_LOADED=1
 
 [[ -s ~/.autojump/etc/profile.d/autojump.bash ]] && source ~/.autojump/etc/profile.d/autojump.bash
