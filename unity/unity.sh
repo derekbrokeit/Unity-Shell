@@ -9,10 +9,11 @@ fi
 
 # grab the paths
 . $HOME/.path
+. $HOME/.colors
 
 # load unity profiles
 for file in $(ls $HOME/.unity) ; do
-    [[ $file == $(basename $0) ]] && continue
+    [[ $file == "unity.sh" ]] && continue
     . $HOME/.unity/$file
 done
 
@@ -22,7 +23,6 @@ if [[ ! -z $sources ]] ; then
         . $HOME/$file
     done
 fi
-
 
 # start gpg-agent if necessary
 . $HOME/.gpg
