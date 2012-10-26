@@ -34,3 +34,6 @@
 [submodule "bundle/ag"]
 	path = bundle/ag
 	url = git://github.com/ggreer/the_silver_searcher.git
+[submodule "bundle/tmux-powerline"]
+	path = bundle/tmux-powerline
+	url = git://github.com/erikw/tmux-powerline.git
