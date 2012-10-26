@@ -1,5 +1,6 @@
 # --- GPG agent initialization
 
+if [[ 1 -eq 0 ]] ; then
 if [[ $COMP_TYPE == "local" ]] ; then
     GPG_ENV=$HOME/.gnupg/gpg-agent.env
 
@@ -26,4 +27,5 @@ if [[ $COMP_TYPE == "local" ]] ; then
     export SSH_AGENT_PID
 
     export GPG_TTY=$(tty)
+fi
 fi
