@@ -95,19 +95,14 @@ viw() { #{{{3
     fi
 }
 
-convertTimeStamp() {  #{{{2
+conv_time_stamp() {  #{{{2
     # convertTimeStamp: convert a time stamp from seconds-from-epoch to readable format
     # converts from seconds-from-epoch to readable format of date-timestamp
-    if [ "$(uname)" == "Darwin" ] ; then
+    if [[ "$(uname)" == "Darwin" ]] ; then
         date -r $1
     else
         date -d @$1
     fi
-}
-
-fileSize(){ #{{{2
-    # fileSize: returns the file size of an input file (readable format)
-    du -h $1 | awk '{print $1}'
 }
 
 resource() { #{{{2
@@ -138,7 +133,7 @@ prepvirtualwrapper() { #{{{2
     fi
 }
 
-printcolor() { #{{{2
+colorlist() { #{{{2
     # printcolor: print the available 256 colors
     # the colour codes will work in tmux
     printf "\ttmux-fg \t\t tmux-bg \t [bash(fg=\\ x1b[38;5;\${i}  bg=\\ x1b[48;5;\${i}m )]\n"
@@ -185,7 +180,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
             echo "${ERROR_RED}*** The directory $dest already exists${NC}"
             return
         fi
-        git clone cello:/home/derekt/dev/py-skeleton.git $dest
+        git clone cello:~/dev/py-skeleton.git $dest
         echo "${BLUE_BRIGHT}skeleton $dest created$NC"
 
         pushd . > /dev/null
