@@ -30,9 +30,7 @@ fi
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 # language variables
-# export LANG=ja_JP.UTF-8  #C (used to be "C" for English)
-export LANG="$(locale -a | egrep 'jp_JP.(utf|UTF)')"
-export W3MLANG=$LANG
+export LANG="$(locale -a | egrep 'en_US.*(utf|UTF)')"
 
 # grep coloring
 export GREP_OPTIONS='--color=auto'
