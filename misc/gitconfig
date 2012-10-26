@@ -33,6 +33,7 @@
     # branching
     br  = branch
     b   = branch
+    cubr= symbolic-ref HEAD
 
     # diff
     d    = diff
@@ -55,6 +56,7 @@
     ps = push
     plr = ! git_extra --pull             # git push to all remotes
     psr = ! git_extra --push             # git push to all remotes
+    undopush = push -f origin HEAD^:master
 
     # remote
     r = remote -v
