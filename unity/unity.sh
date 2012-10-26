@@ -12,9 +12,9 @@ fi
 . $HOME/.colors
 
 # load unity profiles
-for file in $(ls $HOME/.unity) ; do
-    [[ $file == "unity.sh" ]] && continue
-    . $HOME/.unity/$file
+unity_source=( ".unity/profile.sh" ".unity/functions.sh" ".unity/alias.sh" )
+for file in ${unity_source[@]} ; do
+    . $HOME/$file
 done
 
 # taking in sources, source them
