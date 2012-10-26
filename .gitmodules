@@ -1,15 +1,15 @@
 [submodule "bundle/irssi"]
 	path = bundle/irssi
-	url = git@github.com:scicalculator/Tmux-IRSSI.git
+	url = git://github.com/scicalculator/Tmux-IRSSI.git
 [submodule "bundle/port-extended"]
 	path = bundle/port-extended
-	url = git@github.com:scicalculator/port-extended.git
+	url = git://github.com/scicalculator/port-extended.git
 [submodule "bundle/tmx"]
 	path = bundle/tmx
-	url = git@github.com:scicalculator/tmux-tmx.git
+	url = git://github.com/scicalculator/tmux-tmx.git
 [submodule "bundle/tssh"]
 	path = bundle/tssh
-	url = git@github.com:scicalculator/tssh.git
+	url = git://github.com/scicalculator/tssh.git
 [submodule "bundle/gcalcli"]
 	path = bundle/gcalcli
 	url = git://github.com/insanum/gcalcli.git
@@ -30,7 +30,7 @@
 	url = git://github.com/matplotlib/matplotlib.git
 [submodule "vim"]
 	path = vim
-	url = git@github.com:scicalculator/dotvim.git
+	url = git://github.com/scicalculator/dotvim.git
 [submodule "bundle/ag"]
 	path = bundle/ag
 	url = git://github.com/ggreer/the_silver_searcher.git
