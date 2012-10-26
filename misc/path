@@ -27,5 +27,18 @@ else
 fi
 
 # make sure the regular bin is available
-export PATH="$HOME/bin:$HOME/local/bin:$PATH"
-export PYTHONPATH=$HOME/bin/modules/lib/python2.7/site-packages:$PYTHONPATH
+export PATH="$HOME/bin:$HOME/local/bin:$HOME/local/.gems/bin:$PATH"
+export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$PYTHONPATH
+
+# Ruby Gems
+export GEM_HOME=$HOME/local/.gems
+export GEM=$(which gem1.9)
+if [[ ! -x $GEM ]] ; then
+    GEM=$(which gem 2> /dev/null)
+fi
+
+# python modules
+export PIP=$(which pip-2.7)
+if [[ ! -x $PIP ]] ; then
+    PIP=$(which pip)
+fi

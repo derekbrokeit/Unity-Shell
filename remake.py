@@ -29,7 +29,7 @@ bundle = {
             },
         "matplotlib":{
                 "dir":      "bundle/matplotlib",
-                "make":     ["python setup.py install --prefix=$HOME/bin/modules"],
+                "make":     ["python setup.py install --prefix=$HOME/local"],
                 "clean":    None
             },
         "tig":{
