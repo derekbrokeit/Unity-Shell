@@ -19,9 +19,6 @@
 [submodule "bundle/stderred"]
 	path = bundle/stderred
 	url = git://github.com/sickill/stderred.git
-[submodule "bundle/terminal-notifier"]
-	path = bundle/terminal-notifier
-	url = git://github.com/alloy/terminal-notifier.git
 [submodule "bundle/igcc"]
 	path = bundle/igcc
 	url = git://igcc.git.sourceforge.net/gitroot/igcc/igcc
