@@ -94,8 +94,14 @@ else
         fi
     done
 fi
-echo ln -s unity \$HOME/.unity
-ln -s $PWD/unity $HOME/.unity
+if [[ ! -L $HOME/.unity ]] ; then
+    echo ln -s unity \$HOME/.unity
+    ln -s $PWD/unity $HOME/.unity
+fi
+if [[ ! -L $HOME/.profile ]] ; then
+    echo ln -s unity/profile \$HOME/.unity/.profile.sh
+    ln -s $HOME/.unity/profile.sh $HOME/.profile
+fi
 
 escape_dir(){
     # takes a dir name and escapes it
