@@ -37,3 +37,6 @@
 [submodule "bundle/tmux-powerline"]
 	path = bundle/tmux-powerline
 	url = git://github.com/erikw/tmux-powerline.git
+[submodule "bundle/XVim"]
+	path = bundle/XVim
+	url = git://github.com/JugglerShu/XVim.git

@@ -50,7 +50,8 @@ def clean(items):
             print "clean: %s" % (cyan(name))
             print "-"*30
 
-            os.chdir(dirname)
+            # move to this files parent directory and then to the bundle directory
+            os.chdir(dirname + "/..")
             os.chdir(props["dir"])
 
             print yellow(props["clean"])
@@ -62,7 +63,8 @@ def make(items):
         print "make: %s" % (cyan(name))
         print "-"*30
 
-        os.chdir(dirname)
+        # move to this files parent directory and then to the bundle directory
+        os.chdir(dirname + "/..")
         os.chdir(props["dir"])
 
         for cmd in props["make"]:

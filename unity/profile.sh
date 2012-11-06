@@ -80,6 +80,8 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
     mkdir $LYNX_SAVE_SPACE
   fi
 
+  export PS1="\[$(printf $YELLOW_BRIGHT)\]$(hostname -s)\[$(printf $BLUE_BRIGHT)\]:\[$(printf $GREEN_BRIGHT)\]\$ \[$(printf $NC)\]"
+
   ### Remote Server variables {{{1
 elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
 
