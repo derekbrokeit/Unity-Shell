@@ -2,7 +2,7 @@
 # ssh has no way to tell gpg-agent where we are!
 # so ... We gotta tell the agent first
 
-ps -ef | grep ${SSH_AGENT_PID} | grep gpg-agent >/dev/null && {
+ps -ef | grep ${SSH_AGENT_PID} 2> /dev/null | grep gpg-agent >/dev/null && {
   echo UPDATESTARTUPTTY | gpg-connect-agent > /dev/null
 }
 
