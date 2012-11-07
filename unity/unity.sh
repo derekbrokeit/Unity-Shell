@@ -24,9 +24,6 @@ if [[ ! -z $sources ]] ; then
     done
 fi
 
-# start gpg-agent if necessary
-. $HOME/.gpg
-
 # #I want my umask 0002 if I'm not root
 # if [[ $(whoami) = root ]]; then
 #   umask 022
