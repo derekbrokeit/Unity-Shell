@@ -1,10 +1,2 @@
 #!/bin/sh
-
-# load necessary properties
-export COMP_TYPE=$(sed "1q;d" $HOME/.comptype)
-. $HOME/.zsh/profile.zsh
-. $HOME/.path
-
-# call the server selector
-clear
-tssh-select
+DISABLE_TMX=1 $HOME/bin/tssh-select
