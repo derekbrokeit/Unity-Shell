@@ -62,11 +62,5 @@ if [[ $TERM != dumb ]] ; then
     if [[ $fpath != */opt/local/share/zsh/site-functions* ]] ; then
         export FPATH="$FPATH:/opt/local/share/zsh/site-functions"
     fi
-    if [ -f /opt/local/etc/profile.d/autojump.$(basename $SHELL) ]; then
-        . /opt/local/etc/profile.d/autojump.$(basename $SHELL)
-    fi
-    if [ -f $HOME/local/bin/autojump.$(basename $SHELL) ] ; then
-        . $HOME/local/bin/autojump.$(basename $SHELL)
-    fi
 
 fi
