@@ -45,3 +45,9 @@ fi
 #exec 2>>( while read X; do print "${ERROR_RED}${X}${NC}" > /dev/tty; done & )
 #fi
 
+if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
+    . /opt/local/etc/profile.d/autojump.zsh
+fi
+if [ -f $HOME/local/bin/autojump.zsh ] ; then
+    . $HOME/local/bin/autojump.zsh
+fi
