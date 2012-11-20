@@ -5,8 +5,8 @@ if [[ -f $HOME/.colors ]] ; then
     . $HOME/.colors
 fi
 
-gems=( "maid" "terminal-notifier" "vmail" )
-pips=( "hyde" "fabulous" )
+gems=( "maid" "terminal-notifier" "vmail" "compass" )
+pips=( "hyde" "fabulous" "docutils" )
 
 case $1 in
     -r | --ruby)
