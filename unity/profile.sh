@@ -31,6 +31,7 @@ export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 # language variables
 export LANG="$(locale -a | egrep 'en_US.*(utf|UTF)')"
+export LC_ALL=$LANG
 
 # grep coloring
 export GREP_OPTIONS='--color=auto'
@@ -47,6 +48,10 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
+# lammps documentation files
+if [[ -d $HOME/dev/lammps/doc ]] ; then
+    export LAMMPS_DOCS=$HOME/dev/lammps/doc
+fi
 
 # ls color options
 export LS_OPTIONS="--color=auto"
