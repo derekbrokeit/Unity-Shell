@@ -34,16 +34,14 @@ fi
 # This is a command that pipes all stderr to a red filter :)
 # Compliments: http://skinwalker.wordpress.com/2012/01/24/stderr-zsh/
 
-#if [[ -f $HOME/.rcbundles/stderred/build/libstderred.dylib ]] ; then
-## export DYLD_INSERT_LIBRARIES=$HOME/dev/github_third-party/stderred/lib/stderred.dylib 
-## export DYLD_FORCE_FLAT_NAMESPACE=1
+if [[ -f $HOME/.rcbundles/stderred/build/libstderred.dylib ]] ; then
+    export DYLD_INSERT_LIBRARIES="$HOME/.rcbundles/stderred/build/libstderred.dylib${DYLD_INSERT_LIBRARIES:+:$DYLD_INSERT_LIBRARIES}"
+    export STDERRED_ESC_CODE=$ERROR_RED
 
-#export DYLD_INSERT_LIBRARIES="$HOME/.rcbundles/stderred/build/libstderred.dylib${DYLD_INSERT_LIBRARIES:+:$DYLD_INSERT_LIBRARIES}"
-#export STDERRED_ESC_CODE=$ERROR_RED
-#else
-#echo "${ERROR_RED}*** stderr is being piped to red output: may cause strange behavior"
-#exec 2>>( while read X; do print "${ERROR_RED}${X}${NC}" > /dev/tty; done & )
-#fi
+    #else
+    #echo "${ERROR_RED}*** stderr is being piped to red output: may cause strange behavior"
+    #exec 2>>( while read X; do print "${ERROR_RED}${X}${NC}" > /dev/tty; done & )
+fi
 
 if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
     . /opt/local/etc/profile.d/autojump.zsh
