@@ -149,3 +149,11 @@ tmux-powerline/segments/weather_yahoo.sh
 tmux-powerline/segments/xkb_layout.sh
 tmux-powerline/status-left.sh
 tmux-powerline/status-right.sh
+tmux-powerline/segments/ifstat.sh
+tmux-powerline/segments/ifstat_sys.sh
+tmux-powerline/segments/mail_count_mbox.sh
+tmux-powerline/segments/np_cmus.sh
+tmux-powerline/segments/np_lastfm.sh
+tmux-powerline/segments/np_rdio_mac.script
+tmux-powerline/segments/np_rdio_mac.sh
+XVim/Tools/xcodedump.rb
