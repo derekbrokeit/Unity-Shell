@@ -157,3 +157,4 @@ tmux-powerline/segments/np_lastfm.sh
 tmux-powerline/segments/np_rdio_mac.script
 tmux-powerline/segments/np_rdio_mac.sh
 XVim/Tools/xcodedump.rb
+tig/tig

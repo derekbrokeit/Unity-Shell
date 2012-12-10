@@ -55,7 +55,7 @@ if [[ $TERM != dumb ]] ; then
 
     # check if port needs update (3 days outdated)
     if [[ "$COMP_TYPE" == "local" ]] ; then
-        portupdateneeded 3
+        pup-needed 3
     fi
 
     # MacPorts autojump
