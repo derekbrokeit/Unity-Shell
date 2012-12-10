@@ -40,5 +40,5 @@ from matplotlib.pyplot import figure, show
 import pylab as p
 
 # welcome message
-print "Welcome!"
+print ( "Welcome!" )
 
