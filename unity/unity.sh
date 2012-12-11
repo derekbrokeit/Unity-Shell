@@ -53,9 +53,4 @@ if [[ $TERM != dumb ]] ; then
     SIGNIN_DATE=$(date "+%Y年 %m月 %d日 （%a）%H:%M:%S")
     echo "$(printf $BLUE_BRIGHT)$(hostname -s): $(printf $WHITE)${SIGNIN_DATE}${ssh_remote_string}$(printf $NC)"
 
-    # check if port needs update (3 days outdated)
-    if [[ "$COMP_TYPE" == "local" ]] ; then
-        pup-needed 3
-    fi
-
 fi
