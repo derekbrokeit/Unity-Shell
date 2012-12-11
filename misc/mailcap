@@ -14,10 +14,10 @@ text/*;				cat; copiousoutput; edit=$VISUAL %s
 # application/*; open %s ; copiousoutput
 application/xhtml+xml; w3m %s; copiousoutput
 
-application/pdf; tmvim %s
+application/pdf; vim %s
 
-application/msword; tmvim %s
-application/vnd.openxmlformats-officedocument.wordprocessingml.document; tmvim %s
+application/msword; vim %s
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; vim %s
 
 # if I do not set this, it downloads, but doesn't open
 image/*; mutt_bgrun open %s ; copiousoutput

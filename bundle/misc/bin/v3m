@@ -4,5 +4,5 @@ tmp=$(mktemp -t $(basename $0).XXX)
 
 echo "W3m $@" > $tmp
 
-tmvim -S $tmp
+$EDITOR -S $tmp
 rm $tmp

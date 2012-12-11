@@ -6,13 +6,24 @@ alias ....='../../..'
 alias .....='../../../..'
 
 # coreutils
-alias ls='ls --color=auto'
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
+# attempt to realias all coreutils
+if [[ -x $(which gls 2> /dev/null) ]] ; then
+    # coreutils are installed
+    alias ls='gls --color=auto'
+    alias dir='gdir --color=auto'
+    alias vdir='gvdir --color=auto'
+    alias dircolors="gdircolors"
+else
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+fi
+if [[ -x $(which ssed 2> /dev/null) ]] ; then
+    alias sed="ssed"
+fi
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 
 # list operations
 alias ll='ls -lah'
@@ -22,8 +33,8 @@ alias lsd='ls -d *(/)'
 alias lsdd='ls -d **/'
 
 # editors
+alias   v="$EDITOR"
 alias  vi="$EDITOR"
-alias vim="$EDITOR"
 
 #  setup easy to use variabls
 alias rmi='rm -i '
@@ -51,6 +62,7 @@ fi
 
 if [[ ! -z $(which ipython 2> /dev/null) ]] ; then
     alias ipy="ipython "
+    alias ipq="ipython qtconsole --ConsoleWidget.font_family='Anonymous Pro' --ConsoleWidget.font_size=12 --style=native --pylab=inline"
 else
     alias ipy="python"
 fi
@@ -68,13 +80,12 @@ pless() {
 # --- git specific aliases
 # personal git aliases
 alias glu='git ls-files --other --exclude-standard'
-alias gls='git ls-files --stage'
 alias glm='git ls-files --modified'
 alias gir='gitrack -i'
 
 # open files in vim
-alias vgu='tmvim -p $(git ls-files --other --exclude-standard)'
-alias vgm='tmvim -p $(git ls-files --modified --exclude-standard)'
+alias vgu='vim -p $(git ls-files --other --exclude-standard)'
+alias vgm='vim -p $(git ls-files --modified --exclude-standard)'
 alias mgm='ms $(git ls-files --modified --exclude-standard)'
 
 # molecular viewer

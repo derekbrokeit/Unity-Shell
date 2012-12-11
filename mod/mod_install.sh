@@ -6,7 +6,9 @@ if [[ -f $HOME/.colors ]] ; then
 fi
 
 gems=( "maid" "terminal-notifier" "vmail" "compass" )
-pips=( "hyde" "fabulous" "docutils" )
+pips=( "virtualenv" "virtualenvwrapper" "fabulous" "docutils" "numpy" "ipython" "pygments" "pyzmq" )
+pip_eggs=( "git+https://github.com/scipy/scipy#egg=scipy-dev" "git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev" "git://github.com/hyde/hyde.git#egg=hyde" )
+
 
 case $1 in
     -r | --ruby)
@@ -29,7 +31,7 @@ case $1 in
 
         echo "installing: ${GREEN_BRIGHT}python modules${NC}"
         echo "------------------------------"
-        opts="--install-option=--prefix=$HOME/local"
+        [[ $COMP_TYPE != "local" ]] && opts="--install-option=--prefix=$HOME/local" || opts=""
 
         if [[ -z $PIP ]] ; then
             PIP=$(which pip)
@@ -43,6 +45,11 @@ case $1 in
         for p in ${pips[@]} ; do
             echo ${YELLOW_BRIGHT}$PIP install $opts $p${NC}
             $PIP install $opts $p
+        done
+        # install from dev eggs
+        for p in ${pip_eggs[@]} ; do
+            echo ${YELLOW_BRIGHT}${PIP} install $opts -e $p${NC}
+            ${PIP} install $opts -e $p
         done
         ;;
     -u | --upgrade)

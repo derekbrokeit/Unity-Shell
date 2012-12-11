@@ -81,7 +81,7 @@ color   body        brightblue     default (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z
 
 
 # editor
-set editor = "tmvim"
+set editor = "vim"
 
 # other stuff
 set include

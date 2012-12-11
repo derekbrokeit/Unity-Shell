@@ -19,9 +19,14 @@ NC="${reset_color}";
 
 #setup ~/.dir_colors if one doesn\'t exist
 if [ ! -s ~/.dir_colors ]; then
-  dircolors -p > ~/.dir_colors
+    if [[ -x $(which dircolors 2> /dev/null) ]] ; then
+        dircolors -p > ~/.dir_colors
+        eval `dircolors ~/.dir_colors`
+    elif [[ -x $(which gdircolors 2> /dev/null ) ]] ; then
+        gdircolors -p > ~/.dir_colors
+        eval `gdircolors ~/.dir_colors`
+    fi
 fi
-eval `dircolors ~/.dir_colors`
 
 # grep coloring
 export GREP_OPTIONS='--color=auto'

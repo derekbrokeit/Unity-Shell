@@ -3,7 +3,8 @@
 # --- PATH SETUP ---
 COMP_TYPE=$(cat $HOME/.comptype)
 if [[ $COMP_TYPE == "local" ]] ; then
-    export PATH=/opt/gpg2/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin
+    #export PATH=/opt/gpg2/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin
+    export PATH=/usr/local/bin:/usr/local/share/python:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
     export PYTHONPATH=$HOME/bin/modules
 else 
 
@@ -24,11 +25,11 @@ else
     if [[ -f $HOME/.path.orig ]] ; then
         export PATH=$PATH:$(cat $HOME/.ld_path.orig)
     fi
+    export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$PYTHONPATH
 fi
 
 # make sure the regular bin is available
 export PATH="$HOME/bin:$HOME/local/bin:$HOME/local/.gems/bin:$PATH"
-export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$PYTHONPATH
 
 # Ruby Gems
 export GEM_HOME=$HOME/local/.gems

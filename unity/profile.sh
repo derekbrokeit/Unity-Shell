@@ -2,7 +2,8 @@
 ### Universal variables {{{1
 export COMP_TYPE=$(cat $HOME/.comptype)
 
-export EDITOR="$HOME/bin/tmvim"
+#export EDITOR="$HOME/bin/tmvim"
+export EDITOR="vim"
 export PAGER="$(which less)"
 export BROWSER="$(which v3m)"
 

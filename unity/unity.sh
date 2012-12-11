@@ -58,9 +58,4 @@ if [[ $TERM != dumb ]] ; then
         pup-needed 3
     fi
 
-    # MacPorts autojump
-    if [[ $fpath != */opt/local/share/zsh/site-functions* ]] ; then
-        export FPATH="$FPATH:/opt/local/share/zsh/site-functions"
-    fi
-
 fi

@@ -44,7 +44,7 @@ compdef _git ga=git-add
 compdef _git gm=git-merge
 
 # autocomplete vim
-compdef tmvim=vim
+compdef v=vim
 compdef vi=vim
 
 # get rid of dyld libraries for system functions

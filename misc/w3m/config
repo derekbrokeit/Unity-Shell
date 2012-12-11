@@ -67,7 +67,7 @@ extbrowser2 /usr/local/bin/lynx
 extbrowser /usr/bin/open
 mailer mutt
 mailto_options 1
-editor ~/bin/tmvim
+editor /usr/local/bin/vim
 urimethodmap ~/.w3m/urimethodmap, /opt/local/etc/w3m/urimethodmap
 mailcap ~/.w3m/mailcap, /opt/local/etc/w3m/mailcap, ~/.mailcap
 mime_types ~/.mime.types, /opt/local/etc/mime.types
