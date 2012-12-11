@@ -1,9 +1,6 @@
 [submodule "bundle/irssi"]
 	path = bundle/irssi
 	url = git://github.com/scicalculator/Tmux-IRSSI.git
-[submodule "bundle/port-extended"]
-	path = bundle/port-extended
-	url = git://github.com/scicalculator/port-extended.git
 [submodule "bundle/tmx"]
 	path = bundle/tmx
 	url = git://github.com/scicalculator/tmux-tmx.git
@@ -22,18 +19,9 @@
 [submodule "bundle/xls2csv"]
 	path = bundle/xls2csv
 	url = git://github.com/hempalex/xls2csv.git
-[submodule "bundle/tig"]
-	path = bundle/tig
-	url = git://github.com/jonas/tig.git
-[submodule "bundle/matplotlib"]
-	path = bundle/matplotlib
-	url = git://github.com/matplotlib/matplotlib.git
 [submodule "vim"]
 	path = vim
 	url = git://github.com/scicalculator/dotvim.git
-[submodule "bundle/ag"]
-	path = bundle/ag
-	url = git://github.com/ggreer/the_silver_searcher.git
 [submodule "bundle/tmux-powerline"]
 	path = bundle/tmux-powerline
 	url = git://github.com/erikw/tmux-powerline.git
