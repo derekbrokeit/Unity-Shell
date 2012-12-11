@@ -19,10 +19,10 @@ NC="${reset_color}";
 
 #setup ~/.dir_colors if one doesn\'t exist
 if [ ! -s ~/.dir_colors ]; then
-    if [[ -x $(which dircolors 2> /dev/null) ]] ; then
+    if is_avail dircolors ; then
         dircolors -p > ~/.dir_colors
         eval `dircolors ~/.dir_colors`
-    elif [[ -x $(which gdircolors 2> /dev/null ) ]] ; then
+    elif is_avail gdircolors ; then
         gdircolors -p > ~/.dir_colors
         eval `gdircolors ~/.dir_colors`
     fi

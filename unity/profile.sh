@@ -4,8 +4,8 @@ export COMP_TYPE=$(cat $HOME/.comptype)
 
 #export EDITOR="$HOME/bin/tmvim"
 export EDITOR="vim"
-export PAGER="$(which less)"
-export BROWSER="$(which v3m)"
+export PAGER="less"
+export BROWSER="v3m"
 
 # export PAGER="vimpager"
 export MANPAGER="$PAGER"

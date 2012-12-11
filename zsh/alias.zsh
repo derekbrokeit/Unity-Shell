@@ -48,7 +48,7 @@ compdef v=vim
 compdef vi=vim
 
 # get rid of dyld libraries for system functions
-[[ -x $(which genv 2> /dev/null) ]] && local ENV=genv || local ENV=env
+is_avail genv && local ENV=genv || local ENV=env
 alias ps="$ENV -u DYLD_INSERT_LIBRARIES ps"
 alias rcp="$ENV -u DYLD_INSERT_LIBRARIES rcp"
 alias at="$ENV -u DYLD_INSERT_LIBRARIES at"

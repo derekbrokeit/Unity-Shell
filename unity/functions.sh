@@ -47,7 +47,7 @@ vs () { #{{{3
     $ed -p --servername $sname --remote-tab $@
 }
 
-if [[ ! -z $(which mvim 2> /dev/null ) ]] ; then
+if is_avail mvim ; then
     ms () { #{{{3
         if [[ "x$@" != "x" ]] ; then
             opts="--remote-tab-silent"
@@ -84,15 +84,6 @@ vs_restart () { #{{{3
     # else
     #     ! echo "*** Error ($?) occured while accessing server: $serv"
     # fi
-}
-
-viw() { #{{{3
-    local location=$(which "$1")
-    if [[ -f "$location" ]]; then
-        $EDITOR "$location"
-    else
-        echo "$location isn't a file."
-    fi
 }
 
 conv_time_stamp() {  #{{{2

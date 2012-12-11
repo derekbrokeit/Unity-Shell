@@ -7,6 +7,12 @@ else
     echo "    things may not run smoothly until this is done. Thank you."
 fi
 
+# test if a command is available
+is_avail() {
+    command -v $1 >/dev/null 2>&1
+}
+
+
 # grab the paths
 . $HOME/.path
 . $HOME/.colors
@@ -39,7 +45,7 @@ if [[ $TERM != dumb ]] ; then
     if [[ ! -n $DISABLE_TMX && ! -n $TMUX  && "$COMP_TYPE" != "central"  &&  ! -n $SSH_CONNECTION ]] ; then
         #if [[ ! -n $TMUX ]] && [[ "$COMP_TYPE" != "central" ]] ; then
         # This checks if tmux exists, and if it does, runs the startup script tmx
-        hash tmux 2>&- && tmx $(hostname -s)  || echo >&2 "tmux did not startup on this machine (is it installed?) ..."
+        is_avail tmux && tmx $(hostname -s)  || echo >&2 "tmux did not startup on this machine (is it installed?) ..."
     fi
 
     # are we connected through SSH?

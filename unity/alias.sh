@@ -7,18 +7,19 @@ alias .....='../../../..'
 
 # coreutils
 # attempt to realias all coreutils
-if [[ -x $(which gls 2> /dev/null) ]] ; then
+if is_avail gls ; then
     # coreutils are installed
     alias ls='gls --color=auto'
     alias dir='gdir --color=auto'
     alias vdir='gvdir --color=auto'
     alias dircolors="gdircolors"
+    alias find="gfind"
 else
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
 fi
-if [[ -x $(which ssed 2> /dev/null) ]] ; then
+if is_avail ssed ; then
     alias sed="ssed"
 fi
 alias grep='grep --color=auto'
@@ -45,7 +46,7 @@ alias untarzip='tar -xvzf '
 alias fileSize='du -h '
 
 
-if [[ ! -z $(which hili 2> /dev/null) ]] ; then
+if is_avail hili ; then
     alias make="hili make"
     if [[ $COMP_TYPE == remote ]] ; then
         alias config="hili ./configure --prefix=$HOME/local"
@@ -60,7 +61,7 @@ if [[ -n $TMUX ]] ; then
     alias detach="tmux detach"
 fi
 
-if [[ ! -z $(which ipython 2> /dev/null) ]] ; then
+if is_avail ipython ; then
     alias ipy="ipython "
     alias ipq="ipython qtconsole --ConsoleWidget.font_family='Anonymous Pro' --ConsoleWidget.font_size=12 --style=native --pylab=inline"
 else
@@ -165,7 +166,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
     alias pumpitup="osascript -e 'set volume 10'"
     alias hax="terminal-notify -t 'Activity Monitor: System error' -m 'WTF IS GOING ON?!'"
     # the very important nyan cat alias
-    if [[ -x `which nc` ]]; then
+    if is_avail nc ; then
         alias nyan='nc -v miku.acm.uiuc.edu 23' # nyan cat
     fi
 
