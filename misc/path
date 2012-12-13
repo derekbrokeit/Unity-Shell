@@ -26,20 +26,14 @@ else
         export PATH=$PATH:$(cat $HOME/.ld_path.orig)
     fi
     export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$PYTHONPATH
+    export GEM_HOME=$HOME/local/.gems
 fi
 
 # make sure the regular bin is available
 export PATH="$HOME/bin:$HOME/local/bin:$HOME/local/.gems/bin:$PATH"
 
-# Ruby Gems
-export GEM_HOME=$HOME/local/.gems
-export GEM=$(which gem1.9 2> /dev/null)
-if [[ ! -x $GEM ]] ; then
-    GEM=$(which gem 2> /dev/null)
-fi
-
 # python modules
-export PIP=$(which pip-2.7)
+export PIP=$(command -v pip-2.7)
 if [[ ! -x $PIP ]] ; then
-    PIP=$(which pip)
+    PIP=$(command -v pip)
 fi
