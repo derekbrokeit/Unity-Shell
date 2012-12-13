@@ -6,8 +6,9 @@ if [[ -f $HOME/.colors ]] ; then
 fi
 
 gems=( "maid" "terminal-notifier" "vmail" "compass" )
-pips=( "virtualenv" "virtualenvwrapper" "fabulous" "docutils" "numpy" "ipython" "pygments" "pyzmq" )
-pip_eggs=( "git+https://github.com/scipy/scipy#egg=scipy-dev" "git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev" "git://github.com/hyde/hyde.git#egg=hyde" )
+pips=( "virtualenv" "virtualenvwrapper" "fabulous" "docutils" "numpy" "scipy" "ipython" "pygments" "pyzmq" )
+#pip_eggs=( "git+https://github.com/scipy/scipy#egg=scipy-dev" "git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev" "git://github.com/hyde/hyde.git#egg=hyde" )
+pip_eggs=( "git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev" "git+https://github.com/hyde/typogrify.git#egg=typogrify-hyde" "git://github.com/hyde/hyde.git#egg=hyde" )
 
 
 case $1 in
