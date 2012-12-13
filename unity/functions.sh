@@ -112,13 +112,11 @@ resource() { #{{{2
 
 prepvirtualwrapper() { #{{{2
     # virtualenv wrapper
-    if [[ -f /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh ]] ; then
+    if is_avail virtualenvwrapper.sh ; then
         export WORKON_HOME=$HOME/.virtualenvs
-        export PROJECT_HOME=$HOME/dev
-        if [[ ! -d $WORKON_HOME ]] ; then
-            mkdir $WORKON_HOME
-        fi
-        . /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
+        export PROJECT_HOME=$HOME/.virtualenv_dev
+        mkdir -p $PROJECT_HOME $WORKON_HOME
+        . $(command -v virtualenvwrapper.sh)
     else
         echo "*** virtualenvwrapper does not seem to be installed$" >&2
     fi
