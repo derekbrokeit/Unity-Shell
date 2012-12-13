@@ -20,15 +20,16 @@ SAVEHIST=1000
 # WORDCHARS="${WORDCHARS:s#/#}"
 # WORDCHARS="${WORDCHARS:s#.#}"
 
+# add additional completions before compinit is called
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 # define the specifc files needing sourcing (these are addresses relative to HOME)
 sources=( ".zsh/color.zsh" ".zsh/keys.zsh" ".zsh/completion.zsh" ".zsh/profile.zsh" ".zsh/alias.zsh" ".zsh/prompt.zsh" ".zsh/functions.zsh")
 
 # call the unity source
 . $HOME/.unity/unity.sh
 
-# auto extra zsh completion files
-fpath=(~/.zsh/Completion $fpath)
-fpath=(/usr/local/share/zsh-completions $fpath)
 
 # This is a command that pipes all stderr to a red filter :)
 # Compliments: http://skinwalker.wordpress.com/2012/01/24/stderr-zsh/
@@ -38,4 +39,3 @@ if [[ -f $HOME/.rcbundles/stderred/build/libstderred.dylib ]] ; then
     export STDERRED_ESC_CODE=$ERROR_RED
 fi
 
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
