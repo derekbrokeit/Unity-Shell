@@ -90,3 +90,4 @@ setopt nonomatch            # do not print error on non matched patterns
 
 # always pushd
 setopt autopushd
+
