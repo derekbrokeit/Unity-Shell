@@ -26,6 +26,11 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
+# htop
+if is_avail htop ; then
+    alias htop="sudo htop"
+fi
+
 # list operations
 alias ll='ls -lah'
 alias sl='ls -lah'
