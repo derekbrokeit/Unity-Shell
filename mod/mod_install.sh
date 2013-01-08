@@ -7,7 +7,6 @@ fi
 
 gems=( "maid" "terminal-notifier" "vmail" "compass" )
 pips=( "virtualenv" "virtualenvwrapper" "fabulous" "docutils" "numpy" "scipy" "ipython" "pygments" "pyzmq" )
-#pip_eggs=( "git+https://github.com/scipy/scipy#egg=scipy-dev" "git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev" "git://github.com/hyde/hyde.git#egg=hyde" )
 pip_eggs=( "git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev" "git+https://github.com/hyde/typogrify.git#egg=typogrify-hyde" "git://github.com/hyde/hyde.git#egg=hyde" )
 
 
@@ -47,11 +46,17 @@ case $1 in
             echo ${YELLOW_BRIGHT}$PIP install $opts $p${NC}
             $PIP install $opts $p
         done
-        # install from dev eggs
+        # install from dev eggs in ~/.pip directory
+        pushd . > /dev/null
+        echo
+        echo ${BLUE_BRIGHT}cd ~/.pip${NC}
+        mkdir -p ~/.pip/editable
+        cd ~/.pip/editable
         for p in ${pip_eggs[@]} ; do
             echo ${YELLOW_BRIGHT}${PIP} install $opts -e $p${NC}
             ${PIP} install $opts -e $p
         done
+        popd > /dev/null
         ;;
     -u | --upgrade)
         UPGRADE=1 $0 -r
