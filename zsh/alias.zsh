@@ -14,14 +14,16 @@ alias w3m="w3m -O UTF-8"
 # global
 alias -g G='| egrep'
 alias -g L='| less'
-alias -g LP='| pygmentize -g | less'
+alias -g LP='| pygmentize -g -O style=monokai | less'
+alias -g P='LP'
 alias -g NE='2> /dev/null'
 alias -g NA='&> /dev/null'
 alias -g S='| sort'
 alias -g TL='| tail -20'
 alias -g T='| tail'
 alias -g H='| head'
-alias -g HL='|& head -20'
+alias -g HL='|& head -30'
+alias -g CP='| reattach-to-user-namespace pbcopy'
 
 # autocomplete git aliases
 compdef g=git
