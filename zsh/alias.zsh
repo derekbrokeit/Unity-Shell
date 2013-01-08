@@ -48,32 +48,40 @@ compdef v=vim
 compdef vi=vim
 
 # get rid of dyld libraries for system functions
-is_avail genv && local ENV=genv || local ENV=env
-alias ps="$ENV -u DYLD_INSERT_LIBRARIES ps"
-alias rcp="$ENV -u DYLD_INSERT_LIBRARIES rcp"
-alias at="$ENV -u DYLD_INSERT_LIBRARIES at"
-alias atq="$ENV -u DYLD_INSERT_LIBRARIES atq"
-alias atrm="$ENV -u DYLD_INSERT_LIBRARIES atrm"
-alias batch="$ENV -u DYLD_INSERT_LIBRARIES batch"
-alias crontab="$ENV -u DYLD_INSERT_LIBRARIES crontab"
-alias ipcs="$ENV -u DYLD_INSERT_LIBRARIES ipcs"
-alias lockfile="$ENV -u DYLD_INSERT_LIBRARIES lockfile"
-alias login="$ENV -u DYLD_INSERT_LIBRARIES login"
-alias newgrp="$ENV -u DYLD_INSERT_LIBRARIES newgrp"
-alias procmail="$ENV -u DYLD_INSERT_LIBRARIES procmail"
-alias quota="$ENV -u DYLD_INSERT_LIBRARIES quota"
-alias rlogin="$ENV -u DYLD_INSERT_LIBRARIES rlogin"
-alias rsh="$ENV -u DYLD_INSERT_LIBRARIES rsh"
-alias su="$ENV -u DYLD_INSERT_LIBRARIES su"
-alias sudo="$ENV -u DYLD_INSERT_LIBRARIES sudo"
-alias top="$ENV -u DYLD_INSERT_LIBRARIES top"
-alias wall="$ENV -u DYLD_INSERT_LIBRARIES wall"
-alias write="$ENV -u DYLD_INSERT_LIBRARIES write"
-alias postdrop="$ENV -u DYLD_INSERT_LIBRARIES postdrop"
-alias postqueue="$ENV -u DYLD_INSERT_LIBRARIES postqueue"
-alias scselect="$ENV -u DYLD_INSERT_LIBRARIES scselect"
-alias traceroute="$ENV -u DYLD_INSERT_LIBRARIES traceroute"
-alias traceroute6="$ENV -u DYLD_INSERT_LIBRARIES traceroute6"
-alias qmake="$ENV -u DYLD_INSERT_LIBRARIES qmake"
-alias brew="$ENV -u DYLD_INSERT_LIBRARIES brew"
+# check if the 'u' option is even available, then proceed
 
+if env -u DYLD_INSERT_LIBRARIES > /dev/null 2>&1 ; then
+    # get the right 'env' prefering 'genv'
+    is_avail genv && local ENV=genv || local ENV=env
+    ENV="$ENV -u DYLD_INSERT_LIBRARIES"
+
+    alias ps="$ENV ps"
+    alias rcp="$ENV rcp"
+    alias at="$ENV at"
+    alias atq="$ENV atq"
+    alias atrm="$ENV atrm"
+    alias batch="$ENV batch"
+    alias crontab="$ENV crontab"
+    alias ipcs="$ENV ipcs"
+    alias lockfile="$ENV lockfile"
+    alias login="$ENV login"
+    alias newgrp="$ENV newgrp"
+    alias procmail="$ENV procmail"
+    alias quota="$ENV quota"
+    alias rlogin="$ENV rlogin"
+    alias rsh="$ENV rsh"
+    alias su="$ENV su"
+    alias sudo="$ENV sudo"
+    alias top="$ENV top"
+    alias wall="$ENV wall"
+    alias write="$ENV write"
+    alias postdrop="$ENV postdrop"
+    alias postqueue="$ENV postqueue"
+    alias scselect="$ENV scselect"
+    alias traceroute="$ENV traceroute"
+    alias traceroute6="$ENV traceroute6"
+    alias qmake="$ENV qmake"
+    alias brew="$ENV brew"
+
+    unset ENV
+fi
