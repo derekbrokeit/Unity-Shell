@@ -51,10 +51,9 @@ compdef vi=vim
 
 # get rid of dyld libraries for system functions
 # check if the 'u' option is even available, then proceed
-
-if env -u DYLD_INSERT_LIBRARIES > /dev/null 2>&1 ; then
+is_avail genv && local ENV=genv || local ENV=env
+if $ENV -u DYLD_INSERT_LIBRARIES > /dev/null 2>&1 ; then
     # get the right 'env' prefering 'genv'
-    is_avail genv && local ENV=genv || local ENV=env
     ENV="$ENV -u DYLD_INSERT_LIBRARIES"
 
     alias ps="$ENV ps"
@@ -84,6 +83,7 @@ if env -u DYLD_INSERT_LIBRARIES > /dev/null 2>&1 ; then
     alias traceroute6="$ENV traceroute6"
     alias qmake="$ENV qmake"
     alias brew="$ENV brew"
+    alias osascript="$ENV osascript"
 
     unset ENV
 fi
