@@ -17,26 +17,11 @@ dirname, filename = os.path.split(os.path.abspath(__file__))
 cwd          = os.getcwd()
 
 bundle = {
-        "ag":{
-                "dir":      "bundle/ag",
-                "make" :    ["./build.sh","make clean","./configure --prefix=$HOME/local", "make", "make install"],
-                "clean":    "make clean"
-            },
         "stderred":{
                 "dir":      "bundle/stderred",
                 "make":     ["make all"],
                 "clean":    "make clean"
             },
-        "matplotlib":{
-                "dir":      "bundle/matplotlib",
-                "make":     ["python setup.py install --prefix=$HOME/local"],
-                "clean":    None
-            },
-        "tig":{
-                "dir":      "bundle/tig",
-                "make":     ["make", "make install install-doc"],
-                "clean":    "make clean"
-            }
         }
 
 def cmd_gen(cmd):

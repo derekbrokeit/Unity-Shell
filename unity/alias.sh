@@ -15,9 +15,12 @@ if is_avail gls ; then
     alias dircolors="gdircolors"
     alias find="gfind"
 else
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
+    if ls --color -d . > /dev/null 2>&1  ; then
+        # GNU ls
+        alias ls='ls --color=auto'
+        alias dir='dir --color=auto'
+        alias vdir='vdir --color=auto'
+    fi
 fi
 if is_avail ssed ; then
     alias sed="ssed"
@@ -46,10 +49,9 @@ alias  vi="$EDITOR"
 alias rmi='rm -i '
 alias cpi='cp -i '
 alias grepi='grep -i '
-alias tarzip='tar -cvzf '
-alias untarzip='tar -xvzf '
+alias tarz='tar -cvzf '
+alias utarz='tar -xvzf '
 alias fileSize='du -h '
-
 
 if is_avail hili ; then
     alias make="hili make"
