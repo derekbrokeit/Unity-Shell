@@ -49,8 +49,8 @@ alias  vi="$EDITOR"
 alias rmi='rm -i '
 alias cpi='cp -i '
 alias grepi='grep -i '
-alias tarz='tar -cvzf '
-alias utarz='tar -xvzf '
+alias tarz='tar cvzf '
+alias utarz='tar xvf '
 alias fileSize='du -h '
 
 if is_avail hili ; then
