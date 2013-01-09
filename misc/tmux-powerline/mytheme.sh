@@ -40,6 +40,7 @@ fi
 
 if [ -z $TMUX_POWERLINE_RIGHT_STATUS_SEGMENTS ]; then
 	TMUX_POWERLINE_RIGHT_STATUS_SEGMENTS=(
+        "earthquake 3 255" \
         "mailcount 9 255" \
         #"now_playing 234 37" \
 		#"cpu 240 136" \
