@@ -65,10 +65,6 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
   export DROPBOX="$HOME/Dropbox"
   export LAMMPS_SRC="$HOME/dev/lammps"
 
-  # fortran compiler codes
-  export F90_COMP="gfortran"
-  export F90_FLAGS="-ffixed-line-length-none"
-
   # Application user variables
   # export MATHEMATICA_USERBASE="$MD_SVN/mathematica/base"
   export MATLAB="$DROPBOX/matlab"
@@ -150,6 +146,12 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
   esac
 
   ### Not yet supported machine {{{1
+    # Make the compiler info publicly accessible
+    echo $F90_COMP > $HOME/.f90compiler
+    echo $F90_FLAGS > $HOME/.f90flags
+    # also, should cover F77
+    export F90=$F90_COMP
+    export F77=$F90
 else
   echo "*** This computer is not yet setup for this bash profile"
   echo "*** Please update the bash profile files for this :)"
@@ -164,20 +166,4 @@ else
 
 
 fi
-
-### Cleaning up {{{1
-#### Clean up
-# Make sure that the md.idLog file exists
-#if [[ "x${PBS_O_HOST}" == "x" ]] ; then
-#mkdir -p $MD_LOGS
-#touch $MD_LOGS/$HOSTNAME.md.idLog
-#fi
-
-# Make the compiler info publicly accessible
-echo $F90_COMP > $HOME/.f90compiler
-echo $F90_FLAGS > $HOME/.f90flags
-
-# also, should cover F77
-export F90=$F90_COMP
-export F77=$F90
 
