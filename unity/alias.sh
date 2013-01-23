@@ -53,16 +53,6 @@ alias tarz='tar cvzf '
 alias utarz='tar xvf '
 alias fileSize='du -h '
 
-if is_avail hili ; then
-    alias make="hili make"
-    if [[ $COMP_TYPE == remote ]] ; then
-        alias config="hili ./configure --prefix=$HOME/local"
-    else
-        alias config="hili ./configure"
-    fi
-fi
-
-
 # handy command to detach tmux but keep the shell running (kind-of)
 if [[ -n $TMUX ]] ; then
     alias detach="tmux detach"
