@@ -10,9 +10,6 @@
 [submodule "bundle/gcalcli"]
 	path = bundle/gcalcli
 	url = git://github.com/insanum/gcalcli.git
-[submodule "bundle/stderred"]
-	path = bundle/stderred
-	url = git://github.com/sickill/stderred.git
 [submodule "bundle/igcc"]
 	path = bundle/igcc
 	url = git://igcc.git.sourceforge.net/gitroot/igcc/igcc
