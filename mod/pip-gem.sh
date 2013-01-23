@@ -6,8 +6,8 @@ if [[ -f $HOME/.colors ]] ; then
 fi
 
 gems=( "maid" "terminal-notifier" "vmail" "compass" )
-pips=( "virtualenv" "virtualenvwrapper" "fabulous" "docutils" "numpy" "scipy" "ipython" "pygments" "pyzmq" )
-pip_eggs=( "git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev" "git+https://github.com/hyde/typogrify.git#egg=typogrify-hyde" "git://github.com/hyde/hyde.git#egg=hyde" )
+pips=( "virtualenv" "virtualenvwrapper" "fabulous" "docutils" "numpy" "scipy" "ipython" "pygments" "pyzmq" "git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev" "git+https://github.com/hyde/typogrify.git#egg=typogrify-hyde" )
+pip_editable=( "git://github.com/hyde/hyde.git#egg=hyde" "git+https://github.com/Lokaltog/powerline.git@develop#egg=powerline" "$HOME/dev/crystalpy" "$HOME/dev/analyzer" )
 
 
 case $1 in
@@ -31,7 +31,8 @@ case $1 in
 
         echo "installing: ${GREEN_BRIGHT}python modules${NC}"
         echo "------------------------------"
-        [[ $COMP_TYPE != "local" ]] && opts="--install-option=--prefix=$HOME/local" || opts=""
+        #[[ $COMP_TYPE != "local" ]] && opts="--install-option=--prefix=$HOME/local" || opts=""
+        opts="--user"
 
         if [[ -z $PIP ]] ; then
             PIP=$(which pip)
@@ -52,7 +53,7 @@ case $1 in
         echo ${BLUE_BRIGHT}cd ~/.pip${NC}
         mkdir -p ~/.pip/editable
         cd ~/.pip/editable
-        for p in ${pip_eggs[@]} ; do
+        for p in ${pip_editable[@]} ; do
             echo ${YELLOW_BRIGHT}${PIP} install $opts -e $p${NC}
             ${PIP} install $opts -e $p
         done
