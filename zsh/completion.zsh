@@ -1,4 +1,9 @@
 
+# add additional completions before compinit is called
+if is_avail brew ; then
+    fpath=($(brew --prefix)/share/zsh-completions $fpath)
+fi
+
 
 setopt appendhistory autocd nobeep extendedglob nomatch notify
 setopt autolist auto_menu
