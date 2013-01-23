@@ -1,0 +1,7 @@
+source $HOME/.tmux.conf.nested
+
+# invisible
+source $HOME/.tmux.conf.invisible
+
+# make sure the non-main panes are small
+setw -g other-pane-width 20
