@@ -24,6 +24,7 @@ alias -g T='| tail'
 alias -g H='| head'
 alias -g HL='|& head -30'
 alias -g CP='| reattach-to-user-namespace pbcopy'
+alias -g W='| wc'
 
 # autocomplete git aliases
 compdef g=git
