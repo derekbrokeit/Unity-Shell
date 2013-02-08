@@ -160,7 +160,7 @@ fi
 # Local-system specific functions {{{1o
 if [[ "$COMP_TYPE" == "local" ]] ; then
     pyskeleton(){ #{{{2
-    # Make skeleton python package
+        # Make skeleton python package
         dest=$1
         if [[ "x$dest" == "x" ]] ; then
             echo "${ERROR_RED}*** Please suply a destination name${NC}"
@@ -199,7 +199,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
     }
 
     fullpath() { #{{{2
-    # fullpath: toggles full-path shown in finder
+        # fullpath: toggles full-path shown in finder
         echo "fullpath: input=\"$1\""
         # changes Finder so that it shows the full directory path in the top
         # requires input of either "YES" or "NO"
@@ -217,7 +217,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
     }
 
     myip() { #{{{2
-    # myip: return a list of ip's being used by the system
+        # myip: return a list of ip's being used by the system
         if [ "x$1" == "x" ] ; then
             tempFile=".temp.ip"
             curl -s icanhazip.com > $tempFile
@@ -248,22 +248,22 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
     }
 
     voices() { #{{{2
-    # voices: list possible voices for the say command
+        # voices: list possible voices for the say command
         ls /System/Library/Speech/Voices | sed 's/.SpeechVoice//g' | grep -v "Compact"
     }
 
     setvol() { #{{{2
-    # setvol: change volume
+        # setvol: change volume
         osascript -e "set Volume $1"
     }
 
     volmute(){ #{{{2
-    # volmute: mute computer
+        # volmute: mute computer
         setvol 0
     }
 
     wiki() { #{{{2
-    # wiki: wiki dictionary search
+        # wiki: wiki dictionary search
         # perform search and highlight the search term (grep-style)
         search=$(dig +short txt ${1}.wp.dg.cx | perl -pe 's/'"$1"'/\\033['"${GREP_COLOR}"'m'"${1}"'\'"$NC"'/ig')
         echo -e $search
@@ -280,72 +280,72 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
 }
 
 # Central/Remote Systems {{{1o
- elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
-     myip() { #{{{2
-     # myip: find my local network ip address
-         for ip in $(hostname -i); do
-             final=${ip##*.};
-             first=${ip%%.*};
-             if [[ $final -gt 100 ]] && [[ $first -eq 192 ]] ; then
-                 my_ip=$ip;
-                 break;
-             fi ;
-             echo $my_ip
-         done
-     }
+elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
+    myip() { #{{{2
+        # myip: find my local network ip address
+        for ip in $(hostname -i); do
+            final=${ip##*.};
+            first=${ip%%.*};
+            if [[ $final -gt 100 ]] && [[ $first -eq 192 ]] ; then
+                my_ip=$ip;
+                break;
+            fi ;
+            echo $my_ip
+        done
+    }
 
-     qinfo() { #{{{2
-     # qinfo: get useful info from qstat
-     # this requires a system with pbs
-         info=$(qstat -Q | tail -1)
+    qinfo() { #{{{2
+        # qinfo: get useful info from qstat
+        # this requires a system with pbs
+        info=$(qstat -Q | tail -1)
 
-         # limit of available runs, number of queued procs, number of running procs
-         limit=$(echo $info | awk '{ print $2}')
-         nQ=$(echo $info | awk '{ print $6}')
-         nR=$(echo $info | awk '{ print $7}')
+        # limit of available runs, number of queued procs, number of running procs
+        limit=$(echo $info | awk '{ print $2}')
+        nQ=$(echo $info | awk '{ print $6}')
+        nR=$(echo $info | awk '{ print $7}')
 
-         # was there input?
-         if [ "x$1" == "x" ] ; then
-             echo "qinfo:"
-             echo "  limit:  $limit"
-             echo "  queue:  $nQ"
-             echo "  run:    $nR "
-         else
-             query=$1
-             length=$2
-             case $query in
-                 l)
-                     echo $limit
-                     ;;
-                 q)
-                     echo $nQ
-                     ;;
-                 r)
-                     echo $nR
-                     ;;
-                 qratio)
-                     rat=$(echo "$nQ/$limit" | bc -l)
-                     if [[ $length -gt 1 ]] ; then
-                         echo ${rat:0:$length}
-                     else
-                         echo ${rat:0:5}
-                     fi
-                     ;;
-                 rratio)
-                     rat=$(echo "$nR/$limit" | bc -l)
-                     if [[ $length -gt 1 ]] ; then
-                         echo ${rat:0:$length}
-                     else
-                         echo ${rat:0:5}
-                     fi
-                     ;;
-                 *)
-                     echo "*** Unkown qinfo query: \"$1\""
-                     ;;
-             esac
-         fi
-     }
- fi
+        # was there input?
+        if [ "x$1" == "x" ] ; then
+            echo "qinfo:"
+            echo "  limit:  $limit"
+            echo "  queue:  $nQ"
+            echo "  run:    $nR "
+        else
+            query=$1
+            length=$2
+            case $query in
+                l)
+                    echo $limit
+                    ;;
+                q)
+                    echo $nQ
+                    ;;
+                r)
+                    echo $nR
+                    ;;
+                qratio)
+                    rat=$(echo "$nQ/$limit" | bc -l)
+                    if [[ $length -gt 1 ]] ; then
+                        echo ${rat:0:$length}
+                    else
+                        echo ${rat:0:5}
+                    fi
+                    ;;
+                rratio)
+                    rat=$(echo "$nR/$limit" | bc -l)
+                    if [[ $length -gt 1 ]] ; then
+                        echo ${rat:0:$length}
+                    else
+                        echo ${rat:0:5}
+                    fi
+                    ;;
+                *)
+                    echo "*** Unkown qinfo query: \"$1\""
+                    ;;
+            esac
+        fi
+    }
+fi
 
 if is_avail gs ; then
     merge_pdf() {
