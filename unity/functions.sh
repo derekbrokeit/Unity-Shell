@@ -347,4 +347,38 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
      }
  fi
 
+if is_avail gs ; then
+    merge_pdf() {
+        gs \
+            -o merged.pdf \
+            -sDEVICE=pdfwrite \
+            -dPDFSETTINGS=/prepress $@
+    }
+    compress_pdf() {
+        if [[ -z $2 ]] ; then
+            output="output.pdf"
+        else
+            output=$2
+        fi
+        gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dBATCH -sOutputFile=$2 $output
+    }
+fi
+if is_avail djvu2hocr ; then
+    djvu_ocr_pdf() {
+        djvu_file=$1
+        pushd . > /dev/null
+        tmp=$(mktemp -d -t djvu_ocr_pdf.XXX)
+        echo $tmp
+        cp $djvu_file $tmp/tmp.djvu
+        cd $tmp
+        for i in {1..428} ; do
+            ii=$(printf "%010d" $i)
+            djvu2hocr -p ${ii} tmp.djvu | sed 's/ocrx/ocr/g' > tmp_${ii}.html
+            ddjvu -format=tiff -page=${ii} tmp.djvu tmp_${ii}.tif
+        done
+        pdfbeads -o tmp.pdf
+        popd > /dev/null
+        cp $tmp/tmp.pdf ${djvu_file%.djvu}.pdf
+    }
+fi
 
