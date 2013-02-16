@@ -371,9 +371,10 @@ if is_avail djvu2hocr ; then
         echo $tmp
         cp $djvu_file $tmp/tmp.djvu
         cd $tmp
-        for i in {1..428} ; do
+        echo "assuming 1000 pages ... may need correction"
+        for i in {1..1000} ; do
             ii=$(printf "%010d" $i)
-            djvu2hocr -p ${ii} tmp.djvu | sed 's/ocrx/ocr/g' > tmp_${ii}.html
+            { djvu2hocr -p ${ii} tmp.djvu || break ; } | sed 's/ocrx/ocr/g' > tmp_${ii}.html
             ddjvu -format=tiff -page=${ii} tmp.djvu tmp_${ii}.tif
         done
         pdfbeads -o tmp.pdf

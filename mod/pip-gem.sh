@@ -6,7 +6,7 @@ if [[ -f $HOME/.colors ]] ; then
 fi
 
 gems=( "maid" "terminal-notifier" "vmail" "compass" "pdfbeads" )
-pips=( "virtualenv" "virtualenvwrapper" "fabulous" "docutils" "numpy" "scipy" "ipython" "pygments" "pyzmq" "git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev" "git+https://github.com/hyde/typogrify.git#egg=typogrify-hyde" "cython" "lxml" )
+pips=( "virtualenv" "virtualenvwrapper" "fabulous" "docutils" "ipython" "pygments" "pyzmq" "git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev" "git+https://github.com/hyde/typogrify.git#egg=typogrify-hyde" "cython" "lxml" "nose" )
 pip_editable=( "git://github.com/hyde/hyde.git#egg=hyde" "git+https://github.com/Lokaltog/powerline.git@develop#egg=powerline" "$HOME/dev/crystalpy" "$HOME/dev/analyzer" )
 
 
