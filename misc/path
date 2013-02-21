@@ -4,7 +4,7 @@
 COMP_TYPE=$(cat $HOME/.comptype)
 if [[ $COMP_TYPE == "local" ]] ; then
     #export PATH=/opt/gpg2/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin
-    export PATH=/usr/local/bin:/usr/local/share/python:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
+    export PATH=/opt/homebrew/bin:/opt/homebrew/share/python:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin
 else 
 
     export LD_LIBRARY_PATH="${HOME}/local/lib/python2.7/site-packages:${HOME}/local/lib:${HOME}/local/lib64:${LD_LIBRARY_PATH}"
