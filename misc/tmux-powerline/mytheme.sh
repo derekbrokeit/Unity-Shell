@@ -44,10 +44,10 @@ if [ -z $TMUX_POWERLINE_RIGHT_STATUS_SEGMENTS ]; then
         "mailcount 9 255" \
         #"now_playing 234 37" \
 		#"cpu 240 136" \
-        "load 237 167" \
-        #"tmux_mem_cpu_load 234 136" \
-		"battery 137 127" \
+		"battery 144 127" \
 		"weather 37 255" \
+        "load 238 167" \
+        #"tmux_mem_cpu_load 234 136" \
 		#"xkb_layout 125 117" \
 		"date_day 235 12" \
 		"date 235 12 ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
