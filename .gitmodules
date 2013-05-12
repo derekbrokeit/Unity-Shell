@@ -13,9 +13,6 @@
 [submodule "bundle/igcc"]
 	path = bundle/igcc
 	url = git://igcc.git.sourceforge.net/gitroot/igcc/igcc
-[submodule "bundle/xls2csv"]
-	path = bundle/xls2csv
-	url = git://github.com/hempalex/xls2csv.git
 [submodule "vim"]
 	path = vim
 	url = git://github.com/scicalculator/dotvim.git
@@ -24,4 +21,4 @@
 	url = git://github.com/erikw/tmux-powerline.git
 [submodule "bundle/timepy"]
 	path = bundle/timepy
-	url = git@github.com:scicalculator/time-flies-py.git
+	url = git://github.com/scicalculator/time-flies-py.git
