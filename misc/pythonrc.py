@@ -6,7 +6,6 @@
 import atexit
 import os
 import readline
-import rlcompleter
 
 historyPath = os.path.expanduser("~/.pyhistory")
 
@@ -19,14 +18,16 @@ if os.path.exists(historyPath):
 
 atexit.register(save_history)
 # del os, atexit, readline, rlcompleter, save_history, historyPath
-del atexit, readline, rlcompleter, save_history, historyPath
+del atexit, readline, save_history, historyPath
 # ----
 
 # import science related modules
 import math as m
 import numpy as np
-from numpy import array
+import numpy.linalg as la
+from numpy import array, sqrt, sin, cos, tan, arccos, arcsin, arctan, pi
 import scipy as sp
+from scipy import optimize as opt
 
 # import matplotlib
 import matplotlib as mpl
