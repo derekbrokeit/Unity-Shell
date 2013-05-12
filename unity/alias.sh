@@ -86,9 +86,6 @@ alias vgu='vim -p $(git ls-files --other --exclude-standard)'
 alias vgm='vim -p $(git ls-files --modified --exclude-standard)'
 alias mgm='ms $(git ls-files --modified --exclude-standard)'
 
-# molecular viewer
-alias pymol="pymol -M"
-
 # download webpage and all children
 alias wwwdown='wget --wait=20 \
     --radnom-wait \
