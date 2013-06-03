@@ -167,3 +167,9 @@ else
 
 fi
 
+if is_avail lammps ; then
+    export LAMMPS_COMMAND=$(command -v lammps)
+    if is_avail brew ; then
+        export LAMMPS_POTS=$(brew --prefix )/share/lammps/potentials
+    fi
+fi
