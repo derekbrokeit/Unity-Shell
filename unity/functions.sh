@@ -365,14 +365,21 @@ if is_avail gs ; then
 fi
 if is_avail djvu2hocr ; then
     djvu_ocr_pdf() {
+        if [[ "$1" == "-n" ]] ; then
+            pn=$2
+            shift 2
+            echo "converting $pn pages"
+        else
+            pn=1000
+            echo "assuming $pn pages ... may need correction with '-n' flag"
+        fi
         djvu_file=$1
         pushd . > /dev/null
         tmp=$(mktemp -d -t djvu_ocr_pdf.XXX)
         echo $tmp
         cp $djvu_file $tmp/tmp.djvu
         cd $tmp
-        echo "assuming 1000 pages ... may need correction"
-        for i in {1..1000} ; do
+        for i in {1..$pn} ; do
             ii=$(printf "%010d" $i)
             { djvu2hocr -p ${ii} tmp.djvu || break ; } | sed 's/ocrx/ocr/g' > tmp_${ii}.html
             ddjvu -format=tiff -page=${ii} tmp.djvu tmp_${ii}.tif
