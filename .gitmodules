@@ -4,9 +4,6 @@
 [submodule "bundle/tssh"]
 	path = bundle/tssh
 	url = git://github.com/scicalculator/tssh.git
-[submodule "bundle/gcalcli"]
-	path = bundle/gcalcli
-	url = git://github.com/insanum/gcalcli.git
 [submodule "vim"]
 	path = vim
 	url = git://github.com/scicalculator/dotvim.git
