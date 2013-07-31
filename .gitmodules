@@ -1,12 +1,6 @@
-[submodule "bundle/tssh"]
-	path = bundle/tssh
-	url = git://github.com/scicalculator/tssh.git
 [submodule "vim"]
 	path = vim
 	url = git://github.com/scicalculator/dotvim.git
 [submodule "bundle/tmux-powerline"]
 	path = bundle/tmux-powerline
 	url = git://github.com/erikw/tmux-powerline.git
-[submodule "bundle/timepy"]
-	path = bundle/timepy
-	url = git://github.com/scicalculator/time-flies-py.git
