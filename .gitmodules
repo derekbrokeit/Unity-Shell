@@ -1,6 +1,3 @@
-[submodule "bundle/irssi"]
-	path = bundle/irssi
-	url = git://github.com/scicalculator/Tmux-IRSSI.git
 [submodule "bundle/tssh"]
 	path = bundle/tssh
 	url = git://github.com/scicalculator/tssh.git
