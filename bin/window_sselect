@@ -1,0 +1,3 @@
+#!/bin/bash
+. $HOME/.path
+DISABLE_TMX=1 tssh-select

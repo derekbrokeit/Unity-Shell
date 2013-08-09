@@ -36,5 +36,5 @@
 ##H  bold light grey; looks like bright white
 ##x  default foreground or background
 
-PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv -g TMUX_PWD_$(tmux display -p "#D") "$PWD")'
 

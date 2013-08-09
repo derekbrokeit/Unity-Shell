@@ -1,24 +1,18 @@
-
-### Setup computer type
-if [[ -f $HOME/.comptype ]] ; then
-    export COMP_TYPE=$(sed "1q;d" $HOME/.comptype)
-else
-    echo "*** Please run the setup.sh script in the dot file directory"
-    echo "    things may not run smoothly until this is done. Thank you."
-fi
-
 # test if a command is available
-is_avail() {
-    command -v $1 >/dev/null 2>&1
-}
+is_avail() { command -v $1 >/dev/null 2>&1 ; }
 
+# checks for os type
+export OSTYPE=$(uname)
+os_is_osx()   { [[ $OSTYPE == "Darwin" ]] ; }
+os_is_linux() { [[ $OSTYPE == "linux"  || $OSTYPE == "bsd" ]] ; }
+os_is_bsd()   { [[ $OSTYPE == "Darwin" || $OSTYPE == "bsd" ]] ; }
 
 # grab the paths
 . $HOME/.path
 . $HOME/.colors
 
 # load unity profiles
-unity_source=( ".unity/profile.sh" ".unity/functions.sh" ".unity/alias.sh" )
+unity_source=( ".unity/profile.sh" ".unity/functions.sh" ".unity/alias.sh" ".unity/compilers.sh" )
 for file in ${unity_source[@]} ; do
     . $HOME/$file
 done
@@ -42,8 +36,7 @@ fi
 if [[ $TERM != dumb ]] ; then
 
     # now settup terminal multiplexer (the SSH_CONNECTION was originally meant to block the cellphone)
-    if [[ ! -n $DISABLE_TMX && ! -n $TMUX  && "$COMP_TYPE" != "central"  &&  ! -n $SSH_CONNECTION ]] ; then
-        #if [[ ! -n $TMUX ]] && [[ "$COMP_TYPE" != "central" ]] ; then
+    if [[ ! -n $DISABLE_TMX && ! -n $TMUX  && ! -n $SSH_CONNECTION ]] ; then
         # This checks if tmux exists, and if it does, runs the startup script tmx
         is_avail tmux && tmx $(hostname -s)  || echo >&2 "tmux did not startup on this machine (is it installed?) ..."
     fi

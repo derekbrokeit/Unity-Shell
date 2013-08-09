@@ -11,3 +11,6 @@ dist
 *.npz
 .sass-cache
 .vimsessions
+*.hdf5
+*.lammps
+*.restart

@@ -1,35 +1,12 @@
 setopt prompt_subst
 
-# changes the color of the prompt based on the hostname
-# HASH_NUM=$(echo $HOSTNAME | md5sum | tr -d 'a-f' | cut -b 1-6)
-# HASH_COLOR=$(($HASH_NUM % 6 + 2 + 8 ))
-# HASH_COLOR2=$(($HASH_NUM % 6 + 2 + 8 + 1 ))
-# if [[ $HASH_COLOR -lt 10 ]] ; then
-#   HASH_MOD="%{$fg_all[00${HASH_COLOR}]%}"
-# elif [[ $HASH_COLOR -lt 100 ]] ; then
-#   HASH_MOD="%{$fg_all[0${HASH_COLOR}]%}"
-# else
-#   HASH_MOD="%{$fg_all[${HASH_COLOR}]%}"
-# fi
-# # an additional color
-# if [[ $HASH_COLOR2 -lt 10 ]] ; then
-#   HASH_MOD2="%{$fg_all[00${HASH_COLOR2}]%}"
-# elif [[ $HASH_COLOR2 -lt 100 ]] ; then
-#   HASH_MOD2="%{$fg_all[0${HASH_COLOR2}]%}"
-# else
-#   HASH_MOD2="%{$fg_all[${HASH_COLOR2}]%}"
-# fi
 HASH_MOD=$PR_YELLOW_BRIGHT
 HASH_MOD2=$PR_BLUE_BRIGHT
 
 if [[ $(whoami) = root ]]; then
-  PROMPT_LINE="${PR_RED_BRIGHT}%n${PR_DEFAULT}@${PR_YELLOW_BRIGHT}%M%f%b"
+    PROMPT_LINE="${PR_RED_BRIGHT}%n${PR_DEFAULT}@${PR_YELLOW_BRIGHT}%M%f%b"
 else
-  if [[ $COMP_TYPE == "local" ]] ; then
-    PROMPT_LINE="%B${HASH_MOD}%m%b"
-  else
     PROMPT_LINE="%B${HASH_MOD}$(hostname | cut -c 1)%b"
-  fi
 fi
 
 # printing the title
@@ -85,26 +62,19 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 bindkey -M vicmd 'R'   zle-vi-replace
 
-
-# setup main prompt
+# setup main prompt (vi-color changing)
 PROMPT='%{$(reset_tmux_window)%}${PROMPT_LINE}${PR_GREEN}:${PR_RESET}%(!.%B%F{red}%#%f%b.%B${VI_MODE}$%f%b) ${PR_RESET}'
 
+# function secondary_prompt(){
+# pr_unescape=$(print -Pn $PROMPT | sed -r "s/\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g ; s/kzsh\\\//g") 
+# pr_len=${#pr_unescape}
+# spaces=$(print "${(l:(pr_len):: :)}\b\b\b\b\b···")
+# pr="${PR_BLACK_BRIGHT}${spaces}${PR_CYAN_BRIGHT}>${PR_RESET} " 
+# echo $pr 
 
-function secondary_prompt(){
-pr_unescape=$(print -Pn $PROMPT | sed -r "s/\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g ; s/kzsh\\\//g") 
-pr_len=${#pr_unescape}
-spaces=$(print "${(l:(pr_len):: :)}\b\b\b\b\b···")
-pr="${PR_BLACK_BRIGHT}${spaces}${PR_CYAN_BRIGHT}>${PR_RESET} " 
-echo $pr 
+# }
 
-}
-# secondary prompt
-# (( TERMWIDTH = ${COLUMNS} - 2 ))
-# PROMPT_ESCAPED=$(echo $PROMPT | sed 's/\$(\w*)//g')
-# PROMPT_ESCAPED=${(%e)PROMPT_ESCAPED}
-# PROMPT_LENGTH=${#${PROMPT_ESCAPED//\[[^m]##m/}}
-# FILL_SPACES=${(l:PROMPT_LENGTH:: :)}
-PROMPT2='$(secondary_prompt)'
+# PROMPT2='$(secondary_prompt)'
 
 # This is necessary if you plan to use tmux-powerline
-PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv -g TMUX_PWD_$(tmux display -p "#D" | tr -d %) "$PWD")'

@@ -28,6 +28,7 @@ import numpy.linalg as la
 from numpy import array, sqrt, sin, cos, tan, arccos, arcsin, arctan, pi
 import scipy as sp
 from scipy import optimize as opt
+import quantities as pq
 
 # import matplotlib
 import matplotlib as mpl

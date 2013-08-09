@@ -29,7 +29,7 @@
 # You can also deploy your own backend outside of matplotlib by
 # referring to the module name (which must be in the PYTHONPATH) as
 # 'module://my_backend'
-#backend      : MacOSX
+# backend      : MacOSX
 
 # If you are using the Qt4Agg backend, you can choose here
 # to use the PyQt4 bindings or the newer PySide bindings to
@@ -291,12 +291,12 @@ figure.edgecolor : white   # figure edgecolor
 
 # The figure subplot parameters.  All dimensions are a fraction of the
 # figure width or height
-#figure.subplot.left    : 0.125  # the left side of the subplots of the figure
-#figure.subplot.right   : 0.9    # the right side of the subplots of the figure
-#figure.subplot.bottom  : 0.1    # the bottom of the subplots of the figure
-#figure.subplot.top     : 0.9    # the top of the subplots of the figure
-#figure.subplot.wspace  : 0.2    # the amount of width reserved for blank space between subplots
-#figure.subplot.hspace  : 0.2    # the amount of height reserved for white space between subplots
+figure.subplot.left    : 0.15  # the left side of the subplots of the figure
+figure.subplot.right   : 0.9    # the right side of the subplots of the figure
+figure.subplot.bottom  : 0.125    # the bottom of the subplots of the figure
+figure.subplot.top     : 0.9    # the top of the subplots of the figure
+figure.subplot.wspace  : 0.2    # the amount of width reserved for blank space between subplots
+figure.subplot.hspace  : 0.2    # the amount of height reserved for white space between subplots
 
 ### IMAGES
 #image.aspect : equal             # equal | auto | a number
@@ -336,7 +336,7 @@ figure.edgecolor : white   # figure edgecolor
 savefig.dpi       : 400      # figure dots per inch
 savefig.facecolor : white    # figure facecolor when saving
 savefig.edgecolor : white    # figure edgecolor when saving
-savefig.bbox      : tight    # tight bounding to include all elements of the figure
+# savefig.bbox      : tight    # tight bounding to include all elements of the figure
 #savefig.pad_inches :
 # savefig.extension : auto     # what extension to use for savefig('foo'), or 'auto'
 

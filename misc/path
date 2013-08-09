@@ -1,38 +1,19 @@
 #!/bin/sh
 ##############################################################
 # --- PATH SETUP ---
-COMP_TYPE=$(cat $HOME/.comptype)
-if [[ $COMP_TYPE == "local" ]] ; then
-    #export PATH=/opt/gpg2/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin
-    export PATH=/opt/homebrew/bin:/opt/homebrew/share/python:/opt/homebrew/share/python3:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin
-else 
-
-    export LD_LIBRARY_PATH="${HOME}/local/lib/python2.7/site-packages:${HOME}/local/lib:${HOME}/local/lib64:${LD_LIBRARY_PATH}"
-    export PATH="$HOME/local/bin:$PATH"
-
-    # LAPACK libraries
-    export BLAS_LIBS="$HOME/local/lib/libblas.a"
-    export LAPACK_LIBS="$HOME/local/lib/liblapack.a"
-
-    export PATH="${HOME}/local/bin:/bin:/opt/cross/bin:/opt/intel/fce/10.1.018/bin:/opt/kde3/bin:/usr/X11R6/bin:/usr/bin:/usr/bin/X11:/usr/games:/usr/lib/mit/bin:/usr/lib/mit/sbin:/usr/lib/qt3/bin:/usr/local/bin:/usr/local/mpich2/bin:"
-
-    export PYTHONPATH="${HOME}/local/pymol:${HOME}/local/pymol/modules/pymol/pymol_path:${HOME}/local/pymol/modules/pymol/pymol_path/data/pymol:${HOME}/local/pymol/modules/pymol2:$HOME/bin/modules/lib/python2.7/site-packages"
-
-    if [[ -f $HOME/.ld_path.orig ]] ; then
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(cat $HOME/.ld_path.orig)
-    fi
-    if [[ -f $HOME/.path.orig ]] ; then
-        export PATH=$PATH:$(cat $HOME/.ld_path.orig)
-    fi
-    export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$PYTHONPATH
-    export GEM_HOME=$HOME/local/.gems
+if [[ -f $HOME/.path.orig ]] ; then
+    export PATH=$(cat .path.orig)
 fi
+if [[ -f $HOME/.ld_path.orig ]] ; then
+    export LD_LIBRARY_PATH=$(cat .ld_path.orig)
+fi
+if os_is_osx ; then
+    export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/bin:$PATH:/opt/X11/bin:/usr/texbin
+else 
+    export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$HOME/bin:$LD_LIBRARY_PATH"
+    export PATH="$HOME/.linuxbrew/bin:$PATH"
 
-# make sure the regular bin is available
-export PATH="$HOME/bin:$HOME/local/bin:$HOME/local/.gems/bin:$PATH"
+    export PYTHONPATH="$HOME/.linuxbrew/lib/python2.7/site-packages"
 
-# python modules
-export PIP=$(command -v pip-2.7)
-if [[ ! -x $PIP ]] ; then
-    PIP=$(command -v pip)
+    # export GEM_HOME=$HOME/local/.gems
 fi

@@ -1,6 +1,6 @@
 
-# Universal functions {{{1o
-pid_with_children() {  #{{{2
+# Universal functions
+pid_with_children() {
     # pid-with-children: list a process with all its children
     # grab a list of the process id and all children
     if [ "$1" == "--number" ] && [ "x$2" != "x" ] ; then
@@ -14,7 +14,7 @@ pid_with_children() {  #{{{2
     fi
 }
 
-kill_with_children() {  #{{{2
+kill_with_children() {
     # kill-with-children: kill a process and all its children
 
     # loop through the process list and kill each pid
@@ -30,8 +30,8 @@ kill_with_children() {  #{{{2
     fi
 }
 
-# vs, ms, viw: vim functions  {{{2
-vs () { #{{{3
+# vs, ms, viw: vim functions
+vs () {
     if [[ "x$@" != "x" ]] ; then
         sname=$1
         ed="$EDITOR"
@@ -48,7 +48,7 @@ vs () { #{{{3
 }
 
 if is_avail mvim ; then
-    ms () { #{{{3
+    ms () {
         if [[ "x$@" != "x" ]] ; then
             opts="--remote-tab-silent"
             mvim --servername vim $opts $@
@@ -60,7 +60,7 @@ if is_avail mvim ; then
     }
 fi
 
-vs_restart () { #{{{3
+vs_restart () {
     if [[ "$(uname)" == "Darwin" && "x$@" == "x" ]] ; then
         serv="vim"
         ed="mvim"
@@ -86,7 +86,7 @@ vs_restart () { #{{{3
     # fi
 }
 
-conv_time_stamp() {  #{{{2
+conv_time_stamp() {
     # convertTimeStamp: convert a time stamp from seconds-from-epoch to readable format
     # converts from seconds-from-epoch to readable format of date-timestamp
     if [[ "$(uname)" == "Darwin" ]] ; then
@@ -96,21 +96,13 @@ conv_time_stamp() {  #{{{2
     fi
 }
 
-resource() { #{{{2
+resource() {
     # rbash: reset environment variables and reload bashprofile
     clear
     source $HOME/.$(basename $SHELL)rc
 }
-## rbash: reset environment variables and reload bashprofile
-#rbash() {
-#clear
-#ps_temp="$PS1"
-#source $BASH_PROFILE
-#export PS1="$ps_temp"
-#}
 
-
-prepvirtualwrapper() { #{{{2
+prepvirtualwrapper() {
     # virtualenv wrapper
     if is_avail virtualenvwrapper.sh ; then
         export WORKON_HOME=$HOME/.virtualenvs
@@ -122,7 +114,7 @@ prepvirtualwrapper() { #{{{2
     fi
 }
 
-colorlist() { #{{{2
+colorlist() {
     # printcolor: print the available 256 colors
     # the colour codes will work in tmux
     printf "\ttmux-fg \t\t tmux-bg \t [bash(fg=\\ x1b[38;5;\${i}  bg=\\ x1b[48;5;\${i}m )]\n"
@@ -131,10 +123,10 @@ colorlist() { #{{{2
     done
 }
 
-# Inside a tmux session {{{2
+# Inside a tmux session
 if [[ -n $TMUX ]] ; then
 
-    rtmux() { #{{{2
+    rtmux() {
         # rtmux: reset the tmux source-file
         if [[ $TERM == screen* ]] && [[ -n $SSH_CONNECTION ]] ; then
             tmux source-file $TMUX_CONF_NEST
@@ -144,7 +136,7 @@ if [[ -n $TMUX ]] ; then
         resimwin
     }
 
-    tmclean(){ #{{{2
+    tmclean(){
         # tmclean: cleanup existing sessions (kill all numbered sessions)
         this_session=$(tmux display -p '#S')
         # Kill defunct sessions first
@@ -157,48 +149,10 @@ if [[ -n $TMUX ]] ; then
 
 fi
 
-# Local-system specific functions {{{1o
-if [[ "$COMP_TYPE" == "local" ]] ; then
-    pyskeleton(){ #{{{2
-        # Make skeleton python package
-        dest=$1
-        if [[ "x$dest" == "x" ]] ; then
-            echo "${ERROR_RED}*** Please suply a destination name${NC}"
-            return
-        elif [[ -d $dest ]] ; then
-            echo "${ERROR_RED}*** The directory $dest already exists${NC}"
-            return
-        fi
-        git clone cello:~/dev/py-skeleton.git $dest
-        echo "${BLUE_BRIGHT}skeleton $dest created$NC"
+# Local-system specific functions
+if os_is_osx ; then
 
-        pushd . > /dev/null
-        cd $dest
-
-        # remove the ability to push back to skeleton repository
-        git remote rm origin
-        echo "${RED}- origin removed, cannot push${NC}"
-
-        # rename the appropriate files to have the new package name
-        git mv NAME $dest
-        git mv $(ls tests/NAME_tests.py) tests/${dest}_tests.py
-
-        # account for the renamed python package
-        tmp=$(mktemp -t $(basename $0).XXX)
-        sed "s/NAME/$dest/g" setup.py > $tmp
-        mv $tmp setup.py
-        sed "s/NAME/${dest}/g" tests/${dest}_tests.py > $tmp
-        mv $tmp tests/${dest}_tests.py
-
-        # make the first commit
-        git add .
-        git ci -m "Rename skeleton package to $dest"
-
-        # return
-        popd > /dev/null
-    }
-
-    fullpath() { #{{{2
+    fullpath() {
         # fullpath: toggles full-path shown in finder
         echo "fullpath: input=\"$1\""
         # changes Finder so that it shows the full directory path in the top
@@ -216,7 +170,7 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
         killall Finder
     }
 
-    myip() { #{{{2
+    myip() {
         # myip: return a list of ip's being used by the system
         if [ "x$1" == "x" ] ; then
             tempFile=".temp.ip"
@@ -247,41 +201,35 @@ if [[ "$COMP_TYPE" == "local" ]] ; then
 
     }
 
-    voices() { #{{{2
+    voices() {
         # voices: list possible voices for the say command
         ls /System/Library/Speech/Voices | sed 's/.SpeechVoice//g' | grep -v "Compact"
     }
 
-    setvol() { #{{{2
+    setvol() {
         # setvol: change volume
         osascript -e "set Volume $1"
     }
 
-    volmute(){ #{{{2
+    volmute(){
         # volmute: mute computer
         setvol 0
     }
 
-    wiki() { #{{{2
+    volmax(){
+        setvol 10
+    }
+
+    wiki() {
         # wiki: wiki dictionary search
         # perform search and highlight the search term (grep-style)
         search=$(dig +short txt ${1}.wp.dg.cx | perl -pe 's/'"$1"'/\\033['"${GREP_COLOR}"'m'"${1}"'\'"$NC"'/ig')
         echo -e $search
     }
 
-    archinit() { #{{{2
-        ang=$1 ;
-        len=$2;
-        file=$(ls run_*_ang-${ang}_len-${len}_*.input) && {
-        cp $file data.input ;
-        kesshou -si ;
-        tar cvf a-${ang}_l-${len}.tar ${file%.input}.txt init.data ;
-    }
-}
 
-# Central/Remote Systems {{{1o
-elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
-    myip() { #{{{2
+else
+    myip() {
         # myip: find my local network ip address
         for ip in $(hostname -i); do
             final=${ip##*.};
@@ -293,8 +241,53 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
             echo $my_ip
         done
     }
+fi
 
-    qinfo() { #{{{2
+if is_avail gs ; then
+    merge_pdf() {
+        gs \
+            -o merged.pdf \
+            -sDEVICE=pdfwrite \
+            -dPDFSETTINGS=/prepress $@
+    }
+    compress_pdf() {
+        if [[ -z $2 ]] ; then
+            output="output.pdf"
+        else
+            output=$2
+        fi
+        gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dBATCH -sOutputFile=$2 $output
+    }
+fi
+if is_avail djvu2hocr ; then
+    djvu_ocr_pdf() {
+        if [[ "$1" == "-n" ]] ; then
+            pn=$2
+            shift 2
+            echo "converting $pn pages"
+        else
+            pn=1000
+            echo "assuming $pn pages ... may need correction with '-n' flag"
+        fi
+        djvu_file=$1
+        pushd . > /dev/null
+        tmp=$(mktemp -d -t djvu_ocr_pdf.XXX)
+        echo $tmp
+        cp $djvu_file $tmp/tmp.djvu
+        cd $tmp
+        for i in {1..$pn} ; do
+            ii=$(printf "%010d" $i)
+            { djvu2hocr -p ${ii} tmp.djvu || break ; } | sed 's/ocrx/ocr/g' > tmp_${ii}.html
+            ddjvu -format=tiff -page=${ii} tmp.djvu tmp_${ii}.tif
+        done
+        pdfbeads -o tmp.pdf
+        popd > /dev/null
+        cp $tmp/tmp.pdf ${djvu_file%.djvu}.pdf
+    }
+fi
+
+if is_avail qstat ; then
+    qinfo() {
         # qinfo: get useful info from qstat
         # this requires a system with pbs
         info=$(qstat -Q | tail -1)
@@ -346,47 +339,3 @@ elif [[ "$COMP_TYPE" == "central" ]] || [[ "$COMP_TYPE" == "remote" ]] ; then
         fi
     }
 fi
-
-if is_avail gs ; then
-    merge_pdf() {
-        gs \
-            -o merged.pdf \
-            -sDEVICE=pdfwrite \
-            -dPDFSETTINGS=/prepress $@
-    }
-    compress_pdf() {
-        if [[ -z $2 ]] ; then
-            output="output.pdf"
-        else
-            output=$2
-        fi
-        gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dBATCH -sOutputFile=$2 $output
-    }
-fi
-if is_avail djvu2hocr ; then
-    djvu_ocr_pdf() {
-        if [[ "$1" == "-n" ]] ; then
-            pn=$2
-            shift 2
-            echo "converting $pn pages"
-        else
-            pn=1000
-            echo "assuming $pn pages ... may need correction with '-n' flag"
-        fi
-        djvu_file=$1
-        pushd . > /dev/null
-        tmp=$(mktemp -d -t djvu_ocr_pdf.XXX)
-        echo $tmp
-        cp $djvu_file $tmp/tmp.djvu
-        cd $tmp
-        for i in {1..$pn} ; do
-            ii=$(printf "%010d" $i)
-            { djvu2hocr -p ${ii} tmp.djvu || break ; } | sed 's/ocrx/ocr/g' > tmp_${ii}.html
-            ddjvu -format=tiff -page=${ii} tmp.djvu tmp_${ii}.tif
-        done
-        pdfbeads -o tmp.pdf
-        popd > /dev/null
-        cp $tmp/tmp.pdf ${djvu_file%.djvu}.pdf
-    }
-fi
-

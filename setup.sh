@@ -1,38 +1,20 @@
 #!/bin/sh
 
+linker(){
+    source=$1
+    destination=$2
+    if [[ ! -L $destination ]] ; then
+        echo ln -s $source $destination
+        ln -s $source $destination
+    else
+        echo "link-exists: $destination"
+    fi
+}
+
 ## make sure that the script is being called from the right directory
-pushd . > /dev/null
 abs_path=$(cd "$(dirname "$0")"; pwd)
 cd $abs_path
 
-# setup the computer type and rc file location
-if [[ ! -f $HOME/.comptype ]] ; then
-    echo    '## -- setting up .comptype -- ## '
-    while [[ 1 ]] ; do
-        read -p 'COMP_TYPE =? (l,c,r,?) ' COMP_TYPE
-        case $COMP_TYPE in
-            [lL]*)
-                COMP_TYPE="local"
-                break
-                ;;
-            [cC]*)
-                COMP_TYPE="central"
-                break
-                ;;
-            [rR]*)
-                COMP_TYPE="remote"
-                break
-                ;;
-            *)
-                echo "*** local, central, or remote computer?"
-                echo "     - local: personal computer accessed directly by the user"
-                echo "     - central: a central server used to pass on to remote servers"
-                echo "     - remote: a remote server accessed only through ssh"
-                ;;
-        esac
-    done
-    printf "${COMP_TYPE}" > $HOME/.comptype
-fi
 if [[ $COMP_TYPE == "local" ]] && [[ -d $HOME/Dropbox ]] ; then
     LOGS_DIR=$HOME/Dropbox/serverLogs
     mkdir -p $LOGS_DIR
@@ -40,172 +22,41 @@ else
     FAIL_LOGS_DIR=0
 fi
 
-# check shell
-chshfile=$HOME/.chsh
-if [[ -x $(which chsh 2> /dev/null) && ! -f $chshfile ]] ; then
-    echo "## -- setting up shell -- ##"
-    while [[ 1 ]] ; do
-        read -p 'SHELL =? ' shell
+# link shell files
+links=( unity zsh zshrc bash bashrc bash_profile )
+echo "##-- linking shell files"
+for l in ${links[@]} ; do
+    linker $PWD/$l $HOME/.$l
+done
+linker unity/profile.sh $HOME/.profile
 
-        if [[ "x$shell" == "x" ]] ; then
-            #input of nothing will simply stop trying
-            echo "*** No shell scripts chosen at this time"
-            break
-        fi
-        # in case the user puts in /bin/bash instead of bash
-        shell=${shell##*/}
-        # see if there are any startup scipts
-        found=0
-        for file in $(find . -maxdepth 1 ) ; do
-            if [[ $file == "./$shell"* ]] ; then
-                found=1
-                file=${file#./}
-                #link the startup scripts
-                rm $HOME/.$file &> /dev/null
-                ln -s $PWD/$file $HOME/.$file
-                echo "ln -s $file \$HOME/.$file"
-            fi
-        done
-        if [[ $found -eq 1 ]] ; then
-            # attempt to change the shell
-            echo "- changing shell to '$shell'"
-            chsh -s /bin/$shell && echo '! Success'
-            if [[ $? -gt 0 ]] ; then
-                echo '*** Error changing shells '
-            else
-                touch $chshfile
-                break
-            fi
-        else
-            #no startup scripts, so we can't
-            echo '*** Startup scripts for that shell were not found'
-        fi
-    done
-else
-    # the choice has been made, but make sure the links are in place
-    echo "## -- setting up shell -- ##"
-    shell=${SHELL##*/}
-    for file in $(find . -maxdepth 1 ) ; do
-        if [[ $file == "./$shell"* ]] ; then
-            file=${file#./}
-            rm $HOME/.$file &> /dev/null
-            ln -s $PWD/$file $HOME/.$file
-            echo "ln -s $file \$HOME/.$file"
-        fi
-    done
-fi
-if [[ ! -L $HOME/.unity ]] ; then
-    echo ln -s unity \$HOME/.unity
-    ln -s $PWD/unity $HOME/.unity
-fi
-if [[ ! -L $HOME/.profile ]] ; then
-    echo ln -s unity/profile \$HOME/.unity/.profile.sh
-    ln -s $HOME/.unity/profile.sh $HOME/.profile
-fi
-
-escape_dir(){
-    # takes a dir name and escapes it
-    echo $1 | sed -e 's/\//\\\//g' -e 's/\./\\./g'
-}
 ## setup symbolic links
-i=0
-altdir="misc"
-for file in $(find $altdir -maxdepth 1 | sed -e "s/$altdir\///g");do
-    # if [[ ! -L "$HOME/.$file" ]] ; then
-
-    if [[ $i -eq 0 ]] ; then
-        echo "## -- setting up symbolic links -- ##"
-        i=1
-    fi
-
-    rm $HOME/.$file &> /dev/null
-    ln -s ${PWD}/${altdir}/${file} ${HOME}/.${file}
-    echo "ln -s ${altdir}/$file \$HOME/.$file"
-
-    #else
-    #rm $HOME/.$file
-    # fi
+echo "##-- linking misc files"
+cd $abs_path/misc
+for file in $(ls) ; do
+    linker $PWD/$file $HOME/.$file
 done
 
-## setup bundles
-
-collectbin(){
-    mkdir -p $HOME/bin
-    #for dir in $(find $abs_path/bundle -type d -regex ".*\/bin" )
-    for dir in $(find $bundles -type d -regex ".*\/bin" )
-    do
-        for file in $(ls $dir) ; do
-            if [[  -f $HOME/bin/$file || -L $HOME/bin/$file ]] ; then
-                # there is already file or link in the desired bin directory :(
-                if [[ "$1" == "-v" || "$1" == "--verbose" ]] ; then
-                    echo "Skipping $dir/$file ... already exists in ~/bin"
-                fi
-            else
-                echo "ln -s $dir/$file $HOME/bin/$file"
-                ln -s $dir/$file $HOME/bin/$file
-            fi
-        done
-    done
-    echo "## -- executables in non-standard directories"
-    OIFS="$IFS"
-    IFS=$'\n'
-    ignore=$abs_path/ignore_exec
-    touch $ignore
-    tmp=$(mktemp -t $(basename $0).XXX)
-    find $bundles -executable > $tmp
-    #sed -i "/$(escape_dir $bundles)/d" $tmp
-    for file in $(cat $tmp) ; do
-        [[ $file == $bundles ]] && continue
-        #echo $file
-        f_ig=$(echo $file | sed "s/$(escape_dir $bundles)//")
-        link=$HOME/bin/$(basename $file)
-        if [[ "x$(grep $f_ig $ignore)" == "x" && ! -d $file && ! -L $link ]] ; then
-            # criteria:
-            #        1. Not in the ignore list
-            #        2. not a directory
-            #        3. no link already exists
-            while [[ 1 ]] ; do
-                printf "ln -s $file ~/bin/$(basename $file) ? (y/N) "
-                read  yn
-                case $yn in
-                    [yY] )
-                        echo "ln -s $file $link"
-                        ln -s $file $link
-                        break
-                        ;;
-                    * )
-                        echo $f_ig >> $ignore
-                        break
-                        ;;
-                esac
-            done
-        fi
-        #read line
-    done
-    IFS="$OIFS"
-    rm $tmp &> /dev/null
-    echo "## -- ignoring bundles ($ignore)"
-    cat $ignore
-}
-echo "## -- collecing executables"
-bundles=$HOME/.rcbundles
-echo "ln -s $abs_path/bundle $bundles"
-if [[ ! -L $bundles ]] ; then
-    ln -s $abs_path/bundle $bundles
-fi
-bundles=$bundles/
-collectbin
-
 echo "## -- setup up vim"
-if [[ -L $HOME/.vim ]] ; then
-    rm $HOME/.vim
-fi
-ln -s $abs_path/vim $HOME/.vim
+cd $abs_path
+linker vim $HOME/.vim
 cd $HOME/.vim
 ./setup.sh
 
-## return to the original directory
-popd > /dev/null
+echo "## -- setup config files"
+cd $abs_path/config
+if [[ ! -d $HOME/.config ]] ; then
+    mkdir -p $HOME/.config
+fi
+for d in $(ls); do
+    linker $PWD/$d $HOME/.config/$d
+done
+
+echo "## -- setup bin files"
+cd $abs_path/bin
+for f in $(ls) ; do
+    linker $PWD/$f $HOME/bin/$f
+done
 
 echo "## -- you may need to restart your terminal for changes to take effect"
 

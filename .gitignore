@@ -1,6 +1,7 @@
 misc/irssi/config*
 misc/w3m/cookie
-misc/matplotlib/fontList.cache
-misc/matplotlib/sample_data
-misc/maid/maid.log
-misc/matplotlib/test_cache
+!misc/matplotlib/matplotlibrc
+misc/matplotlib/*
+misc/ipython/profile_default/startup/*
+!misc/ipython/README
+misc/ipython/*

@@ -58,16 +58,10 @@ if [[ -n $TMUX ]] ; then
     alias detach="tmux detach"
 fi
 
-if is_avail ipython ; then
-    alias ipy="ipython "
-    alias ipq="ipython qtconsole --ConsoleWidget.font_family='Anonymous Pro' --ConsoleWidget.font_size=12 --style=native --pylab=inline"
-else
-    alias ipy="python"
-fi
-alias pydserve="pydoc -p 9999 "
+alias ipy="ipython "
+alias ipq="ipython qtconsole --ConsoleWidget.font_family='Anonymous Pro' --ConsoleWidget.font_size=12 --style=native --pylab=inline"
 
-# pizza py
-alias pizza="python ~/dev/py-pizza/src/pizza.py"
+alias pydserve="pydoc -p 9999 "
 
 # syntax highlighter cat
 alias pcat="pygmentize -g"
@@ -125,49 +119,19 @@ alias grhh='git reset HEAD --hard'
 # history lesson
 alias histlesson="cat /usr/share/calendar/calendar.history"
 
-### System specific aliases {{{1
-if [[ "$COMP_TYPE" == "local" ]] ; then
+# proxy server connection for getting articles
+alias proxyssh='tssh -P'
 
-    # proxy server connection for getting articles
-    alias proxyssh='tssh -P'
+alias tree='tree -C'
 
-    # system functions
-    # these reference shell scripts that I have created
-    alias batteryinfo='pmset -g'
-    alias suwifi='sudo tempwifi'
-
-    # calendar stuff
-    alias gcalw='gcalcli calw'
-    alias gcalm='gcalcli calm'
-    alias gcala='gcalcli --details agenda'
-    alias gcaladd='google calendar add '
-
-    # Other
-    #alias simsummary='open http://dl.dropbox.com/u/7645999/mdLogs/index.html'
-    alias tree='tree -C'
-    if [[ "$(hostname -s)" == k* ]] ; then
-        alias ircw="tmux new-window -n irssi -t 8 'irc'"
-    else
-        alias ircw="tmux neww -n irssi -t 8 \"tssh k -t 'source $HOME/.path ; irc'\""
-        alias irc="tssh k -t 'source $HOME/.path ; irc'"
-    fi
-
-    # lock the pc
-    remotelock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-
-    # lolz (I got these from some other github directory, but their fun)
-    alias stfu="osascript -e 'set volume output muted true'"
-    alias pumpitup="osascript -e 'set volume 10'"
-    alias hax="terminal-notify -t 'Activity Monitor: System error' -m 'WTF IS GOING ON?!'"
-    # the very important nyan cat alias
-    if is_avail nc ; then
-        alias nyan='nc -v miku.acm.uiuc.edu 23' # nyan cat
-    fi
-
-    ### Remote server aliases {{{1
-elif [[ "$COMP_TYPE" == "central" || "$COMP_TYPE" == "remote" ]] ; then
-    #### linux
-    # PBS statistics
+if is_avail qstat ; then
     alias qme='qstat -u $USER'
 fi
 
+### System specific aliases {{{1
+if os_is_osx ; then
+    alias battery='pmset -g'
+
+    # lock the pc remotely
+    remotelock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+fi
