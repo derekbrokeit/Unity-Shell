@@ -1,12 +1,3 @@
-# test if a command is available
-is_avail() { command -v $1 >/dev/null 2>&1 ; }
-
-# checks for os type
-export OSTYPE=$(uname)
-os_is_osx()   { [[ $OSTYPE == "Darwin" ]] ; }
-os_is_linux() { [[ $OSTYPE == "linux"  || $OSTYPE == "bsd" ]] ; }
-os_is_bsd()   { [[ $OSTYPE == "Darwin" || $OSTYPE == "bsd" ]] ; }
-
 # grab the paths
 . $HOME/.path
 . $HOME/.colors
