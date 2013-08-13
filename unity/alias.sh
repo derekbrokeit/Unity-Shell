@@ -44,6 +44,9 @@ alias lsdd='ls -d **/'
 # editors
 alias   v="$EDITOR"
 alias  vi="$EDITOR"
+if os_is_osx; then
+    alias mvim="reattach-to-user-namespace mvim"
+fi
 
 #  setup easy to use variabls
 alias rmi='rm -i '
@@ -51,7 +54,7 @@ alias cpi='cp -i '
 alias grepi='grep -i '
 alias tarz='tar cvzf '
 alias utarz='tar xvf '
-alias fileSize='du -h '
+alias fsize='du -h '
 
 # handy command to detach tmux but keep the shell running (kind-of)
 if [[ -n $TMUX ]] ; then
