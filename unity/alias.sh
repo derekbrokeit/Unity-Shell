@@ -73,12 +73,13 @@ pless() {
 # personal git aliases
 alias glu='git ls-files --other --exclude-standard'
 alias glm='git ls-files --modified'
-alias gir='gitrack -i'
+alias cdbase='cd $(git rev-parse --show-toplevel)'
 
 # open files in vim
 alias vgu='vim -p $(git ls-files --other --exclude-standard)'
 alias vgm='vim -p $(git ls-files --modified --exclude-standard)'
-alias mgm='ms $(git ls-files --modified --exclude-standard)'
+alias mgm='reattach-to-user-namespace mvim -p $(git ls-files --modified --exclude-standard)'
+alias mgu='reattach-to-user-namespace mvim -p $(git ls-files --other --exclude-standard)'
 
 # download webpage and all children
 alias wwwdown='wget --wait=20 \

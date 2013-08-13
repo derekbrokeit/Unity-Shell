@@ -82,6 +82,8 @@
     subcheck  = submodule foreach git_extra --sub_check
     submaster = submodule foreach git_extra --pull
     
+    # general
+    base = rev-parse --show-toplevel
 
 [color]
     ui     = true
