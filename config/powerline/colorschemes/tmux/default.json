@@ -21,8 +21,11 @@
 		"system_load": { "fg": "gray8", "bg": "gray0" },
 		"system_load_gradient": { "fg": "green_yellow_orange_red", "bg": "gray0" },
 		"environment": { "fg": "gray8", "bg": "gray0" },
-        "cwd:divider": { "fg": "gray5", "bg": "gray0" },
         "cwd": { "fg": "gray8", "bg": "gray0" },
-        "tmux_global_PWD": { "fg": "gray8", "bg": "gray2" }
+        "cwd:divider": { "fg": "gray8", "bg": "gray0" },
+		"branch": { "fg": "gray9", "bg": "gray4" },
+		"branch_dirty": { "fg": "gray0", "bg": "yellow" },
+		"branch_clean": { "fg": "gray0", "bg": "green" },
+		"branch:divider": { "fg": "gray7", "bg": "gray4" }
 	}
 }

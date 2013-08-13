@@ -16,24 +16,39 @@
 				"username": "",
 				"password": ""
 			}
+		},
+		"branch": {
+			"before": " "
 		}
 	},
 	"segments": {
         "left": [
 			{
 				"name": "hostname",
+                "priority": 20,
                 "args": {
                     "exclude_domain": true
                 }
 			},
 			{
 				"name": "external_ip",
-				"priority": 50
+				"priority": 30
+			},
+			{
+				"name": "branch",
+                "priority": 40,
+                "args": {
+                    "status_colors": true
+
+                 }
 			},
             {
-                "name": "global_environment_variable",
-                "module": "powerline.segments.tmux",
-                "priority":50
+                "name": "cwd",
+                "priority":50,
+                "args": {
+                    "dir_shorten_len": false,
+                    "dir_limit_depth": 3
+                }
             }
         ],
 		"right": [
