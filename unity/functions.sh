@@ -123,6 +123,18 @@ colorlist() {
     done
 }
 
+ignored_filetypes(){
+    # lists the currently ignored filetypes
+    cat ~/.cvsignore | tr '\n' ' '
+}
+
+change_deliminator(){
+    # takes piped in input and outputs the text with a change of deliminator
+    from=$1
+    to=$2
+    awk 'BEGIN{FS="'$from'";OFS="'$to'"} {$1=$1; print $0}'
+}
+
 # Inside a tmux session
 if [[ -n $TMUX ]] ; then
 

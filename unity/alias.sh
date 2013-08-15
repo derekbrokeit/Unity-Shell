@@ -61,7 +61,8 @@ if [[ -n $TMUX ]] ; then
     alias detach="tmux detach"
 fi
 
-alias ipy="ipython "
+alias ipy="ipython"
+alias ipy3="ipython3"
 alias ipq="ipython qtconsole --ConsoleWidget.font_family='Anonymous Pro' --ConsoleWidget.font_size=12 --style=native --pylab=inline"
 
 alias pydserve="pydoc -p 9999 "
@@ -126,7 +127,9 @@ alias histlesson="cat /usr/share/calendar/calendar.history"
 # proxy server connection for getting articles
 alias proxyssh='tssh -P'
 
-alias tree='tree -C'
+# tree implementation
+alias tree='tree -C -I "$(ignored_filetypes | change_deliminator " " "|")"'
+alias tree_all="tree -C -I ''"
 
 if is_avail qstat ; then
     alias qme='qstat -u $USER'
