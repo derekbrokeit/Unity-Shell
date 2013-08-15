@@ -2,6 +2,7 @@ tags
 *.pyc
 *.pyo
 *.o
+__pycache__
 .DS_Store
 *.pickle
 tags.*
