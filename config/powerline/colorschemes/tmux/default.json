@@ -26,6 +26,7 @@
 		"branch": { "fg": "gray9", "bg": "gray4" },
 		"branch_dirty": { "fg": "gray0", "bg": "yellow" },
 		"branch_clean": { "fg": "gray0", "bg": "green" },
-		"branch:divider": { "fg": "gray7", "bg": "gray4" }
+        "battery": { "fg": "green", "bg": "gray61" },
+        "battery_gradient": { "fg": "violet", "bg": "gray0" }
 	}
 }
