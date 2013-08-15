@@ -1,1 +1,0 @@
-/Users/derekt/.pythonrc.py
