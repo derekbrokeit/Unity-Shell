@@ -19,7 +19,10 @@
 		},
 		"branch": {
 			"before": " "
-		}
+		},
+        "battery": {
+            "before": "♡  "
+        }
 	},
 	"segments": {
         "left": [
@@ -60,6 +63,12 @@
 				"name": "system_load",
 				"priority": 50
 			},
+            {
+                "name": "weather"
+            },
+            {
+                "name": "battery"
+            },
 			{
 				"name": "date"
 			},
