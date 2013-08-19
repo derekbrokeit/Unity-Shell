@@ -391,13 +391,11 @@ keymap ZZ QUIT
 keymap ZQ EXIT
 
 ######## additional by derek ######
-keymap C-h      BACK
-keymap C-l      NEXT
-keymap  >       SHIFT_RIGHT
-keymap  <       SHIFT_LEFT
+keymap >      BACK
+keymap <      NEXT
 keymap  TAB     NEXT_LINK
 keymap  [Z     PREV_LINK
-keymap  C-L     REDRAW
+# keymap  C-L     REDRAW
 keymap  !       SHELL
 keymap  @       READ_SHELL
 keymap  C-c     CLOSE_TAB
