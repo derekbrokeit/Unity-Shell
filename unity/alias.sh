@@ -136,8 +136,8 @@ if is_avail qstat ; then
 fi
 
 # find and alias atkpython
-VNL=$(find $HOME/../QuantumWise -type f -name vnl)
-ATK=$(find $HOME/../QuantumWise -type f -name atkpython)
+VNL=$(find $HOME/../QuantumWise -type f -name vnl 2> /dev/null)
+ATK=$(find $HOME/../QuantumWise -type f -name atkpython 2> /dev/null)
 if is_avail $VNL ; then
     alias vnl=$VNL
 fi
