@@ -135,10 +135,19 @@ if is_avail qstat ; then
     alias qme='qstat -u $USER'
 fi
 
-### System specific aliases {{{1
+# find and alias atkpython
+VNL=$(find $HOME/../QuantumWise -type f -name vnl)
+ATK=$(find $HOME/../QuantumWise -type f -name atkpython)
+if is_avail $VNL ; then
+    alias vnl=$VNL
+fi
+if is_avail $ATK ; then
+    alias atk=$ATK
+    alias atkpython=$ATK
+fi
+
+# osx specific utilities
 if os_is_osx ; then
     alias battery='pmset -g'
-
-    # lock the pc remotely
-    remotelock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+    alias remotelock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 fi
