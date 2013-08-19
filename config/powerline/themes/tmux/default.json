@@ -21,7 +21,10 @@
 			"before": " "
 		},
         "battery": {
-            "before": "♡  "
+            "before": "♡  ",
+            "args": {
+                "steps": 100
+            }
         }
 	},
 	"segments": {
@@ -64,9 +67,6 @@
 				"priority": 50
 			},
             {
-                "name": "weather"
-            },
-            {
                 "name": "battery"
             },
 			{
@@ -78,10 +78,6 @@
 					"format": "%H:%M",
 					"istime": true
 				}
-			},
-			{
-				"name": "email_imap_alert",
-				"priority": 10
 			}
 		]
 	}
