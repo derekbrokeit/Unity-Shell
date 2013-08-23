@@ -135,6 +135,21 @@ change_deliminator(){
     awk 'BEGIN{FS="'$from'";OFS="'$to'"} {$1=$1; print $0}'
 }
 
+dangling_links(){
+    # lists the dangling lists recursively
+    # args:
+    #  N: used to measure depth (optional)
+    #  after that are `find` args
+
+    if [[ -n $1 ]] ; then
+        local DEPTH=$1
+        shift 1
+        find -L ./ -maxdepth $DEPTH -type l $@
+    else
+        find -L ./ -type l $@
+    fi
+}
+
 # Inside a tmux session
 if [[ -n $TMUX ]] ; then
 
