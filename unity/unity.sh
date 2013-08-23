@@ -1,6 +1,9 @@
 # grab the paths
 . $HOME/.path
 . $HOME/.colors
+if [[ -f $HOME/.license ]] ; then
+    . $HOME/.license
+fi
 
 # load unity profiles
 unity_source=( ".unity/profile.sh" ".unity/functions.sh" ".unity/alias.sh" ".unity/compilers.sh" )
