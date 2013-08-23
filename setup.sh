@@ -39,20 +39,19 @@ done
 
 echo "## -- setup up vim"
 cd $abs_path
-linker vim $HOME/.vim
-cd $HOME/.vim
+linker $PWD/vim $HOME/.vim
+cd vim
 ./setup.sh
 
 echo "## -- setup config files"
 cd $abs_path/config
-if [[ ! -d $HOME/.config ]] ; then
-    mkdir -p $HOME/.config
-fi
+mkdir -p $HOME/.config
 for d in $(ls); do
     linker $PWD/$d $HOME/.config/$d
 done
 
 echo "## -- setup bin files"
+mkdir -p $HOME/bin
 cd $abs_path/bin
 for f in $(ls) ; do
     linker $PWD/$f $HOME/bin/$f
