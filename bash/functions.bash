@@ -5,7 +5,7 @@ if [[ -n $TMUX ]] ; then
         # check the input
         if [[ "$1" == "-default" ]] ; then
             # default 
-            export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME%.*}: $(shortdir --nohome)\007"'
+            export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME%.*}: $(pwd)\007"'
         elif [[ "$1" == "-temp" ]] ; then
             # default 
             shift 1
