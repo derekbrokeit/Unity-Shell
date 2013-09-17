@@ -25,7 +25,8 @@ export VIRTUALENVWRAPPER_PYTHON=$(command -v python)
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 # language variables
-export LANG="$(locale -a | egrep 'en_US.*(utf|UTF)')"
+# some systems throw an error when using locale, so throw errors to null
+export LANG="$(locale -a 2> /dev/null | egrep 'en_US.*(utf|UTF)')"
 export LC_ALL=$LANG
 
 # grep coloring
