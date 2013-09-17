@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 linker(){
     source=$1
@@ -40,19 +40,18 @@ done
 echo "## -- setup up vim"
 cd $abs_path
 linker $PWD/vim $HOME/.vim
-cd $PWD/vim
+cd vim
 ./setup.sh
 
 echo "## -- setup config files"
 cd $abs_path/config
-if [[ ! -d $HOME/.config ]] ; then
-    mkdir -p $HOME/.config
-fi
+mkdir -p $HOME/.config
 for d in $(ls); do
     linker $PWD/$d $HOME/.config/$d
 done
 
 echo "## -- setup bin files"
+mkdir -p $HOME/bin
 cd $abs_path/bin
 for f in $(ls) ; do
     linker $PWD/$f $HOME/bin/$f
