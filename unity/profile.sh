@@ -63,17 +63,9 @@ export PS1="\[$(printf $YELLOW_BRIGHT)\]${HOSTNAME:0:1} > \[$(printf $NC)\]"
 
 export SSHFS_DIR="$HOME/sshfs"
 
-if os_is_osx ; then
-  # keep log files together
-  export LOGS_DIR="$DROPBOX/serverLogs"
-else
+if os_is_linux ; then
   # make sure that git doesn't throw errors on https:// sites
   export GIT_SSL_NO_VERIFY=true
 
-  # keep log files together
-  export LOGS_DIR="$HOME/.serverLogs"
-  if [[ ! -d $LOGS_DIR ]] ; then
-    mkdir -p $LOGS_DIR
-    chmod 700 $LOGS_DIR
-  fi
+  export HOMEBREW_CACHE=$HOME/.hb_cache
 fi
