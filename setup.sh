@@ -39,8 +39,8 @@ done
 
 echo "## -- setup up vim"
 cd $abs_path
-linker vim $HOME/.vim
-cd $HOME/.vim
+linker $PWD/vim $HOME/.vim
+cd $PWD/vim
 ./setup.sh
 
 echo "## -- setup config files"
