@@ -135,17 +135,6 @@ if is_avail qstat ; then
     alias qme='qstat -u $USER'
 fi
 
-# find and alias atkpython
-VNL=$(find $HOME/../QuantumWise -type f -name vnl 2> /dev/null)
-ATK=$(find $HOME/../QuantumWise -type f -name atkpython 2> /dev/null)
-if is_avail $VNL ; then
-    alias vnl=$VNL
-fi
-if is_avail $ATK ; then
-    alias atk=$ATK
-    alias atkpython=$ATK
-fi
-
 # osx specific utilities
 if os_is_osx ; then
     alias battery='pmset -g'
