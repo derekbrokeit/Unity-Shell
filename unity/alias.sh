@@ -42,10 +42,10 @@ alias lsd='ls -d *(/)'
 alias lsdd='ls -d **/'
 
 # editors
-alias   v="$EDITOR"
-alias  vi="$EDITOR"
+alias   v="$EDITOR -O"
+alias  vi="$EDITOR -O"
 if os_is_osx; then
-    alias mvim="reattach-to-user-namespace mvim"
+    alias mvim="reattach-to-user-namespace mvim -O"
 fi
 
 #  setup easy to use variabls
