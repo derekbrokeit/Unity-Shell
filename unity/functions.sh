@@ -178,6 +178,42 @@ fi
 
 # Local-system specific functions
 if os_is_osx ; then
+    socksproxy(){
+        if [[ "x$2" = "x" ]] ; then
+            dev="Wi-Fi"
+        else
+            dev="$2"
+        fi
+
+        if [[ "x$1" != "x" ]] ; then
+            switch=$1
+        else
+            if networksetup -getsocksfirewallproxy $dev | grep Yes 2>&1 > /dev/null ; then
+                switch=off
+            else
+                switch=on
+            fi
+        fi
+        # taking 'sudo' off brings the
+        networksetup -setsocksfirewallproxystate $dev $switch && echo "socks proxy ($dev) is now $switch"
+    }
+
+    tsshproxy(){
+
+        if [[ "x$1" = "x" ]] ; then
+            # make sure to always try to turn off the socks proxy on exit
+            trap "socksproxy off" EXIT
+            # turn on socks proxy
+            socksproxy on && tssh -P
+        elif [[ "$1" = "i" ]] ; then
+            # make sure to always try to turn off the socks proxy on exit
+            trap 'socksproxy off "iPhone USB"' EXIT
+
+            socksproxy on "iPhone USB" && tssh -P
+        else
+            echo "tsshproxy: invalid option"
+        fi
+    }
 
     fullpath() {
         # fullpath: toggles full-path shown in finder
