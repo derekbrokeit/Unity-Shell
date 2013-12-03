@@ -41,6 +41,11 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure, show
 import pylab as p
 
+# cryspy imports
+import cryspy.lattice.supercell as sc
+from cryspy.lattice.network import Network
+from cryspy.dump import dump_xyz
+
 # welcome message
-print ( "Welcome!" )
+print("Welcome!")
 
