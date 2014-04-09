@@ -1,8 +1,2 @@
 #!/bin/sh
-
-tmp=$(mktemp -t $(basename $0).XXX)
-
-echo "W3m $@" > $tmp
-
-$EDITOR -S $tmp
-rm $tmp
+$EDITOR -c "set nonumber" -c "W3m $@"
