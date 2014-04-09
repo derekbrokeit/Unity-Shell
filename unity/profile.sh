@@ -45,6 +45,16 @@ export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 export LS_OPTIONS="--color=auto"
+if [ ! -s ~/.dir_colors ]; then
+    #setup ~/.dir_colors for ls if one does not exist
+    if is_avail dircolors ; then
+        dircolors -p > ~/.dir_colors
+        dircolors ~/.dir_colors
+    elif is_avail gdircolors ; then
+        gdircolors -p > ~/.dir_colors
+        gdircolors ~/.dir_colors
+    fi
+fi
 
 if [[ -d $HOME/Dropbox ]] ; then
     export DROPBOX="$HOME/Dropbox"
