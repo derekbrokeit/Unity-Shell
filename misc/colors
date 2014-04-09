@@ -1,38 +1,64 @@
+#!/bin/sh
+
+# define a global ANSI color variable from name and color-code
+color_def() {
+    local name=$1
+    local ansi_color=$2
+    eval 'export '${name}'=$(tput setaf '${ansi_color}')'
+    eval 'export '${name}'_BG=$(tput setab '${ansi_color}')'
+}
+
+# printcolor: print the available 256 colors
+color_list() {
+    printf "\tfg \t\t bg"
+    for i in $(seq 0 255) ; do
+        local fg=$(tput setaf $i)
+        local bg=$(tput setab $i)
+        printf "${fg}$i \t color \t\t$bg colour$i$NC\n"
+    done
+}
+
+# print a block of colors with numbers
+color_block() {
+  if [[ $# -eq 1 ]] ; then
+      local mode=$1
+  else
+      local mode=f
+  fi
+
+  for line in $(seq 0 17); do
+      for col in $(seq 0 15); do
+          local code=$(($col * 18 + $line))
+          # local color=$(tput seta$mode $code)
+          printf $'\e[38;05;%dm %03d' $code $code;
+    done
+    echo
+  done
+}
 
 ## -- Colors --
 # text attributes
-NC="0"
-BOLD="01"
-UNDER="04"
-BLINK="05"
-INVER="07"
-CONC="08"
+NC=$(tput sgr0)
+BOLD=$(tput bold)
+UNDER=$(tput smul)
+BLINK=$(tput blink)
+INVER=$(tput smso)
+NO_INVER=$(tput rmso)
+ITALIC=$(tput sitm)
+BELL=$(tput flash)
 
 # general colors
-BLACK="30"
-RED="31"
-GREEN="32"
-YELLOW="33"
-BLUE="34"
-MAGENTA="35"
-CYAN="36"
-WHITE="37"
-
-
-#bright colors
-BLACK_BRIGHT="38;5;08"
-RED_BRIGHT="38;5;09"
-GREEN_BRIGHT="38;5;10"
-YELLOW_BRIGHT="38;5;11"
-BLUE_BRIGHT="38;5;12"
-MAGENTA_BRIGHT="38;5;13"
-CYAN_BRIGHT="38;5;14"
-WHITE_BRIGHT="38;5;15"
-
+gencol=(BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE)
+for ansi_color in $(seq 0 7); do
+    name=${gencol[$(($ansi_color + 1))]}
+    color_def $name $ansi_color
+    color_def ${name}_BRIGHT $(($ansi_color + 8))
+done
+unset gencol
+unset ansi_color
 
 # special colors
-ERROR_RED="38;5;196"
-
+color_def ERROR_RED 196
 
 ## colors chosen for OSX terminal
 #--- normal ---#
@@ -54,38 +80,4 @@ ERROR_RED="38;5;196"
 # magenta - #CC99CC
 # cyan    - #33CCCC
 # white   - #FFFFFF
-
-# Now we escape based on on the shell
-if [[ "$(basename $SHELL)" == "zsh" ]] ; then
-  function escapeArray(){
-    array=("$@")
-    for a in ${array[@]} ; do
-      eval 'export '${a}'="[${'${a}'}m"'
-    done
-  }
-elif [[ "$(basename $SHELL)" == "bash" || "$(basename $SHELL)" == "sh" ]] ; then
-  # escape="\\033"
-  escape='\\x1b['
-  ender='m'
-
-  function escapeArray(){
-    array=("$@")
-    for a in ${array[@]} ; do
-      eval 'export '${a}'=$(echo -e '${escape}'${'${a}'}'${ender}')'
-    done
-  }
-fi
- 
-# define and escape all of the colors and attributes
-attr=(NC BOLD UNDER BLINK INVER CONC)
-escapeArray ${attr[@]}
-
-gencol=(BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE)
-escapeArray ${gencol[@]}
-
-brightcol=(BLACK_BRIGHT RED_BRIGHT GREEN_BRIGHT YELLOW_BRIGHT BLUE_BRIGHT MAGENTA_BRIGHT CYAN_BRIGHT WHITE_BRIGHT)
-escapeArray ${brightcol[@]}
-
-specialcol=(ERROR_RED)
-escapeArray ${specialcol[@]}
 
