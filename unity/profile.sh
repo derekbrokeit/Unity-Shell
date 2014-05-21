@@ -1,10 +1,18 @@
 #export EDITOR="$HOME/bin/tmvim"
 export EDITOR=vim
-export PAGER=less
 export BROWSER=v3m
 
-# export PAGER="vimpager"
+export PAGER="vimpager"
 export MANPAGER="$PAGER"
+alias less=$PAGER
+ccat() {
+    # local cols=$(tput cols)
+    local cols=20
+    printf "${CYAN}%${cols}s${NC}\n" | tr " " -
+    vimcat -c "hi Normal ctermbg=NONE" $@
+    printf "${CYAN}%${cols}s${NC}\n" | tr " " -
+}
+
 export GNUTERM=dumb
 export VMAIL_HTML_PART_READER="w3m -dump -o display_link_number=1 "
 export VMAIL_VIM=mvim
