@@ -402,3 +402,10 @@ if is_avail qstat ; then
         fi
     }
 fi
+
+if [[ -d /opt/moose ]] ; then
+    moose_setup() {
+        source $HOME/.moose_profile
+        module load moose-dev-clang moose-tools
+    }
+fi
