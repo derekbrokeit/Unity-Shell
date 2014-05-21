@@ -17,11 +17,13 @@ if os.path.exists(historyPath):
     readline.read_history_file(historyPath)
 
 atexit.register(save_history)
-# del os, atexit, readline, rlcompleter, save_history, historyPath
 del atexit, readline, save_history, historyPath
+
+# ----
+# third party modules
 # ----
 
-# import science related modules
+# science related modules
 import math as m
 import numpy as np
 import numpy.linalg as la
