@@ -1,10 +1,8 @@
 # grab the paths
 . $HOME/.path
-. $HOME/.colors
-if [[ -f $HOME/.license ]] ; then
-    . $HOME/.license
+if [[ -f $HOME/.colors ]] ; then
+    . $HOME/.colors
 fi
-
 if [[ -f $HOME/.license ]] ; then
     . $HOME/.license
 fi
