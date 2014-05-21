@@ -82,8 +82,8 @@ export PS1="\[$(printf $YELLOW_BRIGHT)\]${HOSTNAME:0:1} > \[$(printf $NC)\]"
 export SSHFS_DIR="$HOME/sshfs"
 
 if os_is_linux ; then
-  # make sure that git doesn't throw errors on https:// sites
-  export GIT_SSL_NO_VERIFY=true
+    # make sure that git doesn't throw errors on https:// sites
+    # export GIT_SSL_NO_VERIFY=true
 
-  export HOMEBREW_CACHE=$HOME/.hb_cache
+    export HOMEBREW_CACHE=$HOME/.hb_cache
 fi
