@@ -102,9 +102,16 @@ resource() {
     source $HOME/.$(basename $SHELL)rc
 }
 
-prepvirtualwrapper() {
+pyvirt() {
     # virtualenv wrapper
+    if [[ "$1" == "2" ]] ; then
+        export VIRTUALENVWRAPPER_PYTHON=$(command -v python)
+    else
+        export VIRTUALENVWRAPPER_PYTHON=$(command -v python3)
+    fi
+
     if is_avail virtualenvwrapper.sh ; then
+
         export WORKON_HOME=$HOME/.virtualenvs
         export PROJECT_HOME=$HOME/.virtualenv_dev
         mkdir -p $PROJECT_HOME $WORKON_HOME
