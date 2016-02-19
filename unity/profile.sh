@@ -1,6 +1,10 @@
 #export EDITOR="$HOME/bin/tmvim"
 export EDITOR=vim
-export BROWSER=v3m
+if os_is_linux ; then
+    export BROWSER=google-chrome-stable
+else
+    export BROWSER=v3m
+fi
 
 export PAGER="vimpager"
 export MANPAGER="$PAGER"
@@ -35,11 +39,17 @@ export PYTHONSTARTUP=$HOME/.pythonrc.py
 # language variables
 # some systems throw an error when using locale, so throw errors to null
 export LANG="$(locale -a 2> /dev/null | egrep 'en_US.*(utf|UTF)')"
-export LC_ALL=$LANG
+if os_is_linux ; then
+    export LOCALE=UTF-8
+else
+    export LC_ALL=$LANG
+fi
 
 # grep coloring
-export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='1;32'
+if os_is_osx ; then
+    export GREP_OPTIONS='--color=auto'
+    export GREP_COLOR='1;32'
+fi
 
 # colorful man-pages
 # Less Colors for Man Pages
@@ -74,6 +84,10 @@ if is_avail lammps ; then
         export LAMMPS_POTS=$(brew --prefix )/share/lammps/potentials
         export LAMMPS_DOCS=$(brew --prefix )/share/lammps/doc
         export LAMMPS_LIB=$(brew --prefix )/lib/liblammps.so
+    else
+        export LAMMPS_POTS=$HOME/repo/lammps/potentials
+        export LAMMPS_DOCS=$HOME/repo/lammps/doc
+        export LAMMPS_LIB=/usr/local/lib/liblammps.so
     fi
 fi
 
@@ -87,3 +101,7 @@ if os_is_linux ; then
 
     export HOMEBREW_CACHE=$HOME/.hb_cache
 fi
+
+# export ParaView_DIR=/home/derek/OpenFOAM/ThirdParty-2.3.0/platforms/linux64Gcc/ParaView-4.1.0
+# export PATH=$ParaView_DIR/bin:$PATH
+# export PV_PLUGIN_PATH=$FOAM_LIBBIN/paraview-4.1
