@@ -12,6 +12,7 @@ os_is_bsd()   { [[ $OSTYPE == "Darwin" || $OSTYPE == "bsd" ]] ; }
 ##############################################################
 # --- PATH SETUP ---
 # regain original path/ld-path
+
 if [[ -f $HOME/.path.orig ]] ; then
     export PATH=$(cat .path.orig)
 fi
@@ -20,21 +21,25 @@ if [[ -f $HOME/.ld_path.orig ]] ; then
     export LD_LIBRARY_PATH=$(cat .ld_path.orig)
 fi
 
+if os_is_linux ; then
+    export PATH=$PATH:/usr/lib64/openmpi/bin
+else
+
 # make additions
 if os_is_osx ; then
     export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/bin:$PATH:/opt/X11/bin:/usr/texbin
-else 
-    export PATH=$HOME/.linuxbrew/bin:$HOME/bin:$PATH
-
-    # grab quantumwise libraries as possible alternatives
-    if [[ -d "/home/QuantumWise" ]] || [[ -d "/home/QuantumWise" ]] ; then
-        for d in $(find /home/QuantumWise /opt/QuantumWise -maxdepth 4 -type d -name lib 2> /dev/null) ; do
-            LD_LIBRARY_PATH=$d:$LD_LIBRARY_PATH
-        done
-    fi
-
-    # keep brew libraries on top
-    export LD_LIBRARY_PATH=$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH
-
-    # export GEM_HOME=$HOME/local/.gems
+# else 
+#     export PATH=$HOME/.linuxbrew/bin:$HOME/bin:$PATH
+# 
+#     # grab quantumwise libraries as possible alternatives
+#     if [[ -d "/home/QuantumWise" ]] || [[ -d "/home/QuantumWise" ]] ; then
+#         for d in $(find /home/QuantumWise /opt/QuantumWise -maxdepth 4 -type d -name lib 2> /dev/null) ; do
+#             LD_LIBRARY_PATH=$d:$LD_LIBRARY_PATH
+#         done
+#     fi
+# 
+#     # keep brew libraries on top
+#     export LD_LIBRARY_PATH=$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH
+# 
+#     # export GEM_HOME=$HOME/local/.gems
 fi
