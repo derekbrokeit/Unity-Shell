@@ -48,6 +48,12 @@ import cryspy.lattice.supercell as sc
 from cryspy.lattice.network import Network
 from cryspy.dump import dump_xyz
 
+try:
+    import ccad.model as cm
+    import ccad.display as cd
+except ImportError:
+    print('Problem importing ccad!')
+
 # welcome message
 print("Welcome!")
 
