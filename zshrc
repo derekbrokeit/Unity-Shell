@@ -2,6 +2,7 @@
 # export LANG="en_US.UTF-8"
 # export LOCALE="UTF-8"
 
+os_is_linux() { [[ $OSTYPE == 'Linux' || $OSTYPE == 'bsd' ]] ; }
 if os_is_linux ; then
     export POWERLINE_CONFIG_COMMAND=/usr/bin/powerline-config
     export POWERLINE_COMMAND=/usr/bin/powerline
