@@ -18,3 +18,5 @@ if os_is_linux ; then
     powerline-daemon -q
     alias of230='module load mpi/openmpi-x86_64; source $HOME/OpenFOAM/OpenFOAM-2.3.0/etc/bashrc WM_NCOMPPROCS=4'
 fi
+
+unset SSH_ASKPASS
