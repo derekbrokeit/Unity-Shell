@@ -15,3 +15,5 @@ dist
 *.hdf5
 *.lammps
 *.restart
+temp
+tmp
