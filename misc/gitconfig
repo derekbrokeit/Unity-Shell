@@ -110,3 +110,5 @@
 	lol = /usr/bin/less
 	lg = /usr/bin/less
     lola = /usr/bin/less
+[http]
+	sslVerify = false
