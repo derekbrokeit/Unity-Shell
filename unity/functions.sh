@@ -413,6 +413,6 @@ fi
 if [[ -d /opt/moose ]] ; then
     moose_setup() {
         source $HOME/.moose_profile
-        module load moose-dev-clang moose-tools
+        #module load moose-dev-clang moose-tools
     }
 fi
