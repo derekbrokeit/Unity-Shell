@@ -23,11 +23,11 @@ fi
 
 if os_is_linux ; then
     export PATH=$PATH:/usr/lib64/openmpi/bin
-else
+fi
 
 # make additions
 if os_is_osx ; then
-    export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/bin:$PATH:/opt/X11/bin:/usr/texbin
+    export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/bin:$PATH:/opt/X11/bin:/usr/texbin"
 # else 
 #     export PATH=$HOME/.linuxbrew/bin:$HOME/bin:$PATH
 # 
