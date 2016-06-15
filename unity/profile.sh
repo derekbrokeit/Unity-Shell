@@ -105,3 +105,13 @@ fi
 # export ParaView_DIR=/home/derek/OpenFOAM/ThirdParty-2.3.0/platforms/linux64Gcc/ParaView-4.1.0
 # export PATH=$ParaView_DIR/bin:$PATH
 # export PV_PLUGIN_PATH=$FOAM_LIBBIN/paraview-4.1
+
+
+## Uncomment the following line to enable pretty prompt:
+#export MOOSE_PROMPT=true
+## Uncomment the following line to enable autojump:
+#export MOOSE_JUMP=true
+## Source the MOOSE profile if moose_profile exists:
+# if [ -f /opt/moose/environments/moose_profile ]; then
+#   . $HOME/.moose_profile
+# fi
