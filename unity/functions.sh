@@ -416,3 +416,10 @@ if [[ -d /opt/moose ]] ; then
         #module load moose-dev-clang moose-tools
     }
 fi
+
+if is_avail tmux ; then
+    tmx() {
+        s=$1
+        tmux attach -t $s || tmux new -s $s
+    }
+fi
