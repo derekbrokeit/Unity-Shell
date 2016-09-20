@@ -27,7 +27,7 @@ fi
 
 # make additions
 if os_is_osx ; then
-    export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/bin:$PATH:/opt/X11/bin:/usr/texbin"
+    export PATH="/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH:/opt/X11/bin:/usr/texbin"
 # else 
 #     export PATH=$HOME/.linuxbrew/bin:$HOME/bin:$PATH
 # 
