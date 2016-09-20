@@ -30,13 +30,6 @@ fi
 
 # --- systems are go
 if [[ $TERM != dumb ]] ; then
-
-    # now settup terminal multiplexer (the SSH_CONNECTION was originally meant to block the cellphone)
-    if [[ ! -n $DISABLE_TMX && ! -n $TMUX  && ! -n $SSH_CONNECTION ]] ; then
-        # This checks if tmux exists, and if it does, runs the startup script tmx
-        is_avail tmux && tmx $(hostname -s)  || echo >&2 "tmux did not startup on this machine (is it installed?) ..."
-    fi
-
     # are we connected through SSH?
     if [[ -n $SSH_CONNECTION ]] ; then
         ssh_remote_string="${WHITE_BRIGHT} | ${RED}ssh: ${RED_BRIGHT}$(echo $SSH_CLIENT | awk '{print $1}' )"
