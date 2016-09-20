@@ -3,12 +3,6 @@ setopt prompt_subst
 HASH_MOD=$PR_YELLOW_BRIGHT
 HASH_MOD2=$PR_BLUE_BRIGHT
 
-if [[ $(whoami) = root ]]; then
-    PROMPT_LINE="${PR_RED_BRIGHT}%n${PR_DEFAULT}@${PR_YELLOW_BRIGHT}%M%f%b"
-else
-    PROMPT_LINE="%B${HASH_MOD}$(hostname | cut -c 1)%b"
-fi
-
 # printing the title
 precmd(){  print -Pn "\e]2;%m: %~\a" }
 
@@ -36,9 +30,9 @@ function reset_tmux_window(){
   
 
 # initial vi-color: first prompt starts in insert-mode
-KEYMAP_VI_CMD=${PR_RED_BRIGHT}
-KEYMAP_VI_INS=${PR_GREEN_BRIGHT}
-KEYMAP_VI_REP=${PR_BLUE_BRIGHT}
+KEYMAP_VI_CMD=${PR_RED}
+KEYMAP_VI_INS=${PR_GREEN}
+KEYMAP_VI_REP=${PR_BLUE}
 VI_MODE=${KEYMAP_VI_INS}
 
 function zle-line-init zle-keymap-select {
@@ -63,18 +57,73 @@ zle -N zle-keymap-select
 bindkey -M vicmd 'R'   zle-vi-replace
 
 # setup main prompt (vi-color changing)
-PROMPT='%{$(reset_tmux_window)%}${PROMPT_LINE}${PR_GREEN}:${PR_RESET}%(!.%B%F{red}%#%f%b.%B${VI_MODE}$%f%b) ${PR_RESET}'
+ENDL=$'\n'
+function _cmd_status() {
+    local s=$(printf "%03d" $?)
+    local color=${PR_RED}
+    if [[ $s -eq 0 ]] ; then
+        color=${PR_GREEN}
+    fi
+    echo -n "${color}${s}${PR_RESET}"
+}
+function _git_status() {
+    local branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+    if [[ -n $branch ]] ; then
+        branch=${MAGENTA}${branch}
 
-# function secondary_prompt(){
-# pr_unescape=$(print -Pn $PROMPT | sed -r "s/\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g ; s/kzsh\\\//g") 
-# pr_len=${#pr_unescape}
-# spaces=$(print "${(l:(pr_len):: :)}\b\b\b\b\b···")
-# pr="${PR_BLACK_BRIGHT}${spaces}${PR_CYAN_BRIGHT}>${PR_RESET} " 
-# echo $pr 
+        local tracker=$(git rev-list --left-right --boundary "@{u}...HEAD" 2> /dev/null)
+        local behind=$(echo $tracker | egrep "^<" | wc -l)
+        local ahead=$(echo $tracker | egrep "^>" | wc -l)
 
-# }
+        local gst=$(git status --porcelain 2> /dev/null)
+        local total=$(echo -n $gst | egrep "" | wc -l)
+        if [[ $total -eq 0 ]] ; then
+            local s="${GREEN}✔"
+        else
+            local unmer=$(echo -n $gst | egrep "^(DD|AU|UD|UA|DU|AA|UU)" | wc -l)
+            local stage=$(($(echo -n $gst | egrep "^[[:alpha:]]" | wc -l) - $unmer))
+            local unstg=$(echo -n $gst | egrep "^ [[:alpha:]]" | wc -l)
+            local other=$(($total - $(($stage + $unstg))))
 
-# PROMPT2='$(secondary_prompt)'
+            local s=""
+            if [[ $unmer -gt 0 ]] ; then
+                s=$(printf "${s}${RED_BRIGHT}% 3d○" $unmer)
+            fi
+            if [[ $stage -gt 0 ]] ; then
+                s=$(printf "${s}${GREEN}% 3d●" $stage)
+            fi
+            if [[ $unstg -gt 0 ]] ; then
+                s=$(printf "${s}${YELLOW}% 3d✚" $unstg)
+            fi
+            if [[ $other -gt 0 ]] ; then
+                s=$(printf "${s}${RED}% 3d…" $other)
+            fi
+        fi
 
-# This is necessary if you plan to use tmux-powerline
-PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv -g TMUX_PWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+        local change=""
+        if [[ $ahead -gt 0 ]] ; then
+            if [[ $behind -gt 0 ]] ; then
+                change=$(printf "↑%d↓%d" $ahead $behind)
+            else
+                change=$(printf "↑%d" $ahead)
+            fi
+        elif [[ $behind -gt 0 ]] ; then
+            change=$(printf "↓%d" $ahead $behind)
+        else
+            change="☰"
+        fi
+        echo -n "(${branch}${CYAN}${change}${NC}|$s${NC})"
+    fi
+
+}
+function _now() {
+    date +"%R"
+}
+function _prompt_topline () {
+    local c_status=$(_cmd_status)
+    local g_status=$(_git_status)
+    local now=$(_now)
+
+    echo -en "${ENDL}${c_status} ${PR_YELLOW}${PWD}${PR_RESET} ${g_status}${ENDL}${BLACK_BRIGHT}${now}"
+}
+PROMPT='$(_prompt_topline) %{$(reset_tmux_window)%}${PR_RESET}%(!.%B%F{red}%#%f%b.%B${VI_MODE}%%%f%b) ${PR_RESET}'
