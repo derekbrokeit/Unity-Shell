@@ -79,8 +79,8 @@
     subup     = submodule update
     subadd    = submodule add
     substart  = submodule update --init --recursive
-    subcheck  = submodule foreach git_extra --sub_check
-    submaster = submodule foreach git_extra --pull
+    subcheck  = submodule foreach git checkout master
+    submaster = submodule foreach git pull origin master
     
     # general
     base = rev-parse --show-toplevel
