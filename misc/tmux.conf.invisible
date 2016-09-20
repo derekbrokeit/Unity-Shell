@@ -1,4 +1,0 @@
-source $HOME/.tmux.conf.nested
-
-#status changes
-set -g status off
