@@ -43,3 +43,12 @@ if os_is_osx ; then
 # 
 #     # export GEM_HOME=$HOME/local/.gems
 fi
+if [[ -d $HOME/miniconda3/bin ]] ; then
+    export PATH=$HOME/miniconda3/bin:$PATH
+fi
+if [[ -d $HOME/miniconda2/bin ]] ; then
+    export PATH=$HOME/miniconda2/bin:$PATH
+fi
+if [[ -d $HOME/anaconda/bin ]] ; then
+    export PATH=$HOME/miniconda2/bin:$PATH
+fi
