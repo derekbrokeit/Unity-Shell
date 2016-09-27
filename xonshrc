@@ -23,6 +23,9 @@ $PATHEXT.extend(['.py'])
 
 #$TITLE
 
+# start powerline daemon
+powerline-daemon
+
 #################
 # profile variables {{{1
 #################
