@@ -166,46 +166,13 @@ def _fmt_date():
 
 
 def _fmt_gitstatus():
-    branch = $(git rev-parse --abbrev-ref HEAD e> /dev/null).replace('\n', '')
-    if branch:
-        tracker = $(git rev-list --left-right --boundary "@{u}...HEAD" e> /dev/null)
-        nbehind = tracker.count('<')
-        nahead  = tracker.count('>')
-        
-        if nahead > 0:
-            branch += '{{WHITE}}↑{:d}'.format(nahead)
-            if nbehind > 0:
-                branch += '{{WHITE}}↓{:d}'.format(nbehind)
-        elif nbehind > 0:
-            branch += '{{WHITE}}↓{:d}'.format(nbehind)
-        else:
-            branch += '{INTENSE_CYAN}☰'
-
-        gst    = $(git status --porcelain e> /dev/null)
-        ntotal = len(gst.splitlines())
-
-        if ntotal > 0:
-            nunmer = len(re.findall('^(DD|AU|UD|UA|DU|AA|UU)', gst, flags=re.MULTILINE))
-            nstage = len(re.findall('^\w', gst, flags=re.MULTILINE)) - nunmer
-            nunstg = len(re.findall('^ \w', gst, flags=re.MULTILINE))
-            nother = ntotal - (nstage + nunstg)
-            #return nunmer, nstage, nunstg, nother
-
-            st = ""
-            for n, c, s in zip(
-                    [nunmer, nstage, nunstg, nother], 
-                    ['{#ffa07a}', '{GREEN}', '{YELLOW}', '{INTENSE_RED}'],
-                    ['○', '●', '✚', '…']):
-                if n > 0:
-                    st += "{c}{n: 3d}{s}".format(c=c, n=n, s=s)
-        else:
-            st = '{GREEN}✔'
-
-        return '{{#999}}(\uE0A0{{INTENSE_PURPLE}}{branch}{{#999}}|{st}{{#999}}){{NO_COLOR}}'.format(branch=branch, st=st)
-
-    return branch
+    # use a stored version of the gitstatus formatter in order to modify the result
+    s = _gitstatus_()
+    if s:
+        return '{#999}(\uE0A0{NO_COLOR}' + s + '{#999}){NO_COLOR}'
 
 
+_gitstatus_ = $FORMATTER_DICT['gitstatus']
 $FORMATTER_DICT.update({
     'exitstatus': _fmt_exitstatus,
     'prompt_end': "### " if _xt.is_superuser() else ">>> ",
