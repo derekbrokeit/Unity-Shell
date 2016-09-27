@@ -1,13 +1,18 @@
 import numpy as np
 import re
+import os
 import matplotlib.pyplot as plt
 import xonsh.tools as _xt
 
 from datetime import datetime
 
 
+#################
+# path {{{1
+#################
 $BASH_COMPLETIONS.append(r'/usr/local/etc/bash_completion.d')
 
+# make sure that the path is in the correct order
 path_tmp = list($PATH)
 $PATH = [r'~/miniconda3/bin', r'/usr/local/bin', r'/usr/local/sbin', r'~/bin'] 
 $PATH.extend(path_tmp)
@@ -18,15 +23,117 @@ $PATHEXT.extend(['.py'])
 
 #$TITLE
 
+#################
+# profile variables {{{1
+#################
+$EDITOR = 'vim'
+$PAGER = 'vimpager'
+$MANPAGER = 'vimpager'
+$GREP_OPTIONS = '--color=auto'
+$GREP_COLOR = '1;32'
+
+#################
+# functions {{{1
+#################
+def _ignored_filetypes():
+    return $(cat ~/.cvsignore).split()
+
+
+def _tmx(args, stdin=None):
+    tmux attach -t @(args[0]) or tmux new -s @(args[0])
+
+
 def _now(args, stdin=None):
+    # macro for getting the datetime in isoformat
     return datetime.now().isoformat()
 
 
+#################
+# aliases {{{1
+#################
+# macros
 aliases['now'] = _now
-aliases['g'] = 'git'
-aliases['vi'] = 'vim'
+aliases['tmx'] = _tmx
 
+# color grep
+aliases['grep']  = 'grep --color  = auto'
+aliases['egrep'] = 'egrep --color = auto'
+aliases['fgrep'] = 'fgrep --color = auto'
 
+# text editors
+aliases['v']   = '$EDITOR -O'
+aliases['vi']  = '$EDITOR -O'
+aliases['vgu'] = 'vim -p $(git ls-files --other --exclude-standard)'
+aliases['vgm'] = 'vim -p $(git ls-files --modified --exclude-standard)'
+
+# convenience functions
+aliases['--']    = 'cd -'
+aliases['rmi']   = 'rm -i '
+aliases['cpi']   = 'cp -i '
+aliases['grepi'] = 'grep -i '
+aliases['tarz']  = 'tar cvzf '
+aliases['utarz'] = 'tar xvf '
+aliases['fsize'] = 'du -h '
+aliases['htop']  = 'sudo htop'
+aliases['less']  = '$PAGER'
+
+# download webpage and all children
+aliases['wwwdown'] = [
+        'wget ',
+        '--wait=20',
+        '--radnom-wait',
+        '--limit-rate=20K',
+        '--no-parent',
+        '--recursive',
+        '--page-requisites',
+        '--html-extension',
+        '--convert-links',
+        ]
+
+# tree
+aliases['tree'] = 'tree -C -I @("|".join(_ignored_filetypes()))'
+
+# git aliases
+aliases['glu']    = 'git ls-files --other --exclude-standard'
+aliases['glm']    = 'git ls-files --modified'
+aliases['cdbase'] = 'cd $(git rev-parse --show-toplevel)'
+aliases['g']      = 'git'
+aliases['gst']    = 'git status'
+aliases['gl']     = 'git pull'
+aliases['gup']    = 'git fetch && git rebase'
+aliases['gp']     = 'git push'
+aliases['gc']     = 'git commit -v'
+aliases['gca']    = 'git commit -v -a'
+aliases['gco']    = 'git checkout'
+aliases['gcm']    = 'git checkout master'
+aliases['gb']     = 'git branch'
+aliases['gba']    = 'git branch -a'
+aliases['gcount'] = 'git shortlog -sn'
+aliases['gcp']    = 'git cherry-pick'
+aliases['glg']    = 'git log --stat --max-count=5'
+aliases['glgg']   = 'git log --graph --max-count=5'
+aliases['gss']    = 'git status -s'
+aliases['ga']     = 'git add'
+aliases['gm']     = 'git merge'
+aliases['grh']    = 'git reset HEAD'
+aliases['grhh']   = 'git reset HEAD --hard'
+
+# tmux aliases
+aliases['detach'] = 'tmux detach'
+
+# python aliases
+aliases['ipy']     = 'ipython'
+aliases['py']      = 'python'
+aliases['nb']      = 'jupyter-notebook'
+aliases['pydserv'] = 'pydoc -p 9999'
+
+# osx specific functions
+aliases['battery']    = 'pmset -g'
+aliases['remotelock'] = '/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+
+#################
+# prompt {{{1
+#################
 def _fmt_exitstatus():
     try:
         ret_code = __xonsh_history__.rtns[-1]
@@ -36,7 +143,7 @@ def _fmt_exitstatus():
         ret_code = 0
     else:
         if ret_code == 0:
-            color = "{BOLD_INTENSE_CYAN}"
+            color = "{BOLD_INTENSE_GREEN}"
         else:
             color = "{RED}"
 
@@ -109,5 +216,3 @@ del $FORMATTER_DICT['curr_branch']
 
 $PROMPT = "\n{exitstatus} {YELLOW}{cwd} {gitstatus}\n{#999}{clock} {prompt_color}{prompt_end}{NO_COLOR}"
 $RIGHT_PROMPT = "\n{#999}{date}"
-
-
