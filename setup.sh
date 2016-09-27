@@ -23,7 +23,7 @@ else
 fi
 
 # link shell files
-links=( unity zsh zshrc bash bashrc bash_profile )
+links=( unity zsh zshrc bash bashrc bash_profile xonshrc )
 echo "##-- linking shell files"
 for l in ${links[@]} ; do
     linker $PWD/$l $HOME/.$l
