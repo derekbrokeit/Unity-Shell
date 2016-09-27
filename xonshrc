@@ -29,11 +29,11 @@ powerline-daemon
 #################
 # profile variables {{{1
 #################
-$EDITOR = 'vim'
-$PAGER = 'vimpager'
-$MANPAGER = 'vimpager'
-$GREP_OPTIONS = '--color=auto'
-$GREP_COLOR = '1;32'
+$EDITOR       = 'vim'
+$PAGER        = 'vimpager'
+$MANPAGER     = 'vimpager'
+$GREP_OPTIONS = '--color   = auto'
+$GREP_COLOR   = '1;32'
 
 #################
 # functions {{{1
