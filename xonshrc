@@ -80,6 +80,10 @@ aliases['fsize'] = 'du -h '
 aliases['htop']  = 'sudo htop'
 aliases['less']  = '$PAGER'
 
+# list aliases
+aliases['ll'] = 'ls -l'
+aliases['la'] = 'ls -la'
+
 # download webpage and all children
 aliases['wwwdown'] = [
         'wget ',
