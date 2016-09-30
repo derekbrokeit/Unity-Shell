@@ -13,11 +13,8 @@ from datetime import datetime
 $BASH_COMPLETIONS.append(r'/usr/local/etc/bash_completion.d')
 
 # make sure that the path is in the correct order
-path_tmp = list($PATH)
-$PATH = [r'~/miniconda3/bin', r'/usr/local/bin', r'/usr/local/sbin', r'~/bin'] 
-$PATH.extend(path_tmp)
+$PATH[:0] = [r'~/miniconda3/bin', r'/usr/local/bin', r'/usr/local/sbin', r'~/bin'] 
 $PATH.extend([r'/opt/X11/bin', r'/usr/texbin'])
-del path_tmp
 
 $PATHEXT.extend(['.py'])
 
