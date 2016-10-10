@@ -78,8 +78,12 @@ aliases['htop']  = 'sudo htop'
 aliases['less']  = '$PAGER'
 
 # list aliases
-aliases['ll'] = 'ls -l'
-aliases['la'] = 'ls -la'
+if _xt.ON_WINDOWS:
+    aliases['ls'] = 'dir'
+    aliases['pwd'] = 'echo $PWD'
+else:
+    aliases['ll'] = 'ls -l'
+    aliases['la'] = 'ls -la'
 
 # download webpage and all children
 aliases['wwwdown'] = [
