@@ -26,9 +26,13 @@ powerline-daemon
 #################
 # profile variables {{{1
 #################
-$EDITOR       = 'vim'
-$PAGER        = 'vimpager'
-$MANPAGER     = 'vimpager'
+if _xt.ON_WINDOWS:
+    $EDITOR       = 'gvim'
+else:
+    $EDITOR       = 'vim'
+if not _xt.ON_WINDOWS:
+    $PAGER        = 'vimpager'
+    $MANPAGER     = 'vimpager'
 $GREP_OPTIONS = '--color   = auto'
 $GREP_COLOR   = '1;32'
 
@@ -63,8 +67,8 @@ aliases['fgrep'] = 'fgrep --color = auto'
 # text editors
 aliases['v']   = '$EDITOR -O'
 aliases['vi']  = '$EDITOR -O'
-aliases['vgu'] = 'vim -p $(git ls-files --other --exclude-standard)'
-aliases['vgm'] = 'vim -p $(git ls-files --modified --exclude-standard)'
+aliases['vgu'] = '$EDITOR -p $(git ls-files --other --exclude-standard)'
+aliases['vgm'] = '$EDITOR -p $(git ls-files --modified --exclude-standard)'
 
 # convenience functions
 aliases['--']    = 'cd -'
@@ -78,12 +82,8 @@ aliases['htop']  = 'sudo htop'
 aliases['less']  = '$PAGER'
 
 # list aliases
-if _xt.ON_WINDOWS:
-    aliases['ls'] = 'dir'
-    aliases['pwd'] = 'echo $PWD'
-else:
-    aliases['ll'] = 'ls -l'
-    aliases['la'] = 'ls -la'
+aliases['ll'] = 'ls -l'
+aliases['la'] = 'ls -la'
 
 # download webpage and all children
 aliases['wwwdown'] = [
@@ -136,9 +136,13 @@ aliases['nb']      = 'jupyter-notebook'
 aliases['pydserv'] = 'pydoc -p 9999'
 
 # osx specific functions
-aliases['battery']    = 'pmset -g'
-aliases['remotelock'] = '/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+if _xt.ON_DARWIN:
+    aliases['battery']    = 'pmset -g'
+    aliases['remotelock'] = '/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
+# windows specific functions
+if _xt.ON_WINDOWS:
+    aliases['open'] = 'explorer'
 #################
 # prompt {{{1
 #################
