@@ -21,7 +21,9 @@ $PATHEXT.extend(['.py'])
 #$TITLE
 
 # start powerline daemon
-powerline-daemon
+if not _xt.ON_WINDOWS:
+    # because tmux is not available on windows, no reason to start the daemon
+    powerline-daemon
 
 #################
 # profile variables {{{1
