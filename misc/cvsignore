@@ -17,3 +17,5 @@ dist
 *.restart
 temp
 tmp
+.cache
+prof
