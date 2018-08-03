@@ -12,7 +12,7 @@ from datetime import datetime
 #################
 $BASH_COMPLETIONS.append(r'/usr/local/etc/bash_completion.d')
 
-# make sure that the path is in the correct order
+# make sure that the path is in the correct ord
 $PATH[:0] = [r'~/miniconda3/bin', r'/usr/local/bin', r'/usr/local/sbin', r'~/bin'] 
 $PATH.extend([r'/opt/X11/bin', r'/usr/texbin'])
 
@@ -179,8 +179,8 @@ def _fmt_gitstatus():
         return '{#999}(\uE0A0{NO_COLOR}' + s + '{#999}){NO_COLOR}'
 
 
-_gitstatus_ = $PROMT_FIELD['gitstatus']
-$PROMT_FIELD.update({
+_gitstatus_ = $PROMPT_FIELDS['gitstatus']
+$PROMPT_FIELDS.update({
     'exitstatus': _fmt_exitstatus,
     'prompt_end': "#"*3 if _xt.is_superuser() else ">"*3,
     'prompt_color': "{BOLD_BLUE}" if _xt.is_superuser() else "{GREEN}",
@@ -190,9 +190,9 @@ $PROMT_FIELD.update({
     })
 
 
-del $PROMT_FIELD['branch_bg_color']
-del $PROMT_FIELD['branch_color']
-del $PROMT_FIELD['curr_branch']
+del $PROMPT_FIELDS['branch_bg_color']
+del $PROMPT_FIELDS['branch_color']
+del $PROMPT_FIELDS['curr_branch']
 
 
 $PROMPT = "\n{exitstatus} {YELLOW}{cwd} {gitstatus}\n{#999}{clock} {prompt_color}{prompt_end}{NO_COLOR} "
