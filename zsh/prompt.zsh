@@ -112,7 +112,7 @@ function _git_status() {
         else
             change="☰"
         fi
-        echo -n " (${branch}${CYAN}${change}${NC}|$s${NC})"
+        echo -n " (${branch}${PR_CYAN}${change}${PR_RESET}|$s${PR_RESET})"
     fi
 
 }
