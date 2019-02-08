@@ -50,8 +50,15 @@ BELL=$(tput flash)
 
 # general colors
 gencol=( BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE )
+is_bash=$([ -z $BASH ])
 for (( i=0 ; i < ${#gencol[@]} ; i++ )); do
-    name=${gencol[$i]}
+    if [ -z  "$BASH" ] ; then
+        # almost every standard shell indexes from 1
+        name=${gencol[$(($i + 1))]}
+    else
+        # bash and ksh are index of 0
+        name=${gencol[$i]}
+    fi
     color_def $name $i
     color_def ${name}_BRIGHT $(($i + 8))
 done

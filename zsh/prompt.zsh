@@ -112,18 +112,27 @@ function _git_status() {
         else
             change="☰"
         fi
-        echo -n "(${branch}${CYAN}${change}${NC}|$s${NC})"
+        echo -n " (${branch}${CYAN}${change}${NC}|$s${NC})"
     fi
 
 }
 function _now() {
     date +"%R"
 }
+function _virtual_env() {
+    if [ -n "${VIRTUAL_ENV}" ] ; then
+        echo -n " ($(basename $VIRTUAL_ENV))"
+    fi
+}
 function _prompt_topline () {
     local c_status=$(_cmd_status)
     local g_status=$(_git_status)
     local now=$(_now)
 
-    echo -en "${ENDL}${c_status} ${PR_YELLOW}${PWD}${PR_RESET} ${g_status}${ENDL}${BLACK_BRIGHT}${now}"
+    echo -en "${ENDL}${c_status} ${PR_YELLOW}${PWD}${PR_RESET}${g_status}$(_virtual_env)${ENDL}${BLACK_BRIGHT}${now}"
 }
+
 PROMPT='$(_prompt_topline) %{$(reset_tmux_window)%}${PR_RESET}%(!.%B%F{red}%#%f%b.%B${VI_MODE}%%%f%b) ${PR_RESET}'
+
+# disable automatic updating of prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
