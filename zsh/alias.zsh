@@ -47,6 +47,6 @@ compdef _git ga=git-add
 compdef _git gm=git-merge
 
 # autocomplete vim
-compdef v=vim
-compdef vi=vim
+compdef v=nvim
+compdef vi=nvim
 
