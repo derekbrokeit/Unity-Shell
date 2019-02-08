@@ -37,16 +37,20 @@ else:
     print("new ssh-agent started")
 del nagents
 
+    
 #################
 # profile variables {{{1
 #################
 if _xt.ON_WINDOWS:
     $EDITOR       = 'gvim'
 else:
-    $EDITOR       = 'vim'
-if not _xt.ON_WINDOWS:
-    $PAGER        = 'vimpager'
-    $MANPAGER     = 'vimpager'
+    $EDITOR       = 'nvim'
+    $PAGER        = 'nvimpager'
+    $MANPAGER     = 'nvimpager'
+
+    # # fix pager on xonsh
+    # from xonsh.commands_cache import predict_false as _predict
+    # __xonsh__.commands_cache.threadable_predictors['nvimpager'] = _predict
 
 #################
 # functions {{{1
@@ -91,9 +95,56 @@ def _moosesetup(args):
     aliases['module'] = module
 
 
+def _venv_deactivate(args):
+    pass
+    # # reset old environment variables
+    # if [ -n "${_OLD_VIRTUAL_PATH:-}" ] ; then
+    #     PATH="${_OLD_VIRTUAL_PATH:-}"
+    #     export PATH
+    #     unset _OLD_VIRTUAL_PATH
+    # fi
+    # if [ -n "${_OLD_VIRTUAL_PYTHONHOME:-}" ] ; then
+    #     PYTHONHOME="${_OLD_VIRTUAL_PYTHONHOME:-}"
+    #     export PYTHONHOME
+    #     unset _OLD_VIRTUAL_PYTHONHOME
+    # fi
+
+    # # This should detect bash and zsh, which have a hash command that must
+    # # be called to get it to forget past commands.  Without forgetting
+    # # past commands the $PATH changes we made may not be respected
+    # if [ -n "${BASH:-}" -o -n "${ZSH_VERSION:-}" ] ; then
+    #     hash -r
+    # fi
+
+    # if [ -n "${_OLD_VIRTUAL_PS1:-}" ] ; then
+    #     PS1="${_OLD_VIRTUAL_PS1:-}"
+    #     export PS1
+    #     unset _OLD_VIRTUAL_PS1
+    # fi
+
+    # unset VIRTUAL_ENV
+    # if [ ! "$1" = "nondestructive" ] ; then
+    # # Self destruct!
+    #     unset -f deactivate
+    # fi
+
+
+def _startconda(args):
+    $PATH[:0] = ['/home/derek/conda3/bin']
+    source-bash /home/derek/conda3/etc/profile.d/conda.sh
+
+
+def _stopconda(args):
+    $PATH.remove('/home/derek/conda3/bin')
+
+
 #################
 # aliases {{{1
 #################
+# conda
+aliases['startconda'] = _startconda
+aliases['stopconda'] = _stopconda
+
 # moose
 aliases['moosesetup'] = _moosesetup
 
@@ -109,6 +160,7 @@ aliases['fgrep'] = 'fgrep --color=auto'
 # text editors
 aliases['v']   = '$EDITOR -O'
 aliases['vi']  = '$EDITOR -O'
+aliases['vim']  = '$EDITOR -O'
 aliases['vgu'] = '$EDITOR -p $(git ls-files --other --exclude-standard)'
 aliases['vgm'] = '$EDITOR -p $(git ls-files --modified --exclude-standard)'
 
@@ -173,7 +225,7 @@ aliases['detach'] = 'tmux detach'
 
 # python aliases
 aliases['ipy']     = 'ipython'
-aliases['py']      = 'python'
+aliases['py']      = 'python3.7'
 aliases['nb']      = 'jupyter-notebook'
 aliases['pydserv'] = 'pydoc -p 9999'
 
@@ -193,7 +245,7 @@ if _xt.ON_WINDOWS:
 #################
 def _fmt_exitstatus():
     try:
-        ret_code = __xonsh_history__.rtns[-1]
+        ret_code = __xonsh__.history.rtns[-1]
     except IndexError:
         # first command
         color = "{BOLD_INTENSE_GREEN}"
@@ -295,6 +347,8 @@ $XONSH_GITSTATUS_STAGED = "{GREEN}●"
 $XONSH_GITSTATUS_STASHED = "{CYAN}⚑"
 $XONSH_GITSTATUS_UNTRACKED = "{INTENSE_RED}…"
 $XONSH_SHOW_TRACEBACK = True
+$FOREIGN_ALIASES_SUPPRESS_SKIP_MESSAGE = True
 
-xontrib load mpl
+# xontrib load mpl
 xontrib load vox
+xontrib load xonda
