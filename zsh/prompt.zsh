@@ -21,14 +21,6 @@ case $TERM in
     ;;
 esac
   
-function reset_tmux_window(){
-# reset the window name to it's former glory
-  if [[ -n $TMUX ]] ; then
-    print -Pn "\033kzsh\033\\"
-  fi
-}
-  
-
 # initial vi-color: first prompt starts in insert-mode
 KEYMAP_VI_CMD=${PR_RED}
 KEYMAP_VI_INS=${PR_GREEN}
@@ -129,10 +121,10 @@ function _prompt_topline () {
     local g_status=$(_git_status)
     local now=$(_now)
 
-    echo -en "${ENDL}${c_status} ${PR_YELLOW}${PWD}${PR_RESET}${g_status}$(_virtual_env)${ENDL}${BLACK_BRIGHT}${now}"
+    echo -en "${ENDL}${c_status} ${PR_YELLOW}${PWD}${PR_RESET}${g_status}$(_virtual_env)${ENDL}${PR_BLACK_BRIGHT}${now}${PR_RESET}"
 }
 
-PROMPT='$(_prompt_topline) %{$(reset_tmux_window)%}${PR_RESET}%(!.%B%F{red}%#%f%b.%B${VI_MODE}%%%f%b) ${PR_RESET}'
+PROMPT='$(_prompt_topline) ${PR_RESET}%(!.%B%F{red}%#%f%b.%B${VI_MODE}%%%f%b) ${PR_RESET}'
 
 # disable automatic updating of prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
