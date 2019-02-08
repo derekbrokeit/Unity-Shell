@@ -59,13 +59,13 @@ function _git_status() {
         local ahead=$(echo $tracker | egrep "^>" | wc -l)
 
         local gst=$(git status --porcelain 2> /dev/null)
-        local total=$(echo -n $gst | egrep "" | wc -l)
+        local total=$(echo -n "$gst" | egrep "" | wc -l)
         if [[ $total -eq 0 ]] ; then
             local s="${GREEN}✔"
         else
-            local unmer=$(echo -n $gst | egrep "^(DD|AU|UD|UA|DU|AA|UU)" | wc -l)
-            local stage=$(($(echo -n $gst | egrep "^[[:alpha:]]" | wc -l) - $unmer))
-            local unstg=$(echo -n $gst | egrep "^ [[:alpha:]]" | wc -l)
+            local unmer=$(echo -n "$gst" | egrep "^(DD|AU|UD|UA|DU|AA|UU)" | wc -l)
+            local stage=$(($(echo -n "$gst" | egrep "^[[:alpha:]]" | wc -l) - $unmer))
+            local unstg=$(echo -n "$gst" | egrep "^ [[:alpha:]]" | wc -l)
             local other=$(($total - $(($stage + $unstg))))
 
             local s=""
@@ -116,7 +116,7 @@ function _prompt_topline () {
 }
 
 # set the prompt
-PS1='$(_prompt_topline) ${CYAN}\$${RESET} '
+PS1='$(_prompt_topline) ${CYAN}\$${NC} '
 
 # disable automatic updating of prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
