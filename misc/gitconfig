@@ -106,9 +106,5 @@
 [tig "bind"]
     generic = g move-first-line
     generic = G move-last-line
-[pager]
-	lol = /usr/local/local/vimpager
-	lg = /usr/local/local/vimpager
-    lola = /usr/local/local/vimpager
 [http]
 	sslVerify = false
