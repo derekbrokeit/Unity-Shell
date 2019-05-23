@@ -96,3 +96,14 @@ setopt nonomatch            # do not print error on non matched patterns
 # always pushd
 setopt autopushd
 
+# add completions for veactivate function
+#
+
+# setup `veactivate` tab-completion
+compdef '_veactivate arg1' veactivate
+
+function _veactivate {
+    local line
+
+    _arguments -C "*:venv:($(ls $HOME/venv))"
+}
