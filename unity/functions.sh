@@ -1,3 +1,7 @@
+veactivate() {
+    # activate venv virtual environment
+    source $HOME/venv/$1/bin/activate
+}
 
 # Universal functions
 pid_with_children() {
