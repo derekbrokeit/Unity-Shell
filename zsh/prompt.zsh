@@ -61,7 +61,7 @@ function _cmd_status() {
 function _git_status() {
     local branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
     if [[ -n $branch ]] ; then
-        branch=${MAGENTA}${branch}
+        branch=${PR_MAGENTA_BRIGHT}${branch}
 
         local tracker=$(git rev-list --left-right --boundary "@{u}...HEAD" 2> /dev/null)
         local behind=$(echo $tracker | egrep "^<" | wc -l)
@@ -70,7 +70,7 @@ function _git_status() {
         local gst=$(git status --porcelain 2> /dev/null)
         local total=$(echo -n $gst | egrep "" | wc -l)
         if [[ $total -eq 0 ]] ; then
-            local s="${GREEN}✔"
+            local s="${PR_GREEN}✔"
         else
             local unmer=$(echo -n $gst | egrep "^(DD|AU|UD|UA|DU|AA|UU)" | wc -l)
             local stage=$(($(echo -n $gst | egrep "^[[:alpha:]]" | wc -l) - $unmer))
@@ -79,16 +79,16 @@ function _git_status() {
 
             local s=""
             if [[ $unmer -gt 0 ]] ; then
-                s=$(printf "${s}${RED_BRIGHT}% 3d○" $unmer)
+                s=${s}${PR_RED_BRIGHT}$(printf "% 3d○" $unmer)
             fi
             if [[ $stage -gt 0 ]] ; then
-                s=$(printf "${s}${GREEN}% 3d●" $stage)
+                s=${s}${PR_GREEN}$(printf "% 3d●" $stage)
             fi
             if [[ $unstg -gt 0 ]] ; then
-                s=$(printf "${s}${YELLOW}% 3d✚" $unstg)
+                s=${s}${PR_YELLOW}$(printf "% 3d✚" $unstg)
             fi
             if [[ $other -gt 0 ]] ; then
-                s=$(printf "${s}${RED}% 3d…" $other)
+                s=${s}${PR_RED}$(printf "% 3d…" $other)
             fi
         fi
 
@@ -104,7 +104,7 @@ function _git_status() {
         else
             change="☰"
         fi
-        echo -n " (${branch}${PR_CYAN}${change}${PR_RESET}|$s${PR_RESET})"
+        echo -n " (${branch}${PR_CYAN}${change}${PR_RESET}|${s}${PR_RESET})"
     fi
 
 }
