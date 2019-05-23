@@ -115,3 +115,5 @@ fi
 # if [ -f /opt/moose/environments/moose_profile ]; then
 #   . $HOME/.moose_profile
 # fi
+
+export PYTHONBREAKPOINT=pudb.set_trace
