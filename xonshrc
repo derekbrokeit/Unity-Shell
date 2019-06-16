@@ -1,7 +1,7 @@
-import numpy as np
+# import numpy as np
 import re
 import os
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import xonsh.tools as _xt
 
 from datetime import datetime
@@ -11,11 +11,19 @@ $XONSH_SHOW_TRACEBACK = True
 #################
 # path {{{1
 #################
-$BASH_COMPLETIONS.append(r'/usr/local/etc/bash_completion.d')
+# for app in ['ssh', 'rsync', 'brew']:
+#     $BASH_COMPLETIONS.append(os.path.join('/usr/local/etc/bash_completion.d', app))
+# del app
+$BASH_COMPLETIONS.append('/usr/local/etc/bash_completion.d/')
 
 # make sure that the path is in the correct order
-$PATH.extend(['~/.local/bin', '~/bin'])
-$PATH[:0] = [r'/usr/pgsql-10/bin']
+if _xt.ON=DARWIN:
+    #$PATH[:0] = [$HOME + '/miniconda3/bin', '/usr/local/bin', '/usr/local/sbin', $HOME + '/bin'] 
+    $PATH[:0] = ['/usr/local/bin', '/usr/local/sbin', $HOME + '/bin'] 
+    $PATH.extend(['/opt/X11/bin', '/usr/texbin'])
+else:
+    $PATH.extend(['~/.local/bin', '~/bin'])
+    $PATH[:0] = [r'/usr/pgsql-10/bin']
 
 $PATHEXT.extend(['.py'])
 
@@ -51,12 +59,21 @@ else:
     # # fix pager on xonsh
     # from xonsh.commands_cache import predict_false as _predict
     # __xonsh__.commands_cache.threadable_predictors['nvimpager'] = _predict
+# $EDITOR       = 'vim'
+# $PAGER        = 'vimpager'
+# $MANPAGER     = 'vimpager'
+#$GREP_OPTIONS = '--color=auto'
+#$GREP_COLOR   = '1;32'
 
 #################
 # functions {{{1
 #################
 def _ignored_filetypes():
-    return $(cat ~/.cvsignore).split()
+    return $(cat $HOME/.cvsignore).split()
+
+
+def _ignore_tree():
+    tree #-I @("|".join(_ignored_filetypes()))
 
 
 def _tmx(args, stdin=None):
@@ -181,9 +198,9 @@ aliases['la'] = 'ls -la'
 
 # download webpage and all children
 aliases['wwwdown'] = [
-        'wget ',
+        '/usr/local/bin/wget ',
         '--wait=20',
-        '--radnom-wait',
+        '--random-wait',
         '--limit-rate=20K',
         '--no-parent',
         '--recursive',
@@ -193,7 +210,7 @@ aliases['wwwdown'] = [
         ]
 
 # tree
-aliases['tree'] = 'tree -C -I @("|".join(_ignored_filetypes()))'
+#aliases['tree'] = _ignore_tree
 
 # git aliases
 aliases['glu']    = 'git ls-files --other --exclude-standard'
@@ -292,7 +309,6 @@ del $PROMPT_FIELDS['curr_branch']
 
 $PROMPT = "\n{exitstatus} {YELLOW}{cwd} {gitstatus}{#FFF}{env_name}\n{#999}{clock} {prompt_color}{prompt_end}{NO_COLOR} "
 $RIGHT_PROMPT = "\n{#999}{date}"
-
 
 #################
 # config setup {{{1
