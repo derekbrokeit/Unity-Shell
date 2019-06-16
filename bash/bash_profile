@@ -5,9 +5,9 @@ sources=( ".colors" ".bash/profile.bash" ".bash/functions.bash" ".bash/alias.bas
 # call the unity source
 . $HOME/.unity/unity.sh
 
-if [ -f /opt/local/etc/profile.d/autojump.bash ]; then
-    . /opt/local/etc/profile.d/autojump.bash
-fi
-if [ -f $HOME/local/bin/autojump.bash ] ; then
-    . $HOME/local/bin/autojump.bash
-fi
+# if [ -f /opt/local/etc/profile.d/autojump.bash ]; then
+#     . /opt/local/etc/profile.d/autojump.bash
+# fi
+# if [ -f $HOME/local/bin/autojump.bash ] ; then
+#     . $HOME/local/bin/autojump.bash
+# fi

@@ -9,7 +9,7 @@ alias .....='../../../..'
 # attempt to realias all coreutils
 if is_avail gls ; then
     # coreutils are installed
-    alias ls='gls --color=auto'
+    # alias ls='gls --color=auto'
     alias dir='gdir --color=auto'
     alias vdir='gvdir --color=auto'
     alias dircolors="gdircolors"
@@ -17,7 +17,7 @@ if is_avail gls ; then
 else
     if ls --color -d . > /dev/null 2>&1  ; then
         # GNU ls
-        alias ls='ls --color=auto'
+        # alias ls='ls --color=auto'
         alias dir='dir --color=auto'
         alias vdir='vdir --color=auto'
     fi
@@ -35,7 +35,7 @@ if is_avail htop ; then
 fi
 
 # list operations
-alias ll='ls -lah'
+# alias ll='ls -lah'
 alias sl='ls -lah'
 alias l='ls -la'
 alias lsd='ls -d *(/)'
@@ -80,8 +80,10 @@ alias glm='git ls-files --modified'
 alias cdbase='cd $(git rev-parse --show-toplevel)'
 
 # open files in vim
-alias vgu='vim -p $(git ls-files --other --exclude-standard)'
-alias vgm='vim -p $(git ls-files --modified --exclude-standard)'
+alias vi='nvim'
+alias vim='nvim'
+alias vgu='nvim -p $(git ls-files --other --exclude-standard)'
+alias vgm='nvim -p $(git ls-files --modified --exclude-standard)'
 alias mgm='reattach-to-user-namespace mvim -p $(git ls-files --modified --exclude-standard)'
 alias mgu='reattach-to-user-namespace mvim -p $(git ls-files --other --exclude-standard)'
 

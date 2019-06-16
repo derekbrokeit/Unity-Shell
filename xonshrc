@@ -6,6 +6,7 @@ import xonsh.tools as _xt
 
 from datetime import datetime
 
+$XONSH_SHOW_TRACEBACK = True
 
 #################
 # path {{{1
@@ -13,24 +14,43 @@ from datetime import datetime
 $BASH_COMPLETIONS.append(r'/usr/local/etc/bash_completion.d')
 
 # make sure that the path is in the correct order
-$PATH[:0] = [r'~/miniconda3/bin', r'/usr/local/bin', r'/usr/local/sbin', r'~/bin'] 
-$PATH.extend([r'/opt/X11/bin', r'/usr/texbin'])
+$PATH.extend(['~/.local/bin', '~/bin'])
+$PATH[:0] = [r'/usr/pgsql-10/bin']
 
 $PATHEXT.extend(['.py'])
 
 #$TITLE
 
 # start powerline daemon
-powerline-daemon
+if not _xt.ON_WINDOWS:
+    # because tmux is not available on windows, no reason to start the daemon
+    powerline-daemon 2> /dev/null
 
+# startup ssh-agent
+nagents = len($(ps -ef | grep ssh-agent).splitlines()) - 1
+if os.path.isfile($HOME + '/.ssh-agent') and nagents:
+    source-bash ~/.ssh-agent &> /dev/null
+else:
+    ssh-agent > ~/.ssh-agent
+    source-bash ~/.ssh-agent &> /dev/null
+    ssh-add ~/.ssh/mis
+    print("new ssh-agent started")
+del nagents
+
+    
 #################
 # profile variables {{{1
 #################
-$EDITOR       = 'vim'
-$PAGER        = 'vimpager'
-$MANPAGER     = 'vimpager'
-$GREP_OPTIONS = '--color   = auto'
-$GREP_COLOR   = '1;32'
+if _xt.ON_WINDOWS:
+    $EDITOR       = 'gvim'
+else:
+    $EDITOR       = 'nvim'
+    $PAGER        = 'nvimpager'
+    $MANPAGER     = 'nvimpager'
+
+    # # fix pager on xonsh
+    # from xonsh.commands_cache import predict_false as _predict
+    # __xonsh__.commands_cache.threadable_predictors['nvimpager'] = _predict
 
 #################
 # functions {{{1
@@ -40,7 +60,7 @@ def _ignored_filetypes():
 
 
 def _tmx(args, stdin=None):
-    tmux attach -t @(args[0]) or tmux new -s @(args[0])
+    tmux attach -d -t @(args[0]) or tmux new -s @(args[0])
 
 
 def _now(args, stdin=None):
@@ -48,23 +68,101 @@ def _now(args, stdin=None):
     return datetime.now().isoformat()
 
 
+def _moosesetup(args):
+    if 'MODULE_VERSION' not in ${...}:
+        $MODULE_VERSION_STACK = '3.2.10'
+        $MODULE_VERSION = '3.2.10'
+    else:
+        $MODULE_VERSION_STACK = $MODULE_VERSION
+
+    $MODULESHOME = '/opt/moose/Modules/3.2.10'
+
+    if 'MODULEPATH' not in ${...}:
+        f = open($MODULESHOME + "/init/.modulespath", "r")
+        $MODULEPATH = []
+        for line in f:
+            line, _ = line.split('#', 1)
+            if line:
+                $MODULEPATH.append(line.strip())
+
+    if 'LOADEDMODULES' not in ${...}:
+        $LOADEDMODULES = ''
+        
+    def module(args):
+        cmd = '/opt/moose/Modules/%s/bin/modulecmd' % $MODULE_VERSION
+        @([cmd, 'python'] + args)
+
+    aliases['module'] = module
+
+
+def _venv_deactivate(args):
+    pass
+    # # reset old environment variables
+    # if [ -n "${_OLD_VIRTUAL_PATH:-}" ] ; then
+    #     PATH="${_OLD_VIRTUAL_PATH:-}"
+    #     export PATH
+    #     unset _OLD_VIRTUAL_PATH
+    # fi
+    # if [ -n "${_OLD_VIRTUAL_PYTHONHOME:-}" ] ; then
+    #     PYTHONHOME="${_OLD_VIRTUAL_PYTHONHOME:-}"
+    #     export PYTHONHOME
+    #     unset _OLD_VIRTUAL_PYTHONHOME
+    # fi
+
+    # # This should detect bash and zsh, which have a hash command that must
+    # # be called to get it to forget past commands.  Without forgetting
+    # # past commands the $PATH changes we made may not be respected
+    # if [ -n "${BASH:-}" -o -n "${ZSH_VERSION:-}" ] ; then
+    #     hash -r
+    # fi
+
+    # if [ -n "${_OLD_VIRTUAL_PS1:-}" ] ; then
+    #     PS1="${_OLD_VIRTUAL_PS1:-}"
+    #     export PS1
+    #     unset _OLD_VIRTUAL_PS1
+    # fi
+
+    # unset VIRTUAL_ENV
+    # if [ ! "$1" = "nondestructive" ] ; then
+    # # Self destruct!
+    #     unset -f deactivate
+    # fi
+
+
+def _startconda(args):
+    $PATH[:0] = ['/home/derek/conda3/bin']
+    source-bash /home/derek/conda3/etc/profile.d/conda.sh
+
+
+def _stopconda(args):
+    $PATH.remove('/home/derek/conda3/bin')
+
+
 #################
 # aliases {{{1
 #################
+# conda
+aliases['startconda'] = _startconda
+aliases['stopconda'] = _stopconda
+
+# moose
+aliases['moosesetup'] = _moosesetup
+
 # macros
 aliases['now'] = _now
 aliases['tmx'] = _tmx
 
 # color grep
-aliases['grep']  = 'grep --color  = auto'
-aliases['egrep'] = 'egrep --color = auto'
-aliases['fgrep'] = 'fgrep --color = auto'
+aliases['grep']  = 'grep --color=auto'
+aliases['egrep'] = 'egrep --color=auto'
+aliases['fgrep'] = 'fgrep --color=auto'
 
 # text editors
 aliases['v']   = '$EDITOR -O'
 aliases['vi']  = '$EDITOR -O'
-aliases['vgu'] = 'vim -p $(git ls-files --other --exclude-standard)'
-aliases['vgm'] = 'vim -p $(git ls-files --modified --exclude-standard)'
+aliases['vim']  = '$EDITOR -O'
+aliases['vgu'] = '$EDITOR -p $(git ls-files --other --exclude-standard)'
+aliases['vgm'] = '$EDITOR -p $(git ls-files --modified --exclude-standard)'
 
 # convenience functions
 aliases['--']    = 'cd -'
@@ -127,20 +225,27 @@ aliases['detach'] = 'tmux detach'
 
 # python aliases
 aliases['ipy']     = 'ipython'
-aliases['py']      = 'python'
+aliases['py']      = 'python3.7'
 aliases['nb']      = 'jupyter-notebook'
 aliases['pydserv'] = 'pydoc -p 9999'
 
 # osx specific functions
-aliases['battery']    = 'pmset -g'
-aliases['remotelock'] = '/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+#if _xt.ON_DARWIN:
+#    aliases['battery']    = 'pmset -g'
+#    aliases['remotelock'] = '/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
+#if 'nautilus' in os.ENVIRON:
+#    aliases['open'] = 'nautilus'
+
+# windows specific functions
+if _xt.ON_WINDOWS:
+    aliases['open'] = 'explorer'
 #################
 # prompt {{{1
 #################
 def _fmt_exitstatus():
     try:
-        ret_code = __xonsh_history__.rtns[-1]
+        ret_code = __xonsh__.history.rtns[-1]
     except IndexError:
         # first command
         color = "{BOLD_INTENSE_GREEN}"
@@ -169,8 +274,8 @@ def _fmt_gitstatus():
         return '{#999}(\uE0A0{NO_COLOR}' + s + '{#999}){NO_COLOR}'
 
 
-_gitstatus_ = $FORMATTER_DICT['gitstatus']
-$FORMATTER_DICT.update({
+_gitstatus_ = $PROMPT_FIELDS['gitstatus']
+$PROMPT_FIELDS.update({
     'exitstatus': _fmt_exitstatus,
     'prompt_end': "#"*3 if _xt.is_superuser() else ">"*3,
     'prompt_color': "{BOLD_BLUE}" if _xt.is_superuser() else "{GREEN}",
@@ -180,10 +285,70 @@ $FORMATTER_DICT.update({
     })
 
 
-del $FORMATTER_DICT['branch_bg_color']
-del $FORMATTER_DICT['branch_color']
-del $FORMATTER_DICT['curr_branch']
+del $PROMPT_FIELDS['branch_bg_color']
+del $PROMPT_FIELDS['branch_color']
+del $PROMPT_FIELDS['curr_branch']
 
 
-$PROMPT = "\n{exitstatus} {YELLOW}{cwd} {gitstatus}\n{#999}{clock} {prompt_color}{prompt_end}{NO_COLOR} "
+$PROMPT = "\n{exitstatus} {YELLOW}{cwd} {gitstatus}{#FFF}{env_name}\n{#999}{clock} {prompt_color}{prompt_end}{NO_COLOR} "
 $RIGHT_PROMPT = "\n{#999}{date}"
+
+
+#################
+# config setup {{{1
+#################
+$AUTO_CD = True
+$AUTO_PUSHD = True
+$AUTO_SUGGEST = True
+$CASE_SENSITIVE_COMPLETIONS = False
+$COLOR_INPUT = True
+$COLOR_RESULTS = True
+$COMPLETIONS_BRACKETS = True
+$COMPLETIONS_CONFIRM = False
+$COMPLETIONS_DISPLAY = "multi"
+$COMPLETIONS_MENU_ROWS = 5
+$DIRSTACK_SIZE = 20
+$EXPAND_ENV_VARS = True
+$FUZZY_PATH_COMPLETION = True
+$GLOB_SORTED = True
+$IGNOREEOF = False
+$INDENT = "    "
+$MOUSE_SUPPORT = False
+$MULTILINE_PROMPT = "."
+$PRETTY_PRINT_RESULTS = True
+$PUSHD_MINUS = False
+$PUSHD_SILENT = False
+$RAISE_SUBPROC_ERROR = False
+$SHELL_TYPE = "best"
+$SUBSEQUENCE_PATH_COMPLETION = True
+$SUGGEST_COMMANDS = True
+$SUGGEST_MAX_NUM = 5
+$SUGGEST_THRESHOLD = 3
+$SUPPRESS_BRANCH_TIMEOUT_MESSAGE = False
+$UPDATE_OS_ENVIRON = False
+$VC_BRANCH_TIMEOUT = 0.1
+$VI_MODE = True
+$XONSH_CACHE_EVERYTHING = False
+$XONSH_CACHE_SCRIPTS = True
+$XONSH_DATETIME_FORMAT = "%Y-%m-%d %H:%M"
+$XONSH_STORE_STDIN = False
+$XONSH_STORE_STDOUT = True
+$CDPATH = ["~/repo"]
+$XONSH_COLOR_STYLE = "monokai"
+$XONSH_GITSTATUS_AHEAD = "{WHITE}↑·"
+$XONSH_GITSTATUS_BEHIND = "{WHITE}↓·"
+$XONSH_GITSTATUS_BRANCH = "{INTENSE_PURPLE}"
+$XONSH_GITSTATUS_CHANGED = "{YELLOW}+"
+$XONSH_GITSTATUS_CLEAN = "{BOLD_INTENSE_GREEN}✓"
+$XONSH_GITSTATUS_CONFLICTS = "{#ffa07a}×"
+$XONSH_GITSTATUS_HASH = "{#CCC}:"
+$XONSH_GITSTATUS_OPERATION = "{CYAN}"
+$XONSH_GITSTATUS_STAGED = "{GREEN}●"
+$XONSH_GITSTATUS_STASHED = "{CYAN}⚑"
+$XONSH_GITSTATUS_UNTRACKED = "{INTENSE_RED}…"
+$XONSH_SHOW_TRACEBACK = True
+$FOREIGN_ALIASES_SUPPRESS_SKIP_MESSAGE = True
+
+# xontrib load mpl
+xontrib load vox
+xontrib load xonda

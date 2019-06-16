@@ -21,14 +21,6 @@ case $TERM in
     ;;
 esac
   
-function reset_tmux_window(){
-# reset the window name to it's former glory
-  if [[ -n $TMUX ]] ; then
-    print -Pn "\033kzsh\033\\"
-  fi
-}
-  
-
 # initial vi-color: first prompt starts in insert-mode
 KEYMAP_VI_CMD=${PR_RED}
 KEYMAP_VI_INS=${PR_GREEN}
@@ -69,7 +61,7 @@ function _cmd_status() {
 function _git_status() {
     local branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
     if [[ -n $branch ]] ; then
-        branch=${MAGENTA}${branch}
+        branch=${PR_MAGENTA_BRIGHT}${branch}
 
         local tracker=$(git rev-list --left-right --boundary "@{u}...HEAD" 2> /dev/null)
         local behind=$(echo $tracker | egrep "^<" | wc -l)
@@ -78,7 +70,7 @@ function _git_status() {
         local gst=$(git status --porcelain 2> /dev/null)
         local total=$(echo -n $gst | egrep "" | wc -l)
         if [[ $total -eq 0 ]] ; then
-            local s="${GREEN}✔"
+            local s="${PR_GREEN}✔"
         else
             local unmer=$(echo -n $gst | egrep "^(DD|AU|UD|UA|DU|AA|UU)" | wc -l)
             local stage=$(($(echo -n $gst | egrep "^[[:alpha:]]" | wc -l) - $unmer))
@@ -87,16 +79,16 @@ function _git_status() {
 
             local s=""
             if [[ $unmer -gt 0 ]] ; then
-                s=$(printf "${s}${RED_BRIGHT}% 3d○" $unmer)
+                s=${s}${PR_RED_BRIGHT}$(printf "% 3d○" $unmer)
             fi
             if [[ $stage -gt 0 ]] ; then
-                s=$(printf "${s}${GREEN}% 3d●" $stage)
+                s=${s}${PR_GREEN}$(printf "% 3d●" $stage)
             fi
             if [[ $unstg -gt 0 ]] ; then
-                s=$(printf "${s}${YELLOW}% 3d✚" $unstg)
+                s=${s}${PR_YELLOW}$(printf "% 3d✚" $unstg)
             fi
             if [[ $other -gt 0 ]] ; then
-                s=$(printf "${s}${RED}% 3d…" $other)
+                s=${s}${PR_RED}$(printf "% 3d…" $other)
             fi
         fi
 
@@ -112,18 +104,27 @@ function _git_status() {
         else
             change="☰"
         fi
-        echo -n "(${branch}${CYAN}${change}${NC}|$s${NC})"
+        echo -n " (${branch}${PR_CYAN}${change}${PR_RESET}|${s}${PR_RESET})"
     fi
 
 }
 function _now() {
     date +"%R"
 }
+function _virtual_env() {
+    if [ -n "${VIRTUAL_ENV}" ] ; then
+        echo -n " ($(basename $VIRTUAL_ENV))"
+    fi
+}
 function _prompt_topline () {
     local c_status=$(_cmd_status)
     local g_status=$(_git_status)
     local now=$(_now)
 
-    echo -en "${ENDL}${c_status} ${PR_YELLOW}${PWD}${PR_RESET} ${g_status}${ENDL}${BLACK_BRIGHT}${now}"
+    echo -en "${ENDL}${c_status} ${PR_YELLOW}${PWD}${PR_RESET}${g_status}$(_virtual_env)${ENDL}${PR_BLACK_BRIGHT}${now}${PR_RESET}"
 }
-PROMPT='$(_prompt_topline) %{$(reset_tmux_window)%}${PR_RESET}%(!.%B%F{red}%#%f%b.%B${VI_MODE}%%%f%b) ${PR_RESET}'
+
+PROMPT='$(_prompt_topline) ${PR_RESET}%(!.%B%F{red}%#%f%b.%B${VI_MODE}%%%f%b) ${PR_RESET}'
+
+# disable automatic updating of prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1

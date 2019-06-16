@@ -1,12 +1,12 @@
 #export EDITOR="$HOME/bin/tmvim"
-export EDITOR=vim
+export EDITOR=nvim
 if os_is_linux ; then
     export BROWSER=google-chrome-stable
 else
     export BROWSER=v3m
 fi
 
-export PAGER="vimpager"
+export PAGER="nvimpager"
 export MANPAGER="$PAGER"
 alias less=$PAGER
 ccat() {
@@ -17,21 +17,21 @@ ccat() {
     printf "${CYAN}%${cols}s${NC}\n" | tr " " -
 }
 
-export GNUTERM=dumb
-export VMAIL_HTML_PART_READER="w3m -dump -o display_link_number=1 "
-export VMAIL_VIM=mvim
+# export GNUTERM=dumb
+# export VMAIL_HTML_PART_READER="w3m -dump -o display_link_number=1 "
+# export VMAIL_VIM=mvim
 
 # vim temporary directory for swap files
 export EDITOR_TMP="${HOME}/.${EDITOR}-tmp"
 
-# tmux files
-export TMUX_CONF="$HOME/.tmux.conf"
-export TMUX_CONF_NEST="${TMUX_CONF}.nested"
-export TMUX_CONF_TMWIN="${TMUX_CONF}.tmwin"
-export TMUX_CONF_MINI="${TMUX_CONF}.mini"
+# # tmux files
+# export TMUX_CONF="$HOME/.tmux.conf"
+# export TMUX_CONF_NEST="${TMUX_CONF}.nested"
+# export TMUX_CONF_TMWIN="${TMUX_CONF}.tmwin"
+# export TMUX_CONF_MINI="${TMUX_CONF}.mini"
 
-# virtualenvwrapper
-export VIRTUALENVWRAPPER_PYTHON=$(command -v python)
+# # virtualenvwrapper
+# export VIRTUALENVWRAPPER_PYTHON=$(command -v python)
 
 # python startup file
 export PYTHONSTARTUP=$HOME/.pythonrc.py
@@ -45,11 +45,11 @@ else
     export LC_ALL=$LANG
 fi
 
-# grep coloring
-if os_is_osx ; then
-    export GREP_OPTIONS='--color=auto'
-    export GREP_COLOR='1;32'
-fi
+# # grep coloring
+# if os_is_osx ; then
+#     export GREP_OPTIONS='--color=auto'
+#     export GREP_COLOR='1;32'
+# fi
 
 # colorful man-pages
 # Less Colors for Man Pages
@@ -115,3 +115,5 @@ fi
 # if [ -f /opt/moose/environments/moose_profile ]; then
 #   . $HOME/.moose_profile
 # fi
+
+export PYTHONBREAKPOINT=pudb.set_trace

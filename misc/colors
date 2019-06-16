@@ -38,6 +38,7 @@ color_block() {
 
 ## -- Colors --
 # text attributes
+RESET=$(tput init)
 NC=$(tput sgr0)
 BOLD=$(tput bold)
 UNDER=$(tput smul)
@@ -48,11 +49,18 @@ ITALIC=$(tput sitm)
 BELL=$(tput flash)
 
 # general colors
-gencol=(BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE)
-for ansi_color in $(seq 0 7); do
-    name=${gencol[$(($ansi_color + 1))]}
-    color_def $name $ansi_color
-    color_def ${name}_BRIGHT $(($ansi_color + 8))
+gencol=( BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE )
+is_bash=$([ -z $BASH ])
+for (( i=0 ; i < ${#gencol[@]} ; i++ )); do
+    if [ -z  "$BASH" ] ; then
+        # almost every standard shell indexes from 1
+        name=${gencol[$(($i + 1))]}
+    else
+        # bash and ksh are index of 0
+        name=${gencol[$i]}
+    fi
+    color_def $name $i
+    color_def ${name}_BRIGHT $(($i + 8))
 done
 unset gencol
 unset ansi_color

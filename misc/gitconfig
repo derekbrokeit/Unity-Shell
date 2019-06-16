@@ -2,7 +2,7 @@
     path = ~/.gitconfig_user
 [core]
     excludesfile = ~/.cvsignore
-    editor       = vim
+    editor       = nvim
 [push]
     default   = simple
 [merge]
@@ -106,9 +106,5 @@
 [tig "bind"]
     generic = g move-first-line
     generic = G move-last-line
-[pager]
-	lol = /usr/bin/less
-	lg = /usr/bin/less
-    lola = /usr/bin/less
 [http]
 	sslVerify = false

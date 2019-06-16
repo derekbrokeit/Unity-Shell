@@ -37,12 +37,6 @@ for file in $(ls) ; do
     linker $PWD/$file $HOME/.$file
 done
 
-echo "## -- setup up vim"
-cd $abs_path
-linker $PWD/vim $HOME/.vim
-cd vim
-./setup.sh
-
 echo "## -- setup config files"
 cd $abs_path/config
 mkdir -p $HOME/.config
