@@ -14,15 +14,15 @@ os_is_bsd()   { [[ $OSTYPE == "Darwin" || $OSTYPE == "bsd" ]] ; }
 # regain original path/ld-path
 
 if [[ -f $HOME/.path.orig ]] ; then
-    export PATH=$(cat .path.orig)
+    export PATH=$(cat $HOME/.path.orig)
 fi
 
 if [[ -f $HOME/.ld_path.orig ]] ; then
-    export LD_LIBRARY_PATH=$(cat .ld_path.orig)
+    export LD_LIBRARY_PATH=$(cat $HOME/.ld_path.orig)
 fi
 
 if os_is_linux ; then
-    export PATH=$PATH:/usr/lib64/openmpi/bin
+    export PATH=$HOME/.python/bin:$PATH:/usr/lib64/openmpi/bin
 fi
 
 # make additions
@@ -38,3 +38,5 @@ fi
 # if [[ -d $HOME/anaconda/bin ]] ; then
 #     export PATH=$HOME/miniconda2/bin:$PATH
 # fi
+
+export PATH="/opt/go/bin:$PATH"
