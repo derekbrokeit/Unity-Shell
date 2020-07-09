@@ -427,3 +427,17 @@ if is_avail tmux ; then
         tmux attach -t $s || tmux new -s $s
     }
 fi
+
+if is_avail bazel ; then
+    bgraph() {
+        xdot <(bazel query 'deps('"$1"')' --output graph --noimplicit_deps)
+    }
+fi
+
+_ssh_agent_connect() {
+    # connect an ssh-agent or use existing socket
+    export SSH_AUTH_SOCK=$HOME/.ssh/ssh-agent.$HOSTNAME.sock
+    ssh-add -l 2> /dev/null > /dev/null
+    [ $? -ge 2 ] && ssh-agent -a $SSH_AUTH_SOCK > /dev/null && echo foo
+}
+_ssh_agent_connect
