@@ -9,7 +9,7 @@ alias .....='../../../..'
 # attempt to realias all coreutils
 if is_avail gls ; then
     # coreutils are installed
-    # alias ls='gls --color=auto'
+    alias ls='gls --color=auto'
     alias dir='gdir --color=auto'
     alias vdir='gvdir --color=auto'
     alias dircolors="gdircolors"
@@ -17,7 +17,7 @@ if is_avail gls ; then
 else
     if ls --color -d . > /dev/null 2>&1  ; then
         # GNU ls
-        # alias ls='ls --color=auto'
+        alias ls='ls --color=auto'
         alias dir='dir --color=auto'
         alias vdir='vdir --color=auto'
     fi
@@ -44,6 +44,7 @@ alias lsdd='ls -d **/'
 # editors
 alias   v="$EDITOR -O"
 alias  vi="$EDITOR -O"
+alias vimdiff="nvim -d"
 if os_is_osx; then
     alias mvim="reattach-to-user-namespace mvim -O"
 fi
