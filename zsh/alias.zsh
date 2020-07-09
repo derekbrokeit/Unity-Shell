@@ -1,13 +1,14 @@
 # suffix
 alias -s tex=$EDITOR
 alias -s txt=$EDITOR
-alias -s html='$BROWSER'
-alias -s org='$BROWSER'
-alias -s com='$BROWSER'
+
+# alias -s html='$BROWSER'
+# alias -s org='$BROWSER'
+# alias -s com='$BROWSER'
 
 # web pages
-alias google.com='$BROWSER google.com/ncr'
-alias googlecom='$BROWSER google.com/ncr'
+# alias google.com='$BROWSER google.com/ncr'
+# alias googlecom='$BROWSER google.com/ncr'
 alias web="$HOME/.startup.html"
 alias w3m="w3m -O UTF-8"
 
@@ -50,3 +51,8 @@ compdef _git gm=git-merge
 compdef v=nvim
 compdef vi=nvim
 
+
+fpath[1,0]=~/.zsh/completion/
+compdef bazel
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
