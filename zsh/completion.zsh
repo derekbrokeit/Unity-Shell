@@ -7,9 +7,9 @@ fi
 
 setopt appendhistory autocd nobeep extendedglob nomatch notify
 setopt autolist auto_menu
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/mwoodson/.zshrc'
+# # End of lines configured by zsh-newuser-install
+# # The following lines were added by compinstall
+# zstyle :compinstall filename '/home/mwoodson/.zshrc'
 
 autoload -Uz compinit && compinit
 
@@ -107,3 +107,7 @@ function _veactivate {
 
     _arguments -C "*:venv:($(ls $HOME/venv))"
 }
+
+fpath[1,0]=${HOME}/.zsh/completion/
+# zstyle ':completion:*' use-cache on
+# zstyle ':completion:*' cache-path ~/.zsh/cache
