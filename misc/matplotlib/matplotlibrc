@@ -410,9 +410,7 @@ keymap.grid : g                     # switching on/off a grid in current axes
 keymap.yscale : l                   # toggle scaling of y-axes ('log'/'linear')
 keymap.xscale : L, k                # toggle scaling of x-axes ('log'/'linear')
 keymap.all_axes : a                 # enable all axes
-
 # Control downloading of example data. Various examples download some
-# data from the Matplotlib git repository to avoid distributing extra
 # files, but sometimes you want to avoid that. In that case set
 # examples.download to False and examples.directory to the directory
 # where you have a checkout of https://github.com/matplotlib/sample_data
